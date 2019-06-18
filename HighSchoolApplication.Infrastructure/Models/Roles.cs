@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Roles
+    public partial class Roles : BaseEntity
     {
         public Roles()
         {

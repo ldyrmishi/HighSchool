@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Finances
+    public partial class Finances : BaseEntity
     {
         public int FinanceId { get; set; }
         public DateTime? Date { get; set; }

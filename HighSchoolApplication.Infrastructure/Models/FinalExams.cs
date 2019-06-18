@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class FinalExams
+    public partial class FinalExams : BaseEntity
     {
         public int FinalExamId { get; set; }
         public int? SubjectId { get; set; }

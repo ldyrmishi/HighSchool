@@ -5,14 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HighSchoolApplication.Web.Models;
+using HighSchoolApplication.Infrastructure;
+using HighSchoolApplication.Infrastructure.Models;
 
 namespace HighSchoolApplication.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRepository _repository;
+
+        public HomeController(IRepository repository)
+        {
+            _repository = repository;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var items = _repository.List<Users>();
+            return View(items);
         }
 
         public IActionResult About()

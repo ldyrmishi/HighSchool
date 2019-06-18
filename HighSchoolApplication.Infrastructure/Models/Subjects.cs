@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Subjects
+    public partial class Subjects : BaseEntity
     {
         public Subjects()
         {
