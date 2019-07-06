@@ -7,8 +7,8 @@ namespace HighSchoolApplication.Web.Models
 {
     public class DashboardViewModel
     {
-        public int doctors_count { get; set; }
-        public int nurses_count { get; set; }
-        public int patients_count { get; set; }
+        public int students_count { get; set; }
+        public int teachers_count { get; set; }
+        public int classes_count { get; set; }
     }
 }

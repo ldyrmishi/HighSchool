@@ -23,9 +23,9 @@ namespace HighSchoolApplication.Web.Controllers
         {
             DashboardViewModel dashboard = new DashboardViewModel();
 
-            dashboard.doctors_count = 4;
-            dashboard.nurses_count = 5;
-            dashboard.patients_count = 4;
+            dashboard.students_count = 476;
+            dashboard.teachers_count = 34;
+            dashboard.classes_count = 26;
 
             return View(dashboard);
         }
