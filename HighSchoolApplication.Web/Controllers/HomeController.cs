@@ -12,17 +12,22 @@ namespace HighSchoolApplication.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository _repository;
+        //private readonly IRepository _repository;
 
-        public HomeController(IRepository repository)
-        {
-            _repository = repository;
-        }
+        //public HomeController(IRepository repository)
+        //{
+        //    _repository = repository;
+        //}
 
         public IActionResult Index()
         {
-            var items = _repository.List<Users>();
-            return View(items);
+            DashboardViewModel dashboard = new DashboardViewModel();
+
+            dashboard.doctors_count = 4;
+            dashboard.nurses_count = 5;
+            dashboard.patients_count = 4;
+
+            return View(dashboard);
         }
 
         public IActionResult About()
