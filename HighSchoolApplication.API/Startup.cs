@@ -42,6 +42,7 @@ namespace HighSchoolApplication.API
                 options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(0);
                 options.TokenValidationParameters.IssuerSigningKey = Secret.ToSymmetricSecurityKey();
             });
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", x =>
@@ -63,6 +64,7 @@ namespace HighSchoolApplication.API
                 app.UseHsts();
             }
 
+            app.UseMiddleware<ErrorHandling.CustomExceptionMiddleware>();
             app.UseHttpsRedirection();
             loggerFactory.AddSerilog();
             app.UseMvc();

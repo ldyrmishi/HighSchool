@@ -30,6 +30,7 @@ namespace HighSchoolApplication.API.Controllers
             catch(Exception ex)
             {
                 _logger.LogError("Error", ex);
+                throw new Exception();
             }
             return new string[] { "value1", "value2" };
         }
@@ -38,7 +39,7 @@ namespace HighSchoolApplication.API.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            throw new ErrorHandling.NotFoundCustomException("No data found", $"Ju lutem kontrolloni parametrin tuaj id: {id}");
         }
 
         // POST api/values
