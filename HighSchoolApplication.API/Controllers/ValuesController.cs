@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -18,6 +19,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         // GET api/values
+        [Authorize(Policy = "Admin")]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
