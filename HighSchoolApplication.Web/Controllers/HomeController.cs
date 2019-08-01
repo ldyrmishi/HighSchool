@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using HighSchoolApplication.Web.Models;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
+using Microsoft.Extensions.Logging;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -18,16 +19,30 @@ namespace HighSchoolApplication.Web.Controllers
         //{
         //    _repository = repository;
         //}
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
 
         public IActionResult Index()
         {
-            DashboardViewModel dashboard = new DashboardViewModel();
+            try
+            {
+                DashboardViewModel dashboard = new DashboardViewModel();
 
-            dashboard.students_count = 476;
-            dashboard.teachers_count = 34;
-            dashboard.classes_count = 26;
+                dashboard.students_count = 476;
+                dashboard.teachers_count = 34;
+                dashboard.classes_count = 26;
 
-            return View(dashboard);
+                return View(dashboard);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "HomeController Error");
+                return View(); // TODO return error page view
+            }
         }
 
         public IActionResult About()
