@@ -8,6 +8,8 @@ using HighSchoolApplication.Web.Models;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using HighSchoolApplication.Web.Utility;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -20,9 +22,12 @@ namespace HighSchoolApplication.Web.Controllers
         //    _repository = repository;
         //}
         private readonly ILogger<HomeController> _logger;
+        private readonly IOptions<MySettingsViewModel> appSettings;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IOptions<MySettingsViewModel> app, ILogger<HomeController> logger)
         {
+            appSettings = app;
+            ApplicationSettings.WebApiUrl = appSettings.Value.WebApiBaseUrl;
             _logger = logger;
         }
 

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HighSchoolApplication.API.Client\HighSchoolApplication.API.Client.csproj" />
     <ProjectReference Include="..\HighSchoolApplication.Data\HighSchoolApplication.Data.csproj" />
     <ProjectReference Include="..\HighSchoolApplication.Infrastructure\HighSchoolApplication.Infrastructure.csproj" />
   </ItemGroup>
