@@ -10,6 +10,8 @@ using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using HighSchoolApplication.Web.Utility;
+using HighSchoolApplication.API.Models;
+using HighSchoolApplication.Web.Factory;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -49,6 +51,25 @@ namespace HighSchoolApplication.Web.Controllers
                 return View(); // TODO return error page view
             }
         }
+
+        public async Task<IActionResult> Values()
+        {
+            var data = await HighSchoolApiClientFactory.Instance.GetValues();
+            var response = await SaveValues();
+            return View();
+        }
+        private async Task<JsonResult> SaveValues()
+        {
+            var model = new ValueModel()
+            {
+                value1 = "Test",
+                value2 = "Test2"
+            };
+
+            var response = await HighSchoolApiClientFactory.Instance.SaveValues(model);
+            return Json(response);
+        }
+
 
         public IActionResult About()
         {
