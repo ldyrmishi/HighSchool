@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighSchoolApplication.Data"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighSchoolApplication.Infrastructure", "HighSchoolApplication.Infrastructure\HighSchoolApplication.Infrastructure.csproj", "{50D6A436-E600-45EC-BD4C-17348CD41E30}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighSchoolApplication.API", "HighSchoolApplication.API\HighSchoolApplication.API.csproj", "{4EED02CF-3A66-4839-A227-8334379C4D19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighSchoolApplication.API.Models", "HighSchoolApplication.API.Models\HighSchoolApplication.API.Models.csproj", "{6E005C97-0BAC-446B-8005-ACD342C03B0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighSchoolApplication.API.Client", "HighSchoolApplication.API.Client\HighSchoolApplication.API.Client.csproj", "{56890126-B690-4EFB-B870-C41DB510446E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{50D6A436-E600-45EC-BD4C-17348CD41E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50D6A436-E600-45EC-BD4C-17348CD41E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50D6A436-E600-45EC-BD4C-17348CD41E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EED02CF-3A66-4839-A227-8334379C4D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EED02CF-3A66-4839-A227-8334379C4D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EED02CF-3A66-4839-A227-8334379C4D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EED02CF-3A66-4839-A227-8334379C4D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E005C97-0BAC-446B-8005-ACD342C03B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E005C97-0BAC-446B-8005-ACD342C03B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E005C97-0BAC-446B-8005-ACD342C03B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E005C97-0BAC-446B-8005-ACD342C03B0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56890126-B690-4EFB-B870-C41DB510446E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56890126-B690-4EFB-B870-C41DB510446E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56890126-B690-4EFB-B870-C41DB510446E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56890126-B690-4EFB-B870-C41DB510446E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

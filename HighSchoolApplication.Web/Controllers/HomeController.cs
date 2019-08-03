@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using HighSchoolApplication.Web.Models;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using HighSchoolApplication.Web.Utility;
+using HighSchoolApplication.API.Models;
+using HighSchoolApplication.Web.Factory;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -18,17 +23,57 @@ namespace HighSchoolApplication.Web.Controllers
         {
             _repository = repository;
         }
+        //public HomeController(IRepository repository)
+        //{
+        //    _repository = repository;
+        //}
+        private readonly ILogger<HomeController> _logger;
+        private readonly IOptions<MySettingsViewModel> appSettings;
+
+        public HomeController(IOptions<MySettingsViewModel> app, ILogger<HomeController> logger)
+        {
+            appSettings = app;
+            ApplicationSettings.WebApiUrl = appSettings.Value.WebApiBaseUrl;
+            _logger = logger;
+        }
 
         public IActionResult Index()
         {
-            DashboardViewModel dashboard = new DashboardViewModel();
+            try
+            {
+                DashboardViewModel dashboard = new DashboardViewModel();
 
-            dashboard.students_count = 476;
-            dashboard.teachers_count = 34;
-            dashboard.classes_count = 26;
+                dashboard.students_count = 476;
+                dashboard.teachers_count = 34;
+                dashboard.classes_count = 26;
 
-            return View(dashboard);
+                return View(dashboard);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "HomeController Error");
+                return View(); // TODO return error page view
+            }
         }
+
+        public async Task<IActionResult> Values()
+        {
+            var data = await HighSchoolApiClientFactory.Instance.GetValues();
+            var response = await SaveValues();
+            return View();
+        }
+        private async Task<JsonResult> SaveValues()
+        {
+            var model = new ValueModel()
+            {
+                value1 = "Test",
+                value2 = "Test2"
+            };
+
+            var response = await HighSchoolApiClientFactory.Instance.SaveValues(model);
+            return Json(response);
+        }
+
 
         public IActionResult About()
         {

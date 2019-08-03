@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HighSchoolApplication.Data;
+﻿using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace HighSchoolApplication.Web
 {
@@ -19,6 +16,7 @@ namespace HighSchoolApplication.Web
     {
         public Startup(IConfiguration configuration)
         {
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
             Configuration = configuration;
         }
 
@@ -46,7 +44,7 @@ namespace HighSchoolApplication.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -62,7 +60,7 @@ namespace HighSchoolApplication.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            loggerFactory.AddSerilog();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
