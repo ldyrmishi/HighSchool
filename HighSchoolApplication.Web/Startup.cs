@@ -36,9 +36,13 @@ namespace HighSchoolApplication.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             services.AddScoped<IRepository,EFRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,10 +67,11 @@ namespace HighSchoolApplication.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
 
-            ConnectionString = Configuration["ConnectionStrings:connectionString"];
+        ConnectionString = Configuration["ConnectionStrings:connectionString"];
+
         }
     }
 }

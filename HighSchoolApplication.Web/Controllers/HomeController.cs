@@ -12,12 +12,12 @@ namespace HighSchoolApplication.Web.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly IRepository _repository;
+        private readonly IRepository _repository;
 
-        //public HomeController(IRepository repository)
-        //{
-        //    _repository = repository;
-        //}
+        public HomeController(IRepository repository)
+        {
+            _repository = repository;
+        }
 
         public IActionResult Index()
         {
