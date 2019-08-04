@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HighSchoolApplication.Data;
+using HighSchoolApplication.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +21,7 @@ namespace HighSchoolApplication.API
     public class Startup
     {
         public string Secret = "secretKey";
+        public static string ConnectionString { get; private set; } 
         public Startup(IConfiguration configuration)
         {
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
@@ -44,7 +47,7 @@ namespace HighSchoolApplication.API
                 options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(0);
                 options.TokenValidationParameters.IssuerSigningKey = Secret.ToSymmetricSecurityKey();
             });
-
+            services.AddScoped<IRepository, EFRepository>();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", x =>
@@ -94,6 +97,7 @@ namespace HighSchoolApplication.API
             app.UseHttpsRedirection();
             loggerFactory.AddSerilog();
             app.UseMvc();
+            ConnectionString = Configuration["ConnectionStrings:connectionString"];
         }
     }
 }
