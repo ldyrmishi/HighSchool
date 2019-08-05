@@ -24,30 +24,30 @@ namespace HighSchoolApplication.API.Controllers
             _logger = logger;
         }
         // GET: api/Students
-        [HttpGet]
-        public IEnumerable<UsersModel> Get()
-        {
-            var usersList = new List<UsersModel>();
-            var usersModel = new UsersModel();
+        //[HttpGet]
+        //public IEnumerable<UsersModel> Get()
+        //{
+        //    var usersList = new List<UsersModel>();
+        //    var usersModel = new UsersModel();
 
-            try
-            {
-                //1 Te gjithe perdoruesit qe jane studente
-                var users = _repository.List<Users>().Where(x => x.Role.RoleId == 1).ToList();
-                foreach(var item in users)
-                {
-                    //
+        //    try
+        //    {
+        //        //1 Te gjithe perdoruesit qe jane studente
+        //        var users = _repository.List<Users>().Where(x => x.Role.RoleId == 1).ToList();
+        //        foreach(var item in users)
+        //        {
+        //            //
 
-                }
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error", ex);
-                throw new Exception();
-            }
-            return users;
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError("Error", ex);
+        //        throw new Exception();
+        //    }
+        //    //return users;
+        //}
 
         // GET: api/Students/5
         [HttpGet("{id}", Name = "Get")]
