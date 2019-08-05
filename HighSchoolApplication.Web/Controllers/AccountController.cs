@@ -25,6 +25,10 @@ namespace HighSchoolApplication.Web.Controllers
         {
             return View();
         }
+        public IActionResult Register()
+        {
+            return View();
+        }
 
         //public ActionResult Validate(Users user)
         //{
