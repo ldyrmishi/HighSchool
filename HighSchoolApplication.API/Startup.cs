@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -72,6 +73,7 @@ namespace HighSchoolApplication.API
                     {"Bearer", new string[]{} }
                 });
             });
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
