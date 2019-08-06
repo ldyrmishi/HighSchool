@@ -53,6 +53,7 @@ namespace HighSchoolApplication.API.Controllers
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
+            _repository.GetById<Users>(id);
             return "value";
         }
 

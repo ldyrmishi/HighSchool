@@ -27,6 +27,7 @@ namespace HighSchoolApplication.Web.Controllers
         }
         public IActionResult Register()
         {
+            
             return View();
         }
 

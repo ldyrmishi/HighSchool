@@ -59,6 +59,7 @@ namespace HighSchoolApplication.Web.Controllers
             var response = await SaveValues();
             return View();
         }
+
         private async Task<JsonResult> SaveValues()
         {
             var model = new ValueModel()
@@ -82,7 +83,6 @@ namespace HighSchoolApplication.Web.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
