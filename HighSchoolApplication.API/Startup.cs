@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
+using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,7 +49,26 @@ namespace HighSchoolApplication.API
                 options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(0);
                 options.TokenValidationParameters.IssuerSigningKey = Secret.ToSymmetricSecurityKey();
             });
+
             services.AddScoped<IRepository, EFRepository>();
+            services.AddTransient<IMapper<Absents, AbsentsModel>, AbsentsMapper>();
+            services.AddTransient<IMapper<Address, AddressModel>, AddressMapper>();
+            services.AddTransient<IMapper<Class, ClassModel>, ClassMapper>();
+            services.AddTransient<IMapper<Diary, DiaryModel>, DiaryMapper>();
+            services.AddTransient<IMapper<DocumentCategory, DocumentCategoryModel>, DocumentCategoryMapper>();
+            services.AddTransient<IMapper<Documents, DocumentsModel>, DocumentsMapper>();
+            services.AddTransient<IMapper<FinalExams, FinalExamsModel>, FinalExamsMapper>();
+            services.AddTransient<IMapper<Finances, FinancesModel>, FinancesMapper>();
+            services.AddTransient<IMapper<Lesson, LessonModel>, LessonMapper>();
+            services.AddTransient<IMapper<Roles, RolesModel>, RolesMapper>();
+            services.AddTransient<IMapper<School, SchoolModel>, SchoolMapper>();
+            services.AddTransient<IMapper<SubjectPoints, SubjectPointsModel>, SubjectPointsMapper>();
+            services.AddTransient<IMapper<Subjects, SubjectModel>, SubjectsMapper>();
+            services.AddTransient<IMapper<UsersClass,UsersClassModel>, UsersClassMapper>();
+            services.AddTransient<IMapper<Users, UsersModel>, UsersMapper>();
+            services.AddTransient<IMapper<UsersStatus, UsersStatusModel>, UsersStatusMapper>();
+            services.AddTransient<IMapper<UsersSubjectPoints, UsersSubjectPointsModel>, UserSubjectPointsMapper>();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", x =>
@@ -73,7 +93,6 @@ namespace HighSchoolApplication.API
                     {"Bearer", new string[]{} }
                 });
             });
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

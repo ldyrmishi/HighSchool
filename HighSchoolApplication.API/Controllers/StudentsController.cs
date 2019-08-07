@@ -17,8 +17,8 @@ namespace HighSchoolApplication.API.Controllers
     {
         private readonly IRepository _repository;
         private readonly ILogger<StudentsController> _logger;
-
-        public StudentsController(IRepository repository,ILogger<StudentsController> logger)
+        private readonly IMapper<Class, ClassModel> _mapper;
+        public StudentsController(IRepository repository, ILogger<StudentsController> logger)
         {
             _repository = repository;
             _logger = logger;
@@ -30,15 +30,15 @@ namespace HighSchoolApplication.API.Controllers
         //    var usersList = new List<UsersModel>();
         //    var usersModel = new UsersModel();
 
+
         //    try
         //    {
         //        //1 Te gjithe perdoruesit qe jane studente
-        //        var users = _repository.List<Users>().Where(x => x.Role.RoleId == 1).ToList();
-        //        foreach(var item in users)
-        //        {
-        //            //
-
-        //        }
+        //        _mapper.dtoToEntity();
+        //        var users = _repository.List<U>().Where(x => x.Role.RoleId == 1).ToList();
+        //        UsersMapper usersMapper = new UsersMapper();
+        //        usersMapper.
+        //        return     
 
         //    }
         //    catch (Exception ex)

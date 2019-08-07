@@ -19,7 +19,6 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         // GET api/values
-        [Authorize(Policy = "Admin")]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HighSchoolApplication.API.Profiles
+namespace HighSchoolApplication.API.Models
 {
-    public interface Mapper<ENTITY,DTO>
+    public interface IMapper<ENTITY,DTO>
     {
          DTO EntityToDTO(ENTITY entity);
          ENTITY dtoToEntity(DTO dto);
