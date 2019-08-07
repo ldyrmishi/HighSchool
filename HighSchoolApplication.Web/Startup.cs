@@ -1,5 +1,6 @@
 ﻿using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
+using HighSchoolApplication.Web.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,7 @@ namespace HighSchoolApplication.Web
             {
                 options.ForwardClientCertificate = false;
             });
+            services.Configure<ApplicationSettings>(Configuration.GetSection("MySettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

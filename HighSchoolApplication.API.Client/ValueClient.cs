@@ -10,7 +10,7 @@ namespace HighSchoolApplication.API.Client
     {
         public async Task<List<ValueModel>> GetValues()
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "api/Values"));
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Values"));
             return await GetAsync<List<ValueModel>>(requestUrl);
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HighSchoolApplication.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,18 +21,24 @@ namespace HighSchoolApplication.API.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<ValueModel> Get()
         {
             try
             {
+                ValueModel valueModel = new ValueModel()
+                {
+                    value1 = "test",
+                    value2 = "tesstttt"
+                };
                 _logger.LogInformation("Info");
+                return valueModel;
+                
             }
             catch(Exception ex)
             {
                 _logger.LogError("Error", ex);
                 throw new Exception();
             }
-            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
