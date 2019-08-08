@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HighSchoolApplication.API.Models;
+using HighSchoolApplication.API.Models.Profiles;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
@@ -23,31 +24,30 @@ namespace HighSchoolApplication.API.Controllers
             _repository = repository;
             _logger = logger;
         }
-        // GET: api/Students
-        //[HttpGet]
-        //public IEnumerable<UsersModel> Get()
-        //{
-        //    var usersList = new List<UsersModel>();
-        //    var usersModel = new UsersModel();
+        //GET: api/Students
 
+       [HttpGet]
+        public IEnumerable<UsersModel> Get()
+        {
+            var usersList = new List<UsersModel>();
+            //var usersModel = new UsersModel();
 
-        //    try
-        //    {
-        //        //1 Te gjithe perdoruesit qe jane studente
-        //        _mapper.dtoToEntity();
-        //        var users = _repository.List<U>().Where(x => x.Role.RoleId == 1).ToList();
-        //        UsersMapper usersMapper = new UsersMapper();
-        //        usersMapper.
-        //        return     
+            try
+            {
+                var users = _repository.List<Users>().Where(x => x.Role.RoleId == 1).ToList();
+                UsersListMapper usersListMapper = new UsersListMapper();
+                usersList = usersListMapper.entityToDTO(users);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError("Error", ex);
-        //        throw new Exception();
-        //    }
-        //    //return users;
-        //}
+                return usersList;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+                throw new Exception();
+            }
+            //return users;
+        }
 
         // GET: api/Students/5
         [HttpGet("{id}", Name = "Get")]
