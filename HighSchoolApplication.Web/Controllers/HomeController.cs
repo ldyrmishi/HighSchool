@@ -17,7 +17,7 @@ namespace HighSchoolApplication.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository _repository;
+
 
         //public HomeController(IRepository repository)
         //{
@@ -26,12 +26,11 @@ namespace HighSchoolApplication.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IOptions<MySettingsViewModel> appSettings;
 
-        public HomeController(IRepository repository,IOptions<MySettingsViewModel> app, ILogger<HomeController> logger)
+        public HomeController(IOptions<MySettingsViewModel> app, ILogger<HomeController> logger)
         {
             appSettings = app;
             ApplicationSettings.WebApiUrl = appSettings.Value.WebApiBaseUrl;
             _logger = logger;
-            _repository = repository;
         }
 
         public IActionResult Index()

@@ -37,7 +37,7 @@ namespace HighSchoolApplication.Infrastructure.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;Database=HighSchool;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=tcp:highschool-db.database.windows.net,1433;Initial Catalog=HighSchool;Persist Security Info=False;User ID={ldyrmishi};Password={ledio.123};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -50,7 +51,9 @@ namespace HighSchoolApplication.API
                 options.TokenValidationParameters.IssuerSigningKey = Secret.ToSymmetricSecurityKey();
             });
 
-            services.AddScoped<IRepository, EFRepository>();
+            services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+
+            services.AddSingleton<IRepository, EFRepository>();
             services.AddTransient<IMapper<Absents, AbsentsModel>, AbsentsMapper>();
             services.AddTransient<IMapper<Address, AddressModel>, AddressMapper>();
             services.AddTransient<IMapper<Class, ClassModel>, ClassMapper>();
@@ -118,6 +121,7 @@ namespace HighSchoolApplication.API
             app.UseHttpsRedirection();
             loggerFactory.AddSerilog();
             app.UseMvc();
+
             ConnectionString = Configuration["ConnectionStrings:connectionString"];
         }
     }
