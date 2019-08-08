@@ -18,14 +18,14 @@ namespace HighSchoolApplication.API.Controllers
     {
         private readonly IRepository _repository;
         private readonly ILogger<StudentsController> _logger;
-        private readonly IMapper<Class, ClassModel> _mapper;
+
         public StudentsController(IRepository repository, ILogger<StudentsController> logger)
         {
             _repository = repository;
             _logger = logger;
         }
-        //GET: api/Students
 
+        //GET: api/Students
        [HttpGet]
         public IEnumerable<UsersModel> Get()
         {
