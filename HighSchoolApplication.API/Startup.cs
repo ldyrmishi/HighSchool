@@ -53,7 +53,9 @@ namespace HighSchoolApplication.API
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
-            services.AddSingleton<IRepository, EFRepository>();
+            services.AddTransient<IRepository, EFRepository>();
+            services.AddTransient<IRolesRepository, RolesRepository>();
+
             services.AddTransient<IMapper<Absents, AbsentsModel>, AbsentsMapper>();
             services.AddTransient<IMapper<Address, AddressModel>, AddressMapper>();
             services.AddTransient<IMapper<Class, ClassModel>, ClassMapper>();

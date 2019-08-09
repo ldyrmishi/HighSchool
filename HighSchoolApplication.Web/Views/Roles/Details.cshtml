@@ -1,42 +1,44 @@
-﻿@model HighSchoolApplication.Infrastructure.Models.Roles
+﻿@model HighSchoolApplication.API.Models.RolesModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3>Lista e roleve</h3>
+            <div class="box-tools pull-right">
+                <a asp-action="Create" class="btn btn-primary">Shto rol te ri</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        Pershkrimi
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RoleDescription)
+                    </dd>
+                    <dt>
+                        Data e krijimit
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CreatedAt)
+                    </dd>
+                    <dt>
+                        Data e modifikimit
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ModifiedAt)
+                    </dd>
+                </dl>
+            </div>
+            </div>
+            <div>
+                <a asp-action="Index" class="btn btn-primary">Kthehu te lista e roleve</a>
+            </div>
+        </div>
+</section>
 
-<div>
-    <h4>Roles</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RoleDescription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RoleDescription)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.RoleId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

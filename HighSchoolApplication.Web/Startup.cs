@@ -1,5 +1,4 @@
-﻿using HighSchoolApplication.Data;
-using HighSchoolApplication.Infrastructure;
+﻿using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Web.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +35,6 @@ namespace HighSchoolApplication.Web
             });
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
-            services.AddScoped<IRepository,EFRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<IISOptions>(options =>
             {

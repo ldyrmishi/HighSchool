@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HighSchoolApplication.Web.Models;
-using HighSchoolApplication.Infrastructure;
-using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using HighSchoolApplication.Web.Utility;

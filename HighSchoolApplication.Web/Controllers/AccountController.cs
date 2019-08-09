@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HighSchoolApplication.Infrastructure.Models;
-using HighSchoolApplication.Infrastructure;
 
 namespace HighSchoolApplication.Web.Controllers
 {

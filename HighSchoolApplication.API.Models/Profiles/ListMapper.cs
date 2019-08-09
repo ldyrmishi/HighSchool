@@ -8,15 +8,15 @@ namespace HighSchoolApplication.API.Models.Profiles
     {
         private IMapper<ENTITY, DTO> mapper;
 
-        public List<DTO> entityToDTO(List<ENTITY> entities)
+        public IEnumerable<DTO> entityToDTO(IEnumerable<ENTITY> entities)
         {
             List<DTO> objects = new List<DTO>();
             if (entities != null)
             {
-                entities.ForEach(entity =>
+                foreach (var item in entities)
                 {
-                    objects.Add(mapper.EntityToDTO(entity));
-                });
+                    objects.Add(mapper.EntityToDTO(item));
+                }
             }
 
             return objects;

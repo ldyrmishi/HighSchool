@@ -18,10 +18,8 @@ namespace HighSchoolApplication.API.Models
                 Roles rolesEntity = new Roles()
                 {
                     CreatedAt = dto.CreatedAt,
-                    Id = dto.RoleId,
                     ModifiedAt = dto.ModifiedAt,
                     RoleDescription = dto.RoleDescription,
-                    RoleId = dto.RoleId,
                     Users = usersListMapper.dtoToEntityCollection(dto.Users)
                 };
 
