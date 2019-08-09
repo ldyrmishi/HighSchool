@@ -8,6 +8,7 @@ using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace HighSchoolApplication.API.Controllers
 {
@@ -17,13 +18,15 @@ namespace HighSchoolApplication.API.Controllers
     {
         private readonly IRepository _repository;
         private readonly IRolesRepository _rolesRepository;
+        private readonly ILogger<RoleController> _logger;
 
         RolesListMapper rolesListMapper = new RolesListMapper();
         RolesMapper rolesMapper = new RolesMapper();
         public List<RolesModel> rolesListModel = new List<RolesModel>();
 
-        public RoleController(IRepository repository, IRolesRepository rolesRepository)
+        public RoleController(IRepository repository, IRolesRepository rolesRepository, ILogger<RoleController> logger)
         {
+            _logger = logger;
             _repository = repository;
             _rolesRepository = rolesRepository;
         }
@@ -31,20 +34,33 @@ namespace HighSchoolApplication.API.Controllers
         [HttpGet]
         public IEnumerable<RolesModel> Get()
         {
-            //return rolesListMapper.entityToDTO(_rolesRepository.GetAllRoles());
-
-            RolesModel rolesModel = new RolesModel()
+            try
             {
-                CreatedAt = DateTime.Now,
-                ModifiedAt = DateTime.Now,
-                RoleDescription = "Description Test",
-                RoleId = 1,
-                Users = null
+                //return rolesListMapper.entityToDTO(_rolesRepository.GetAllRoles());
 
-            };
+                RolesModel rolesModel = new RolesModel()
+                {
+                    CreatedAt = DateTime.Now,
+                    ModifiedAt = DateTime.Now,
+                    RoleDescription = "Description Test",
+                    RoleId = 1,
+                    Users = null
 
-            rolesListModel.Add(rolesModel);
-            return rolesListModel;
+                };
+
+                rolesListModel.Add(rolesModel);
+
+                _logger.LogInformation("List of Roles returned succesfully");
+                return rolesListModel;
+
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error on retrieving list", ex);
+                throw ex;
+            }
+
+
         }
 
         // GET: api/Role/5
