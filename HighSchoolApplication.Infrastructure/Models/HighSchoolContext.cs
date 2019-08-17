@@ -45,7 +45,7 @@ namespace HighSchoolApplication.Infrastructure.Models
         {
             modelBuilder.Entity<Absents>(entity =>
             {
-                entity.Property(e => e.AbsentsId).HasColumnName("AbsentsID");
+                entity.Property(e => e.Id).HasColumnName("AbsentsID");
 
                 entity.Property(e => e.AbsentDate).HasColumnType("datetime");
 
@@ -74,7 +74,7 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Address>(entity =>
             {
-                entity.Property(e => e.AddressId).HasColumnName("AddressID");
+                entity.Property(e => e.Id).HasColumnName("AddressID");
 
                 entity.Property(e => e.City).HasMaxLength(50);
 
@@ -91,7 +91,7 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Class>(entity =>
             {
-                entity.Property(e => e.ClassId).HasColumnName("ClassID");
+                entity.Property(e => e.Id).HasColumnName("ClassID");
 
                 entity.Property(e => e.ClassNo)
                     .HasMaxLength(1)
@@ -114,7 +114,7 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Diary>(entity =>
             {
-                entity.Property(e => e.DiaryId).HasColumnName("DiaryID");
+                entity.Property(e => e.Id).HasColumnName("DiaryID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -143,7 +143,7 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<DocumentCategory>(entity =>
             {
-                entity.Property(e => e.DocumentCategoryId).HasColumnName("DocumentCategoryID");
+                entity.Property(e => e.Id).HasColumnName("DocumentCategoryID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -154,9 +154,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Documents>(entity =>
             {
-                entity.HasKey(e => e.DocumentId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.DocumentId).HasColumnName("DocumentID");
+                entity.Property(e => e.Id).HasColumnName("DocumentID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -190,9 +190,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<FinalExams>(entity =>
             {
-                entity.HasKey(e => e.FinalExamId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.FinalExamId).HasColumnName("FinalExamID");
+                entity.Property(e => e.Id).HasColumnName("FinalExamID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -217,9 +217,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Finances>(entity =>
             {
-                entity.HasKey(e => e.FinanceId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.FinanceId).HasColumnName("FinanceID");
+                entity.Property(e => e.Id).HasColumnName("FinanceID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -239,7 +239,7 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Lesson>(entity =>
             {
-                entity.Property(e => e.LessonId).HasColumnName("LessonID");
+                entity.Property(e => e.Id).HasColumnName("LessonID");
 
                 entity.Property(e => e.ClassId).HasColumnName("ClassID");
 
@@ -275,9 +275,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Roles>(entity =>
             {
-                entity.HasKey(e => e.RoleId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.RoleId).HasColumnName("RoleID");
+                entity.Property(e => e.Id).HasColumnName("RoleID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -303,7 +303,7 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<SubjectPoints>(entity =>
             {
-                entity.Property(e => e.SubjectPointsId).HasColumnName("SubjectPointsID");
+                entity.Property(e => e.Id).HasColumnName("SubjectPointsID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -325,9 +325,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Subjects>(entity =>
             {
-                entity.HasKey(e => e.SubjectId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.SubjectId).HasColumnName("SubjectID");
+                entity.Property(e => e.Id).HasColumnName("SubjectID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -342,9 +342,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<Users>(entity =>
             {
-                entity.HasKey(e => e.UserId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.Id).HasColumnName("UserID");
 
                 entity.Property(e => e.AddressId).HasColumnName("AddressID");
 
@@ -426,7 +426,7 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<UsersStatus>(entity =>
             {
-                entity.Property(e => e.UsersStatusId).HasColumnName("UsersStatusID");
+                entity.Property(e => e.Id).HasColumnName("UsersStatusID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -437,9 +437,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<UsersSubjectPoints>(entity =>
             {
-                entity.HasKey(e => e.UserSubjectPointsId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.UserSubjectPointsId).HasColumnName("UserSubjectPointsID");
+                entity.Property(e => e.Id).HasColumnName("UserSubjectPointsID");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 

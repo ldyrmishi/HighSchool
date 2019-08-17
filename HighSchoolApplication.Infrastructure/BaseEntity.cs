@@ -6,7 +6,7 @@ namespace HighSchoolApplication.Infrastructure
 {
     public abstract class BaseEntity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public List<BaseDomainEvent> Events = new List<BaseDomainEvent>();
     }
 }
