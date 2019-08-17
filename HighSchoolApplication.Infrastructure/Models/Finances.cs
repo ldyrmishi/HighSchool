@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Finances : BaseEntity
+    public partial class Finances
     {
-        public int FinanceId { get; set; }
+        [Required]
+        [Key]
+        [Column("FinanceId")]
+        public int Id { get; set; }
         public DateTime? Date { get; set; }
         public string Description { get; set; }
         public int? Amount { get; set; }

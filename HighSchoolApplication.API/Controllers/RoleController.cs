@@ -36,22 +36,22 @@ namespace HighSchoolApplication.API.Controllers
         {
             try
             {
-                //return rolesListMapper.entityToDTO(_rolesRepository.GetAllRoles());
+                return rolesListMapper.entityToDTO(_rolesRepository.GetAllRoles());
 
-                RolesModel rolesModel = new RolesModel()
-                {
-                    CreatedAt = DateTime.Now,
-                    ModifiedAt = DateTime.Now,
-                    RoleDescription = "Description Test",
-                    RoleId = 1,
-                    Users = null
+                //RolesModel rolesModel = new RolesModel()
+                //{
+                //    CreatedAt = DateTime.Now,
+                //    ModifiedAt = DateTime.Now,
+                //    RoleDescription = "Description Test",
+                //    RoleId = 1,
+                //    Users = null
 
-                };
+                //};
 
-                rolesListModel.Add(rolesModel);
+                //rolesListModel.Add(rolesModel);
 
-                _logger.LogInformation("List of Roles returned succesfully");
-                return rolesListModel;
+                //_logger.LogInformation("List of Roles returned succesfully");
+                //return rolesListModel;
 
             }
             catch(Exception ex)

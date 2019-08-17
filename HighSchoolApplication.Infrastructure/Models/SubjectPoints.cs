@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class SubjectPoints : BaseEntity
+    public partial class SubjectPoints
     {
         public SubjectPoints()
         {
             UsersSubjectPoints = new HashSet<UsersSubjectPoints>();
         }
 
-        public int SubjectPointsId { get; set; }
+        [Required]
+        [Key]
+        [Column("SubjectPointsId")]
+        public int Id { get; set; }
         public int? SubjectId { get; set; }
         public int? Points { get; set; }
         public string PointsReason { get; set; }

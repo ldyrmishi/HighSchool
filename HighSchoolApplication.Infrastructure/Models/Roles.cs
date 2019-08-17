@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Roles : BaseEntity
+    public partial class Roles
     {
         public Roles()
         {
             Users = new HashSet<Users>();
         }
 
-        public int RoleId { get; set; }
+        [Required]
+        [Key]
+        [Column("RoleId")]
+        public int Id { get; set; }
         public string RoleDescription { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }

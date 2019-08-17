@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Absents : BaseEntity
+    public partial class Absents
     {
-        public int AbsentsId { get; set; }
+        [Required]
+        [Key]
+        [Column("AbsentsId")]
+        public int Id { get; set; }
         public int? LessonId { get; set; }
         public int? UserId { get; set; }
         public bool? IsInClass { get; set; }

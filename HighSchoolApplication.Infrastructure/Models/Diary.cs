@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Diary : BaseEntity
+    public partial class Diary
     {
         public Diary()
         {
             Lesson = new HashSet<Lesson>();
         }
 
-        public int DiaryId { get; set; }
+        [Required]
+        [Key]
+        [Column("DiaryId")]
+        public int Id { get; set; }
         public int? UserId { get; set; }
         public int? SubjectId { get; set; }
         public string Title { get; set; }

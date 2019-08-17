@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class FinalExams : BaseEntity
+    public partial class FinalExams
     {
-        public int FinalExamId { get; set; }
+        [Required]
+        [Key]
+        [Column("FinalExamId")]
+        public int Id { get; set; }
         public int? SubjectId { get; set; }
         public int? UserId { get; set; }
         public int? MaxPoints { get; set; }

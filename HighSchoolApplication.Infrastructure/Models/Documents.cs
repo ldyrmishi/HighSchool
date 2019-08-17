@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Documents : BaseEntity
+    public partial class Documents
     {
-        public int DocumentId { get; set; }
+        [Required]
+        [Key]
+        [Column("DocumentId")]
+        public int Id { get; set; }
         public string DocumentDescription { get; set; }
         public string DocumentUrl { get; set; }
         public int? UserId { get; set; }

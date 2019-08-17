@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Subjects : BaseEntity
+    public partial class Subjects
     {
         public Subjects()
         {
@@ -14,7 +16,10 @@ namespace HighSchoolApplication.Infrastructure.Models
             SubjectPoints = new HashSet<SubjectPoints>();
         }
 
-        public int SubjectId { get; set; }
+        [Required]
+        [Key]
+        [Column("SubjectId")]
+        public int Id { get; set; }
         public string SubjectTitle { get; set; }
         public string SubjectDescription { get; set; }
         public string Term { get; set; }

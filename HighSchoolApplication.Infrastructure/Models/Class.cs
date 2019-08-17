@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
-    public partial class Class : BaseEntity
+    public partial class Class
     {
         public Class()
         {
@@ -11,7 +13,10 @@ namespace HighSchoolApplication.Infrastructure.Models
             UsersClass = new HashSet<UsersClass>();
         }
 
-        public int ClassId { get; set; }
+        [Required]
+        [Key]
+        [Column("ClassId")]
+        public int Id { get; set; }
         public string ClassNo { get; set; }
         public int? ClassYear { get; set; }
         public int? SchoolId { get; set; }
