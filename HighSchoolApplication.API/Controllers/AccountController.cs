@@ -26,9 +26,11 @@ namespace HighSchoolApplication.API.Controllers
         private IConfiguration _config;
         private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
+        private readonly IRepository<Users> _repository;
 
-        public AccountController(IUsersRepository usersRepository, IMapper mapper, IConfiguration config)
+        public AccountController(IUsersRepository usersRepository, IMapper mapper, IConfiguration config, IRepository<Users> repository)
         {
+            _repository = repository;
             _config = config;
             _usersRepository = usersRepository;
             _mapper = mapper;
@@ -52,14 +54,19 @@ namespace HighSchoolApplication.API.Controllers
 
         private string GenerateJSONWebToken(UsersModel userInfo)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var nowUtc = DateTime.Now.ToUniversalTime();
+            var expires = nowUtc.AddMinutes(double.Parse(_config["Tokens:ExpiryMinutes"])).ToUniversalTime();
 
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              null,
-              expires: DateTime.Now.AddMinutes(120),
-              signingCredentials: credentials);
+            var token = new JwtSecurityToken(
+            _config["Tokens:Issuer"],
+            _config["Tokens:Audience"],
+            null,
+            expires: expires,
+            signingCredentials: creds);
+
+            var response = new JwtSecurityTokenHandler().WriteToken(token);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -72,7 +79,7 @@ namespace HighSchoolApplication.API.Controllers
 
             if (userEntity != null)
             {
-                if (userEntity.Password == Helper.CalculateHash(login.Password))
+                if (string.Compare(Helper.Hash(login.Password),userEntity.Password) == 0)
                 {
                     user = _mapper.Map<UsersModel>(userEntity);
                 }
@@ -80,7 +87,19 @@ namespace HighSchoolApplication.API.Controllers
             return user;
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("Register")]
+        public void Register([FromBody] UsersModel usersModel)
+        {
+            usersModel.Password = Helper.Hash(usersModel.Password);
+            usersModel.ConfirmPassword = Helper.Hash(usersModel.ConfirmPassword);
 
+            Users usersEntity = _mapper.Map<Users>(usersModel);
+
+            _repository.Insert(usersEntity);
+            _repository.Save();
+        }
         
 
 

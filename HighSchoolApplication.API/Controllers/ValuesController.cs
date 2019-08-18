@@ -21,7 +21,9 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         // GET api/values
+        
         [HttpGet]
+        [Authorize]
         public ActionResult<ValueModel> Get()
         {
             try

@@ -30,8 +30,8 @@ namespace HighSchoolApplication.Infrastructure.Models
         public int? PhoneNumber { get; set; }
         public DateTime? Birthdate { get; set; }
         public DateTime? RegistrationDate { get; set; }
-        public byte[] Password { get; set; }
-        public byte[] ConfirmPassword { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         public bool? IsActive { get; set; }
         public int? AddressId { get; set; }
         public int? RoleId { get; set; }

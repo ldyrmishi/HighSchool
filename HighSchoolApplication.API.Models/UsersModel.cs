@@ -27,9 +27,9 @@ namespace HighSchoolApplication.API.Models
         [DataMember(Name = "RegistrationDate")]
         public DateTime? RegistrationDate { get; set; }
         [DataMember(Name = "Password")]
-        public byte[] Password { get; set; }
-        [DataMember(Name = "Confirm")]
-        public byte[] ConfirmPassword { get; set; }
+        public string Password { get; set; }
+        [DataMember(Name = "ConfirmPassword")]
+        public string ConfirmPassword { get; set; }
         [DataMember(Name = "IsActive")]
         public bool? IsActive { get; set; }
         [DataMember(Name = "CreatedAt")]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using HighSchoolApplication.API.Models;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -24,7 +26,7 @@ namespace HighSchoolApplication.API
 {
     public class Startup
     {
-        public string Secret = "secretKey";
+        public string Secret = "Very Secret Key longer than first one";
         public static string ConnectionString { get; private set; } 
         public Startup(IConfiguration configuration)
         {
@@ -40,48 +42,55 @@ namespace HighSchoolApplication.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper(typeof(Startup));
             services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+             {
+                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            }).AddJwtBearer(options =>
-            {
-                options.Authority = "http://localhost";
-                options.Audience = "http://localhost";
-                options.TokenValidationParameters.ValidateLifetime = true;
-                options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(0);
-                options.TokenValidationParameters.IssuerSigningKey = Secret.ToSymmetricSecurityKey();
-            });
+             })
+              .AddJwtBearer(cfg =>
+              {
+                  cfg.RequireHttpsMetadata = false;
+                  cfg.SaveToken = true;
+                  cfg.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidIssuer = Configuration["Tokens:Issuer"],
+                      ValidAudience = Configuration["Tokens:Issuer"],
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
+                      ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                  };
+              });
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
             services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
+            services.AddTransient<IRepository<Users>, EFRepository<Users>>();
             services.AddTransient<IRolesRepository, RolesRepository>();
             services.AddTransient<IUsersRepository, UsersRepository>();
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Admin", x =>
-                {
-                    x.RequireClaim("ClaimTypes.Role Enum get values from DB", "Admin");
-                });
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Admin", x =>
+            //    {
+            //        x.RequireClaim("ClaimTypes.Role Enum get values from DB", "Admin");
+            //    });
+            //});
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "HighSchool API", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
-                });
+                //c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                //{
+                //    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                //    Name = "Authorization",
+                //    In = "header",
+                //    Type = "apiKey"
+                //});
 
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-                {
-                    {"Bearer", new string[]{} }
-                });
+                //c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                //{
+                //    {"Bearer", new string[]{} }
+                //});
             });
         }
 

@@ -9,18 +9,9 @@ namespace HighSchoolApplication.API.Utils
 {
     public static class Helper
     {
-        public static byte[] CalculateHash(string input)
+        public static string Hash(string Value)
         {
-            //Convert the input to a byte array using specified encoding
-            var InputBuffer = Encoding.Unicode.GetBytes(input);
-            //Hash the input
-            byte[] HashedBytes = new byte[500];
-            using (var Hasher = new SHA256Managed())
-            {
-                HashedBytes = Hasher.ComputeHash(InputBuffer);
-            }
-
-            return HashedBytes;
+            return Convert.ToBase64String(System.Security.Cryptography.SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(Value)));
         }
     }
 }
