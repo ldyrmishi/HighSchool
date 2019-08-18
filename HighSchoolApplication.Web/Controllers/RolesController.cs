@@ -14,16 +14,11 @@ namespace HighSchoolApplication.Web.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly IRepository<Roles> _repository;
-        private readonly IRolesRepository _rolesRepository;
-
 
         public List<RolesModel> rolesListModel = new List<RolesModel>();
 
-        public RolesController(IRepository<Roles> repository, IRolesRepository rolesRepository)
+        public RolesController()
         {
-            _repository = repository;
-            _rolesRepository = rolesRepository;
         }
 
         // GET: Roles

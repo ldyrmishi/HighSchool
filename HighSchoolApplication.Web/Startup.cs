@@ -1,5 +1,4 @@
 ﻿using HighSchoolApplication.API.Models;
-using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
 using HighSchoolApplication.Web.Utility;
@@ -39,7 +38,6 @@ namespace HighSchoolApplication.Web
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
             services.Configure<IISOptions>(options =>
             {
                 options.ForwardClientCertificate = false;
