@@ -26,7 +26,6 @@ namespace HighSchoolApplication.API.Models
                     Id = dto.UserSubjectPointsId,
                     User = usersMapper.dtoToEntity(dto.User),
                     UserId = dto.User.UserId,
-                    UserSubjectPointsId = dto.UserSubjectPointsId
                 };
 
                 return usersSubjectPointsEntity;
@@ -46,7 +45,7 @@ namespace HighSchoolApplication.API.Models
                     ModifiedAt = entity.ModifiedAt,
                     SubjectPoints = subjectPointsMapper.EntityToDTO(entity.SubjectPoints),
                     User = usersMapper.EntityToDTO(entity.User),
-                    UserSubjectPointsId = entity.UserSubjectPointsId
+                    UserSubjectPointsId = entity.Id
                 };
 
                 return usersSubjectPointsModel;

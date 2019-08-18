@@ -17,7 +17,7 @@ namespace HighSchoolApplication.API.Models
             if (dto != null)
             {
                 Address addressEntity = new Address();
-                addressEntity.AddressId = dto.AddressId;
+                addressEntity.Id = dto.AddressId;
                 addressEntity.City = dto.City;
                 addressEntity.CreatedAt = dto.CreatedAt;
                 addressEntity.Id = dto.AddressId;
@@ -37,7 +37,7 @@ namespace HighSchoolApplication.API.Models
             if (entity != null)
             {
                 AddressModel addressModel = new AddressModel();
-                addressModel.AddressId = entity.AddressId;
+                addressModel.AddressId = entity.Id;
                 addressModel.City = entity.City;
                 addressModel.CreatedAt = entity.CreatedAt;
                 addressModel.ModifiedAt = entity.ModifiedAt;

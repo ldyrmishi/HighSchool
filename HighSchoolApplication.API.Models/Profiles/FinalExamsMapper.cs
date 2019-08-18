@@ -19,9 +19,8 @@ namespace HighSchoolApplication.API.Models
                 FinalExams finalExamsEntity = new FinalExams()
                 {
                     CreatedAt =  dto.CreatedAt,
-                    FinalExamId = dto.FinalExamId,
-                    Grade = dto.Grade,
                     Id = dto.FinalExamId,
+                    Grade = dto.Grade,
                     MaxPoints = dto.MaxPoints,
                     ModifiedAt = dto.ModifiedAt,
                     PointsDate = dto.PointsDate,
@@ -43,7 +42,7 @@ namespace HighSchoolApplication.API.Models
                 FinalExamsModel finalExamsModel = new FinalExamsModel()
                 {
                     CreatedAt = entity.CreatedAt,
-                    FinalExamId = entity.FinalExamId,
+                    FinalExamId = entity.Id,
                     Grade = entity.Grade,
                     MaxPoints = entity.MaxPoints,
                     ModifiedAt = entity.ModifiedAt,

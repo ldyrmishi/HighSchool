@@ -16,17 +16,18 @@ namespace HighSchoolApplication.API.Controllers
     [ApiController]
     public class RoleController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<Roles> _repository;
         private readonly IRolesRepository _rolesRepository;
         private readonly ILogger<RoleController> _logger;
+        private  RolesListMapper rolesListMapper = new RolesListMapper();
+        private readonly RolesMapper _rolesMapper;
 
-        RolesListMapper rolesListMapper = new RolesListMapper();
-        RolesMapper rolesMapper = new RolesMapper();
         public List<RolesModel> rolesListModel = new List<RolesModel>();
 
-        public RoleController(IRepository repository, IRolesRepository rolesRepository, ILogger<RoleController> logger)
+        public RoleController(IRepository<Roles> repository, IRolesRepository rolesRepository, ILogger<RoleController> logger, RolesMapper rolesMapper)
         {
             _logger = logger;
+            _rolesMapper = rolesMapper;
             _repository = repository;
             _rolesRepository = rolesRepository;
         }
@@ -36,7 +37,7 @@ namespace HighSchoolApplication.API.Controllers
         {
             try
             {
-                return rolesListMapper.entityToDTO(_rolesRepository.GetAllRoles());
+                return rolesListMapper.entityToDTO(_repository.GetAll());
 
                 //RolesModel rolesModel = new RolesModel()
                 //{
@@ -67,17 +68,17 @@ namespace HighSchoolApplication.API.Controllers
         [HttpGet("{id}", Name = "Get")]
         public RolesModel Get(int id)
         {
-            RolesModel rolesModel = new RolesModel()
-            {
-                CreatedAt = DateTime.Now,
-                ModifiedAt = DateTime.Now,
-                RoleDescription = "Description Test",
-                RoleId = 1,
-                Users = null
+            //RolesModel rolesModel = new RolesModel()
+            //{
+            //    CreatedAt = DateTime.Now,
+            //    ModifiedAt = DateTime.Now,
+            //    RoleDescription = "Description Test",
+            //    RoleId = 1,
+            //    Users = null
 
-            };
-            //return rolesMapper.EntityToDTO(_repository.GetById<Roles>(id));
-            return rolesModel;
+            //};
+            return _rolesMapper.EntityToDTO(_repository.GetById(id));
+            //return rolesModel;
         }
 
         // POST: api/Role

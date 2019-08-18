@@ -23,7 +23,6 @@ namespace HighSchoolApplication.API.Models
                     ModifiedAt = dto.ModifiedAt,
                     Status = dto.Status,
                     Users = usersListMapper.dtoToEntityCollection(dto.Users),
-                    UsersStatusId = dto.UsersStatusId
                 };
 
                 return usersStatusEntity;
@@ -41,7 +40,7 @@ namespace HighSchoolApplication.API.Models
                     ModifiedAt = entity.ModifiedAt,
                     Status = entity.Status,
                     Users = usersListMapper.entityToDTO(entity.Users),
-                    UsersStatusId = entity.UsersStatusId
+                    UsersStatusId = entity.Id
                 };
 
                 return usersStatusModel;

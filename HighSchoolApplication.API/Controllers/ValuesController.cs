@@ -22,7 +22,6 @@ namespace HighSchoolApplication.API.Controllers
 
         // GET api/values
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
         public ActionResult<ValueModel> Get()
         {
             try

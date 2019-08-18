@@ -28,7 +28,6 @@ namespace HighSchoolApplication.API.Models
                     PointsReason = dto.PointsReason,
                     Subject = subjectsMapper.dtoToEntity(dto.Subject),
                     SubjectId = dto.Subject.SubjectId,
-                    SubjectPointsId = dto.SubjectPointsId,
                     UsersSubjectPoints = userSubjectPointsListMapper.dtoToEntityCollection(dto.UsersSubjectPoints)
                 };
 
@@ -50,7 +49,7 @@ namespace HighSchoolApplication.API.Models
                     PointsDate = entity.PointsDate,
                     PointsReason = entity.PointsReason,
                     Subject = subjectsMapper.EntityToDTO(entity.Subject),
-                    SubjectPointsId = entity.SubjectPointsId,
+                    SubjectPointsId = entity.Id,
                     UsersSubjectPoints = userSubjectPointsListMapper.entityToDTO(entity.UsersSubjectPoints)
                 };
 

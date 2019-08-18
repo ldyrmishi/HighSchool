@@ -20,7 +20,6 @@ namespace HighSchoolApplication.API.Models
                 {
                     CreatedAt = dto.CreatedAt,
                     Description = dto.Description,
-                    DocumentCategoryId = dto.DocumentCategoryId,
                     Documents = documentsListMapper.dtoToEntityCollection(dto.Documents),
                     Id = dto.DocumentCategoryId,
                     ModifiedAt = dto.ModifiedAt
@@ -39,7 +38,6 @@ namespace HighSchoolApplication.API.Models
                 {
                     CreatedAt = entity.CreatedAt,
                     Description = entity.Description,
-                    DocumentCategoryId = entity.DocumentCategoryId,
                     Documents = documentsListMapper.entityToDTO(entity.Documents),
                     ModifiedAt = entity.ModifiedAt
                 };

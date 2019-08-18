@@ -21,7 +21,6 @@ namespace HighSchoolApplication.API.Models
             {
                 Diary diaryEntity = new Diary()
                 {
-                    DiaryId = dto.DiaryId,
                     Id = dto.DiaryId,
                     CreatedAt = dto.CreatedAt,
                     Description = dto.Description,
@@ -29,7 +28,7 @@ namespace HighSchoolApplication.API.Models
                     Lesson = lessonListMapper.dtoToEntityCollection(dto.Lesson),
                     ModifiedAt = dto.ModifiedAt,
                     Subject = subjectsMapper.dtoToEntity(dto.Subject),
-                    SubjectId = subjectsMapper.dtoToEntity(dto.Subject).SubjectId,
+                    SubjectId = subjectsMapper.dtoToEntity(dto.Subject).Id,
                     Title = dto.Title,
                     User = usersMapper.dtoToEntity(dto.User),
                     UserId = usersMapper.dtoToEntity(dto.User).Id
@@ -47,7 +46,7 @@ namespace HighSchoolApplication.API.Models
             {
                 DiaryModel diaryModel = new DiaryModel()
                 {
-                    DiaryId = entity.DiaryId,
+                    DiaryId = entity.Id,
                     CreatedAt = entity.CreatedAt,
                     Description = entity.Description,
                     DiaryDate = entity.DiaryDate,

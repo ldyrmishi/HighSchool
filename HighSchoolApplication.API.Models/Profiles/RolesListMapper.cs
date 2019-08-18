@@ -5,7 +5,11 @@ using System.Text;
 
 namespace HighSchoolApplication.API.Models.Profiles
 {
-    public partial class RolesListMapper : ListMapper<Roles, RolesModel>
+    public class RolesListMapper : ListMapper<Roles, RolesModel>
     {
+        public RolesListMapper()
+        {
+
+        }
     }
 }

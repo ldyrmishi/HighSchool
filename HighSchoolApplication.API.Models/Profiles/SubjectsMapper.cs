@@ -31,7 +31,6 @@ namespace HighSchoolApplication.API.Models
                     ModifiedAt = dto.ModifiedAt,
                     MaxPoints = dto.MaxPoints,
                     SubjectDescription = dto.SubjectDescription,
-                    SubjectId = dto.SubjectId,
                     SubjectPoints = subjectPointsListMapper.dtoToEntityCollection(dto.SubjectPoints),
                     SubjectTitle = dto.SubjectTitle,
                     Term = dto.Term
@@ -56,7 +55,7 @@ namespace HighSchoolApplication.API.Models
                     ModifiedAt = entity.ModifiedAt,
                     MaxPoints = entity.MaxPoints,
                     SubjectDescription = entity.SubjectDescription,
-                    SubjectId = entity.SubjectId,
+                    SubjectId = entity.Id,
                     SubjectPoints = subjectPointsListMapper.entityToDTO(entity.SubjectPoints),
                     SubjectTitle = entity.SubjectTitle,
                     Term = entity.Term

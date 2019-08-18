@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HighSchoolApplication.API.Models;
+using HighSchoolApplication.API.Models.Profiles;
 using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
@@ -53,7 +54,7 @@ namespace HighSchoolApplication.API
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
-            services.AddTransient<IRepository, EFRepository>();
+            services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
             services.AddTransient<IRolesRepository, RolesRepository>();
 
             services.AddTransient<IMapper<Absents, AbsentsModel>, AbsentsMapper>();
@@ -73,6 +74,7 @@ namespace HighSchoolApplication.API
             services.AddTransient<IMapper<Users, UsersModel>, UsersMapper>();
             services.AddTransient<IMapper<UsersStatus, UsersStatusModel>, UsersStatusMapper>();
             services.AddTransient<IMapper<UsersSubjectPoints, UsersSubjectPointsModel>, UserSubjectPointsMapper>();
+            services.AddTransient<ListMapper<Roles, RolesModel>, RolesListMapper>();
 
             services.AddAuthorization(options =>
             {

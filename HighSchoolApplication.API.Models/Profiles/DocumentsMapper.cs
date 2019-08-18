@@ -19,13 +19,12 @@ namespace HighSchoolApplication.API.Models
             {
                 Documents documentsEntity = new Documents()
                 {
-                    DocumentId = dto.DocumentId,
+                    Id = dto.DocumentId,
                     CreatedAt = dto.CreatedAt,
                     DocumentCategory = documentCategoryMapper.dtoToEntity(dto.DocumentCategory),
                     DocumentCategoryId = dto.DocumentCategory.DocumentCategoryId,
                     DocumentDescription = dto.DocumentDescription,
                     DocumentUrl = dto.DocumentUrl,
-                    Id = dto.DocumentId,
                     ModifiedAt = dto.ModifiedAt,
                     Subject = subjectsMapper.dtoToEntity(dto.Subject),
                     SubjectId = dto.Subject.SubjectId,
@@ -45,7 +44,7 @@ namespace HighSchoolApplication.API.Models
             {
                 DocumentsModel documentsModel = new DocumentsModel()
                 {
-                    DocumentId = entity.DocumentId,
+                    DocumentId = entity.Id,
                     CreatedAt = entity.CreatedAt,
                     DocumentCategory = documentCategoryMapper.EntityToDTO(entity.DocumentCategory),
                     DocumentDescription = entity.DocumentDescription,

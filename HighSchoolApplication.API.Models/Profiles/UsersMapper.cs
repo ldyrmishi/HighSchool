@@ -56,7 +56,6 @@ namespace HighSchoolApplication.API.Models
                     SchoolId = dto.School.SchoolId,
                     Status  = usersStatusMapper.dtoToEntity(dto.Status),
                     StatusId = dto.Status.UsersStatusId,
-                    UserId = dto.UserId,
                     Username = dto.Username,
                     UsersClass = usersClassListMapper.dtoToEntityCollection(dto.UsersClass),
                     UsersSubjectPoints = userSubjectPointsListMapper.dtoToEntityCollection(dto.UsersSubjectPoints)
@@ -95,7 +94,7 @@ namespace HighSchoolApplication.API.Models
                     Role = rolesMapper.EntityToDTO(entity.Role),
                     School = schoolMapper.EntityToDTO(entity.School),
                     Status = usersStatusMapper.EntityToDTO(entity.Status),
-                    UserId = entity.UserId,
+                    UserId = entity.Id,
                     Username = entity.Username,
                     UsersClass = usersClassListMapper.entityToDTO(entity.UsersClass),
                     UsersSubjectPoints = userSubjectPointsListMapper.entityToDTO(entity.UsersSubjectPoints)

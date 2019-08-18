@@ -8,8 +8,12 @@ using HighSchoolApplication.Infrastructure.Models;
 
 namespace HighSchoolApplication.API.Models
 {
-    public partial class RolesMapper : IMapper<Roles, RolesModel>
+    public  class RolesMapper : IMapper<Roles, RolesModel>
     {
+        public RolesMapper()
+        {
+
+        }
         UsersListMapper usersListMapper = new UsersListMapper();
         public Roles dtoToEntity(RolesModel dto)
         {
@@ -37,8 +41,7 @@ namespace HighSchoolApplication.API.Models
                     CreatedAt = entity.CreatedAt,
                     ModifiedAt = entity.ModifiedAt,
                     RoleDescription = entity.RoleDescription,
-                    RoleId = entity.RoleId,
-                    Users = usersListMapper.entityToDTO(entity.Users)
+                    RoleId = entity.Id
                 };
 
                 return rolesModel;

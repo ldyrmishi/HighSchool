@@ -20,7 +20,6 @@ namespace HighSchoolApplication.API.Models
                     CreatedAt = dto.CreatedAt,
                     Date = dto.Date,
                     Description = dto.Description,
-                    FinanceId = dto.FinanceId,
                     Id = dto.FinanceId,
                     IsExpense = dto.IsExpense,
                     ModifiedAt = dto.ModifiedAt,
@@ -43,7 +42,7 @@ namespace HighSchoolApplication.API.Models
                     CreatedAt = entity.CreatedAt,
                     Date = entity.Date,
                     Description = entity.Description,
-                    FinanceId = entity.FinanceId,
+                    FinanceId = entity.Id,
                     IsExpense = entity.IsExpense,
                     ModifiedAt = entity.ModifiedAt,
                     School = schoolMapper.EntityToDTO(entity.School)

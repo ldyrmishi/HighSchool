@@ -23,11 +23,10 @@ namespace HighSchoolApplication.API.Models
             {
                 Class classEntity = new Class()
                 {
-                    ClassId = dto.ClassId,
+                    Id = dto.ClassId,
                     ClassNo = dto.ClassNo,
                     ClassYear = dto.ClassYear,
                     CreatedAt = dto.CreatedAt,
-                    Id = dto.ClassId,
                     Lesson = lessonListMapper.dtoToEntityCollection(dto.Lesson),
                     ModifiedAt = dto.ModifiedAt,
                     School = schoolMapper.dtoToEntity(dto.School),
@@ -48,7 +47,7 @@ namespace HighSchoolApplication.API.Models
             {
                 ClassModel classModel = new ClassModel()
                 {
-                    ClassId = entity.ClassId,
+                    ClassId = entity.Id,
                     ClassNo = entity.ClassNo,
                     ClassYear = entity.ClassYear,
                     CreatedAt = entity.CreatedAt,

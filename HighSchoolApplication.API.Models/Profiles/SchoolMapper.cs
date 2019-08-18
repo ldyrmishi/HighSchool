@@ -30,7 +30,6 @@ namespace HighSchoolApplication.API.Models
                     ModifiedAt = dto.ModifiedAt,
                     Name = dto.Name,
                     PhoneNumber = dto.PhoneNumber,
-                    SchoolId = dto.SchoolId,
                     Users = usersListMapper.dtoToEntityCollection(dto.Users)
                 };
 
@@ -54,7 +53,7 @@ namespace HighSchoolApplication.API.Models
                     ModifiedAt = entity.ModifiedAt,
                     Name = entity.Name,
                     PhoneNumber = entity.PhoneNumber,
-                    SchoolId = entity.SchoolId,
+                    SchoolId = entity.Id,
                     Users = usersListMapper.entityToDTO(entity.Users)
                 };
 

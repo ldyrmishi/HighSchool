@@ -20,14 +20,14 @@ namespace HighSchoolApplication.API.Models
 
                 Absents absentsEntity = new Absents();
                 absentsEntity.AbsentDate = dto.AbsentDate;
-                absentsEntity.AbsentsId = dto.AbsentsId;
+                absentsEntity.Id = dto.AbsentsId;
                 absentsEntity.CreatedAt = dto.CreatedAt;
                 absentsEntity.ModifiedAt = dto.ModifiedAt;
                 absentsEntity.Id = dto.AbsentsId;
                 absentsEntity.IsInClass = dto.IsInClass;
                 absentsEntity.IsJustificated = dto.IsJustificated;
                 absentsEntity.Lesson = lesson;
-                absentsEntity.LessonId = lesson.LessonId;
+                absentsEntity.LessonId = lesson.Id;
                 absentsEntity.Reason = dto.Reason;
                 absentsEntity.User = usersMapper.dtoToEntity(dto.User);
 
@@ -42,7 +42,7 @@ namespace HighSchoolApplication.API.Models
             {
                 AbsentsModel absentsModel = new AbsentsModel();
                 absentsModel.AbsentDate = entity.AbsentDate;
-                absentsModel.AbsentsId = entity.AbsentsId;
+                absentsModel.AbsentsId = entity.Id;
                 absentsModel.CreatedAt = entity.CreatedAt;
                 absentsModel.IsInClass = entity.IsInClass;
                 absentsModel.IsJustificated = entity.IsJustificated;

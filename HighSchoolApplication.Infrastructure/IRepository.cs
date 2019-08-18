@@ -4,12 +4,13 @@ using System.Text;
 
 namespace HighSchoolApplication.Infrastructure
 {
-    public interface IRepository
+    public interface IRepository<T> where T : class
     {
-        T GetById<T>(int id) where T : BaseEntity;
-        List<T> List<T>() where T : BaseEntity;
-        T Add<T>(T entity) where T : BaseEntity;
-        void Update<T>(T entity) where T : BaseEntity;
-        void Delete<T>(T entity) where T : BaseEntity;
+        IEnumerable<T> GetAll();
+        T GetById(object id);
+        void Insert(T obj);
+        void Update(T obj);
+        void Delete(object id);
+        void Save();
     }
 }

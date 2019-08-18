@@ -7,42 +7,45 @@ using System.Text;
 
 namespace HighSchoolApplication.Data
 {
-    public class EFRepository : IRepository
+    public class EFRepository<T> : IRepository<T> where T : class
     {
-        private readonly Infrastructure.Models.HighSchoolContext _dbContext;
-
-        public EFRepository(Infrastructure.Models.HighSchoolContext dbContext)
+        private HighSchoolApplication.Infrastructure.Models.HighSchoolContext _context = null;
+        private DbSet<T> table = null;
+        public EFRepository()
         {
-            _dbContext = dbContext;
+            this._context = new Infrastructure.Models.HighSchoolContext();
+            table = _context.Set<T>();
         }
-        public T Add<T>(T entity) where T : BaseEntity
+        public EFRepository(Infrastructure.Models.HighSchoolContext _context)
         {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
-
-            return entity;
+            this._context = _context;
+            table = _context.Set<T>();
         }
-
-        public void Delete<T>(T entity) where T : BaseEntity
+        public IEnumerable<T> GetAll()
         {
-            _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
+            return table.ToList();
         }
-
-        public T GetById<T>(int id) where T : BaseEntity
+        public T GetById(object id)
         {
-            return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
+            return table.Find(id);
         }
-
-        public List<T> List<T>() where T : BaseEntity
+        public void Insert(T obj)
         {
-            return _dbContext.Set<T>().ToList();
+            table.Add(obj);
         }
-
-        public void Update<T>(T entity) where T : BaseEntity
+        public void Update(T obj)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            table.Attach(obj);
+            _context.Entry(obj).State = EntityState.Modified;
+        }
+        public void Delete(object id)
+        {
+            T existing = table.Find(id);
+            table.Remove(existing);
+        }
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

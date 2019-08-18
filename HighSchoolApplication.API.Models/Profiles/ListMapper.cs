@@ -6,8 +6,8 @@ namespace HighSchoolApplication.API.Models.Profiles
 {
     public abstract class ListMapper<ENTITY, DTO>
     {
-        private IMapper<ENTITY, DTO> mapper;
 
+        public IMapper<ENTITY, DTO> mapper;
         public IEnumerable<DTO> entityToDTO(IEnumerable<ENTITY> entities)
         {
             List<DTO> objects = new List<DTO>();

@@ -8,14 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using HighSchoolApplication.API.Models.Profiles;
 using HighSchoolApplication.Web.Factory;
 using HighSchoolApplication.API.Models;
+using HighSchoolApplication.Infrastructure;
+using HighSchoolApplication.Infrastructure.Models;
 
 namespace HighSchoolApplication.Web.Controllers
 {
     public class RolesController : Controller
     {
+        private readonly IRepository<Roles> _repository;
+        private readonly IRolesRepository _rolesRepository;
+        private RolesListMapper rolesListMapper = new RolesListMapper();
+        private readonly RolesMapper _rolesMapper;
 
-        public RolesController()
+        public List<RolesModel> rolesListModel = new List<RolesModel>();
+
+        public RolesController(IRepository<Roles> repository, IRolesRepository rolesRepository, RolesMapper rolesMapper)
         {
+            _rolesMapper = rolesMapper;
+            _repository = repository;
+            _rolesRepository = rolesRepository;
         }
 
         // GET: Roles
