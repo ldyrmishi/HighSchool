@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HighSchoolApplication.API.Models;
-using HighSchoolApplication.API.Models.Profiles;
 using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
@@ -38,6 +38,7 @@ namespace HighSchoolApplication.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAutoMapper(typeof(Startup));
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -57,24 +58,24 @@ namespace HighSchoolApplication.API
             services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
             services.AddTransient<IRolesRepository, RolesRepository>();
 
-            services.AddTransient<IMapper<Absents, AbsentsModel>, AbsentsMapper>();
-            services.AddTransient<IMapper<Address, AddressModel>, AddressMapper>();
-            services.AddTransient<IMapper<Class, ClassModel>, ClassMapper>();
-            services.AddTransient<IMapper<Diary, DiaryModel>, DiaryMapper>();
-            services.AddTransient<IMapper<DocumentCategory, DocumentCategoryModel>, DocumentCategoryMapper>();
-            services.AddTransient<IMapper<Documents, DocumentsModel>, DocumentsMapper>();
-            services.AddTransient<IMapper<FinalExams, FinalExamsModel>, FinalExamsMapper>();
-            services.AddTransient<IMapper<Finances, FinancesModel>, FinancesMapper>();
-            services.AddTransient<IMapper<Lesson, LessonModel>, LessonMapper>();
-            services.AddTransient<IMapper<Roles, RolesModel>, RolesMapper>();
-            services.AddTransient<IMapper<School, SchoolModel>, SchoolMapper>();
-            services.AddTransient<IMapper<SubjectPoints, SubjectPointsModel>, SubjectPointsMapper>();
-            services.AddTransient<IMapper<Subjects, SubjectModel>, SubjectsMapper>();
-            services.AddTransient<IMapper<UsersClass,UsersClassModel>, UsersClassMapper>();
-            services.AddTransient<IMapper<Users, UsersModel>, UsersMapper>();
-            services.AddTransient<IMapper<UsersStatus, UsersStatusModel>, UsersStatusMapper>();
-            services.AddTransient<IMapper<UsersSubjectPoints, UsersSubjectPointsModel>, UserSubjectPointsMapper>();
-            services.AddTransient<ListMapper<Roles, RolesModel>, RolesListMapper>();
+            //services.AddTransient<IMapper<Absents, AbsentsModel>, AbsentsMapper>();
+            //services.AddTransient<IMapper<Address, AddressModel>, AddressMapper>();
+            //services.AddTransient<IMapper<Class, ClassModel>, ClassMapper>();
+            //services.AddTransient<IMapper<Diary, DiaryModel>, DiaryMapper>();
+            //services.AddTransient<IMapper<DocumentCategory, DocumentCategoryModel>, DocumentCategoryMapper>();
+            //services.AddTransient<IMapper<Documents, DocumentsModel>, DocumentsMapper>();
+            //services.AddTransient<IMapper<FinalExams, FinalExamsModel>, FinalExamsMapper>();
+            //services.AddTransient<IMapper<Finances, FinancesModel>, FinancesMapper>();
+            //services.AddTransient<IMapper<Lesson, LessonModel>, LessonMapper>();
+            //services.AddTransient<IMapper<Roles, RolesModel>, RolesMapper>();
+            //services.AddTransient<IMapper<School, SchoolModel>, SchoolMapper>();
+            //services.AddTransient<IMapper<SubjectPoints, SubjectPointsModel>, SubjectPointsMapper>();
+            //services.AddTransient<IMapper<Subjects, SubjectModel>, SubjectsMapper>();
+            //services.AddTransient<IMapper<UsersClass,UsersClassModel>, UsersClassMapper>();
+            //services.AddTransient<IMapper<Users, UsersModel>, UsersMapper>();
+            //services.AddTransient<IMapper<UsersStatus, UsersStatusModel>, UsersStatusMapper>();
+            //services.AddTransient<IMapper<UsersSubjectPoints, UsersSubjectPointsModel>, UserSubjectPointsMapper>();
+            //services.AddTransient<ListMapper<Roles, RolesModel>, RolesListMapper>();
 
             services.AddAuthorization(options =>
             {

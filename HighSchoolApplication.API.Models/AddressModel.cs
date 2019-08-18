@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class AddressModel
     {
-        [DataMember(Name ="AddressId")]
-        public int AddressId { get; set; }
+        [DataMember(Name ="Id")]
+        public int Id { get; set; }
         [DataMember(Name = "State")]
         public string State { get; set; }
         [DataMember(Name = "City")]

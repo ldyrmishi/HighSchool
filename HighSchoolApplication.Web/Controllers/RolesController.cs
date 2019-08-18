@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using HighSchoolApplication.API.Models.Profiles;
 using HighSchoolApplication.Web.Factory;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Infrastructure;
@@ -17,14 +16,12 @@ namespace HighSchoolApplication.Web.Controllers
     {
         private readonly IRepository<Roles> _repository;
         private readonly IRolesRepository _rolesRepository;
-        private RolesListMapper rolesListMapper = new RolesListMapper();
-        private readonly RolesMapper _rolesMapper;
+
 
         public List<RolesModel> rolesListModel = new List<RolesModel>();
 
-        public RolesController(IRepository<Roles> repository, IRolesRepository rolesRepository, RolesMapper rolesMapper)
+        public RolesController(IRepository<Roles> repository, IRolesRepository rolesRepository)
         {
-            _rolesMapper = rolesMapper;
             _repository = repository;
             _rolesRepository = rolesRepository;
         }

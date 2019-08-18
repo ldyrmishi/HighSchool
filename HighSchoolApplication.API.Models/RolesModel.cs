@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class RolesModel
     {
-        [DataMember(Name = "RoleId")]
-        public int RoleId { get; set; }
+        [DataMember(Name = "Id")]
+        public int Id { get; set; }
         [DataMember(Name = "RoleDescription")]
         public string RoleDescription { get; set; }
         [DataMember(Name = "CreatedAt")]

@@ -8,13 +8,9 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class AbsentsModel
     {
-        [DataMember(Name ="AbsentsId")]
-        public int AbsentsId { get; set; }
+        [DataMember(Name ="Id")]
+        public int Id { get; set; }
         [DataMember(Name = "LessonId")]
-        public int? LessonId { get; set; }
-        [DataMember(Name = "UserId")]
-        public int? UserId { get; set; }
-        [DataMember(Name = "IsInClass")]
         public bool? IsInClass { get; set; }
         [DataMember(Name = "CreatedAt")]
         public DateTime? CreatedAt { get; set; }

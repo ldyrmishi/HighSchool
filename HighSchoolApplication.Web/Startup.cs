@@ -40,7 +40,6 @@ namespace HighSchoolApplication.Web
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
-            services.AddTransient<IMapper<Roles, RolesModel>, RolesMapper>();
             services.Configure<IISOptions>(options =>
             {
                 options.ForwardClientCertificate = false;

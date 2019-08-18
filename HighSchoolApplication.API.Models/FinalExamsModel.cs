@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class FinalExamsModel
     {
-        [DataMember(Name ="FinalExamId")]
-        public int FinalExamId { get; set; }
+        [DataMember(Name ="Id")]
+        public int Id { get; set; }
         [DataMember(Name = "MaxPoints")]
         public int? MaxPoints { get; set; }
         [DataMember(Name = "Grade")]

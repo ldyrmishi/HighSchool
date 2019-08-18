@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class LessonModel
     {
-        [DataMember(Name ="LessonId")]
-        public int LessonId { get; set; }
+        [DataMember(Name ="Id")]
+        public int Id { get; set; }
         [DataMember(Name ="StartDateTime")]
         public DateTime? StartDateTime { get; set; }
         [DataMember(Name = "EndDateTime")]

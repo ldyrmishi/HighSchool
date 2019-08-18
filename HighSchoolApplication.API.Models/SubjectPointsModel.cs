@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class SubjectPointsModel
     {
-        [DataMember(Name = "SubjectPointsId")]
-        public int SubjectPointsId { get; set; }
+        [DataMember(Name = "Id")]
+        public int Id { get; set; }
         [DataMember(Name = "Points")]
         public int? Points { get; set; }
         [DataMember(Name = "PointsReason")]

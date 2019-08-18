@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class UsersClassModel
     {
-        [DataMember(Name ="StudentId")]
-        public int StudentId { get; set; }
+        [DataMember(Name ="Id")]
+        public int Id { get; set; }
         [DataMember(Name = "CreatedAt")]
         public DateTime? CreatedAt { get; set; }
         [DataMember(Name = "ModifiedAt")]

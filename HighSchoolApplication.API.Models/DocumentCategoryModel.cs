@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class DocumentCategoryModel
     {
-        [DataMember(Name ="DocumentCategoryId")]
-        public int DocumentCategoryId { get; set; }
+        [DataMember(Name ="Id")]
+        public int Id { get; set; }
         [DataMember(Name ="Description")]
         public string Description { get; set; }
         [DataMember(Name ="CreatedAt")]

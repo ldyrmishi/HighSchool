@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HighSchoolApplication.API.Models;
-using HighSchoolApplication.API.Models.Profiles;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
@@ -19,17 +19,14 @@ namespace HighSchoolApplication.API.Controllers
         private readonly IRepository<Roles> _repository;
         private readonly IRolesRepository _rolesRepository;
         private readonly ILogger<RoleController> _logger;
-        private  RolesListMapper rolesListMapper = new RolesListMapper();
-        private readonly RolesMapper _rolesMapper;
+        private readonly IMapper _mapper;
 
-        public List<RolesModel> rolesListModel = new List<RolesModel>();
-
-        public RoleController(IRepository<Roles> repository, IRolesRepository rolesRepository, ILogger<RoleController> logger, RolesMapper rolesMapper)
+        public RoleController(IRepository<Roles> repository, IRolesRepository rolesRepository, ILogger<RoleController> logger, IMapper mapper)
         {
             _logger = logger;
-            _rolesMapper = rolesMapper;
             _repository = repository;
             _rolesRepository = rolesRepository;
+            _mapper = mapper;
         }
         // GET: api/Role
         [HttpGet]
@@ -37,22 +34,13 @@ namespace HighSchoolApplication.API.Controllers
         {
             try
             {
-                return rolesListMapper.entityToDTO(_repository.GetAll());
+                IEnumerable<Roles> roles = _repository.GetAll();
 
-                //RolesModel rolesModel = new RolesModel()
-                //{
-                //    CreatedAt = DateTime.Now,
-                //    ModifiedAt = DateTime.Now,
-                //    RoleDescription = "Description Test",
-                //    RoleId = 1,
-                //    Users = null
+                var rolesModels = _mapper.Map<IEnumerable<RolesModel>>(roles);
 
-                //};
+                _logger.LogInformation("List of Roles returned succesfully");
 
-                //rolesListModel.Add(rolesModel);
-
-                //_logger.LogInformation("List of Roles returned succesfully");
-                //return rolesListModel;
+                return rolesModels;
 
             }
             catch(Exception ex)
@@ -68,17 +56,17 @@ namespace HighSchoolApplication.API.Controllers
         [HttpGet("{id}", Name = "Get")]
         public RolesModel Get(int id)
         {
-            //RolesModel rolesModel = new RolesModel()
-            //{
-            //    CreatedAt = DateTime.Now,
-            //    ModifiedAt = DateTime.Now,
-            //    RoleDescription = "Description Test",
-            //    RoleId = 1,
-            //    Users = null
+            RolesModel rolesModel = new RolesModel()
+            {
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now,
+                RoleDescription = "Description Test",
+                Id = 1,
+                Users = null
 
-            //};
-            return _rolesMapper.EntityToDTO(_repository.GetById(id));
-            //return rolesModel;
+            };
+            //return _rolesMapper.EntityToDTO(_repository.GetById(id));
+            return rolesModel;
         }
 
         // POST: api/Role
@@ -86,7 +74,10 @@ namespace HighSchoolApplication.API.Controllers
         public void Post([FromBody] RolesModel roleModel)
         {
             //_context.Add(rolesMapper.dtoToEntity(roleModel));
-            rolesListModel.Add(roleModel);
+            var roleEntity = _mapper.Map<Roles>(roleModel);
+
+            _repository.Insert(roleEntity);
+            _repository.Save();
         }
 
         // PUT: api/Role/5

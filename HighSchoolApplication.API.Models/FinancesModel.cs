@@ -8,8 +8,8 @@ namespace HighSchoolApplication.API.Models
     [DataContract]
     public class FinancesModel
     {
-        [DataMember(Name ="FinanceId")]
-        public int FinanceId { get; set; }
+        [DataMember(Name ="Id")]
+        public int Id { get; set; }
         [DataMember(Name = "Date")]
         public DateTime? Date { get; set; }
         [DataMember(Name = "Description")]
