@@ -9,9 +9,9 @@ namespace HighSchoolApplication.Data
 {
     public class UsersRepository : IUsersRepository
     {
-        private readonly Infrastructure.Models.HighSchoolContext _dbContext;
+        private readonly HighSchoolContext _dbContext;
 
-        public UsersRepository(Infrastructure.Models.HighSchoolContext dbContext)
+        public UsersRepository(HighSchoolContext dbContext)
         {
             _dbContext = dbContext;
         }

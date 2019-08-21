@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,36 +55,73 @@ namespace HighSchoolApplication.API.Controllers
 
         private string GenerateJSONWebToken(UsersModel userInfo)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var nowUtc = DateTime.Now.ToUniversalTime();
-            var expires = nowUtc.AddMinutes(double.Parse(_config["Tokens:ExpiryMinutes"])).ToUniversalTime();
 
-            var token = new JwtSecurityToken(
-            _config["Tokens:Issuer"],
-            _config["Tokens:Audience"],
-            null,
-            expires: expires,
-            signingCredentials: creds);
+            var jwtSecurityToken = new JwtSecurityToken
+           (
+               issuer: _config["Tokens:Issuer"],
+               audience: _config["Tokens:Audience"],
+               claims: CreateClaims(userInfo),
+               expires: DateTime.UtcNow.Add(TimeSpan.FromDays(30)),
+               signingCredentials: _config["Tokens:Key"].ToIdentitySigningCredentials()
+           );
 
-            var response = new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            //var nowUtc = DateTime.Now.ToUniversalTime();
+            //var expires = nowUtc.AddMinutes(15).ToUniversalTime();
+
+            //var token = new JwtSecurityToken
+            //(
+            //    issuer: _config["Tokens:Issuer"],
+            //    audience: _config["Tokens:Audience"],
+            //    claims:  new[]
+            //    {
+            //        new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
+            //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            //    },
+            //    expires: expires,
+            //    signingCredentials: creds
+            //);
+
+            //return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private IEnumerable<Claim> CreateClaims(UsersModel userInfo)
+        {
+            //var claims = new List<Claim>
+            //{
+            //        new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
+            //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            //};
+
+            var claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
+                new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            return claims;
         }
 
         private UsersModel AuthenticateUser(LoginModel login)
         {
-            Users userEntity = _usersRepository.GetActiveUserByUsername(login.Username);
+            //Users userEntity = _usersRepository.GetActiveUserByUsername(login.Username);
 
-            UsersModel user = null;
+            UsersModel user = new UsersModel();
 
-            if (userEntity != null)
-            {
-                if (string.Compare(Helper.Hash(login.Password),userEntity.Password) == 0)
-                {
-                    user = _mapper.Map<UsersModel>(userEntity);
-                }
-            }
+            //if (userEntity != null)
+            //{
+            //    if (string.Compare(Helper.Hash(login.Password),userEntity.Password) == 0)
+            //    {
+            //        user = _mapper.Map<UsersModel>(userEntity);
+            //    }
+            //}
+
+            user.Username = "ldyrmishi";
+            user.Email = "lediodyrmishi@yahoo.com";
+
             return user;
         }
 

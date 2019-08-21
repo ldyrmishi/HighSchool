@@ -26,7 +26,6 @@ namespace HighSchoolApplication.API
 {
     public class Startup
     {
-        public string Secret = "Very Secret Key longer than first one";
         public static string ConnectionString { get; private set; } 
         public Startup(IConfiguration configuration)
         {
@@ -41,25 +40,20 @@ namespace HighSchoolApplication.API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper(typeof(Startup));
-            services.AddAuthentication(options =>
-             {
-                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-             })
-              .AddJwtBearer(cfg =>
-              {
-                  cfg.RequireHttpsMetadata = false;
-                  cfg.SaveToken = true;
-                  cfg.TokenValidationParameters = new TokenValidationParameters
-                  {
-                      ValidIssuer = Configuration["Tokens:Issuer"],
-                      ValidAudience = Configuration["Tokens:Issuer"],
-                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
-                      ClockSkew = TimeSpan.Zero // remove delay of token when expire
-                  };
-              });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(cfg =>
+            {
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = Configuration["Tokens:Key"].ToSymmetricSecurityKey(),
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Issuer"],
+                };
+            });
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
