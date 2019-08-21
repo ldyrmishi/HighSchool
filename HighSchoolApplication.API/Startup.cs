@@ -19,8 +19,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
+
+[assembly: OwinStartup(typeof(HighSchoolApplication.API.Startup))]
 
 namespace HighSchoolApplication.API
 {
@@ -62,13 +65,7 @@ namespace HighSchoolApplication.API
             services.AddTransient<IRolesRepository, RolesRepository>();
             services.AddTransient<IUsersRepository, UsersRepository>();
 
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("Admin", x =>
-            //    {
-            //        x.RequireClaim("ClaimTypes.Role Enum get values from DB", "Admin");
-            //    });
-            //});
+            //services.AddAuthorization();
 
             services.AddSwaggerGen(c =>
             {

@@ -41,7 +41,7 @@ namespace HighSchoolApplication.API.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]LoginModel login)
         {
-            IActionResult response = Unauthorized();
+            IActionResult response = null;
             var user = AuthenticateUser(login);
 
             if (user != null)
@@ -66,36 +66,10 @@ namespace HighSchoolApplication.API.Controllers
            );
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-
-            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-            //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            //var nowUtc = DateTime.Now.ToUniversalTime();
-            //var expires = nowUtc.AddMinutes(15).ToUniversalTime();
-
-            //var token = new JwtSecurityToken
-            //(
-            //    issuer: _config["Tokens:Issuer"],
-            //    audience: _config["Tokens:Audience"],
-            //    claims:  new[]
-            //    {
-            //        new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
-            //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //    },
-            //    expires: expires,
-            //    signingCredentials: creds
-            //);
-
-            //return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         private IEnumerable<Claim> CreateClaims(UsersModel userInfo)
         {
-            //var claims = new List<Claim>
-            //{
-            //        new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
-            //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //};
-
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
                 new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
@@ -113,7 +87,7 @@ namespace HighSchoolApplication.API.Controllers
 
             //if (userEntity != null)
             //{
-            //    if (string.Compare(Helper.Hash(login.Password),userEntity.Password) == 0)
+            //    if (string.Compare(Helper.Hash(login.Password), userEntity.Password) == 0)
             //    {
             //        user = _mapper.Map<UsersModel>(userEntity);
             //    }
