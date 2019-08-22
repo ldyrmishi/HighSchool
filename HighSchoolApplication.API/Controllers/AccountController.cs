@@ -39,6 +39,7 @@ namespace HighSchoolApplication.API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route("Login")]
         public IActionResult Login([FromBody]LoginModel login)
         {
             IActionResult response = null;
@@ -46,11 +47,9 @@ namespace HighSchoolApplication.API.Controllers
 
             if (user != null)
             {
-                
                 var tokenString = GenerateJSONWebToken(user);
                 response = Ok(new { token = tokenString });
-
-                HttpContext.Session.SetString("token", tokenString);
+                HttpContext.Session.SetString("Token", tokenString);
             }
 
             return response;

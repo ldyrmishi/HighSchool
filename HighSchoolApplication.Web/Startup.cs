@@ -37,6 +37,7 @@ namespace HighSchoolApplication.Web
             });
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<IISOptions>(options =>
             {
@@ -69,9 +70,9 @@ namespace HighSchoolApplication.Web
                     name: "default",
                     template: "{controller=Account}/{action=Login}/{id?}");
             });
+            app.UseSession();
 
-        ConnectionString = Configuration["ConnectionStrings:connectionString"];
-
+            ConnectionString = Configuration["ConnectionStrings:connectionString"];
         }
     }
 }
