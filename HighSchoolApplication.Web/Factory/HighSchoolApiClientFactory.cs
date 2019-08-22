@@ -17,7 +17,7 @@ namespace HighSchoolApplication.Web.Factory
                                                                                LazyThreadSafetyMode.ExecutionAndPublication);
         static HighSchoolApiClientFactory()
         {
-            apiUri = new Uri("https://highschoolapi.azurewebsites.net/api/");
+            apiUri = new Uri("http://localhost:5454/api/");
         }
 
         public static ApiClient Instance

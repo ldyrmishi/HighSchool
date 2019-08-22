@@ -40,19 +40,27 @@ namespace HighSchoolApplication.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login([FromBody]LoginModel login)
+        public Object Login([FromBody]LoginModel login)
         {
-            IActionResult response = null;
+            Message<LoginModel> response = null;
             var user = AuthenticateUser(login);
 
             if (user != null)
             {
                 var tokenString = GenerateJSONWebToken(user);
-                response = Ok(new { token = tokenString });
-                HttpContext.Session.SetString("Token", tokenString);
+
+                response = new Message<LoginModel>()
+                {
+                    IsSuccess = true,
+                    StatusCode = 200,
+                    ReturnMessage = "OK",
+                    //Data =  tokenString 
+                };
+                //HttpContext.Session.SetString("Token", tokenString);
             }
 
-            return response;
+            return 
+            //return response;
         }
 
         private string GenerateJSONWebToken(UsersModel userInfo)

@@ -14,9 +14,6 @@ namespace HighSchoolApplication.Web.Controllers
 {
     public class RolesController : Controller
     {
-
-        public List<RolesModel> rolesListModel = new List<RolesModel>();
-
         public RolesController()
         {
         }

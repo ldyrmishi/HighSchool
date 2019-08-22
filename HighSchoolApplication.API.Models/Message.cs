@@ -10,6 +10,8 @@ namespace HighSchoolApplication.API.Models
     {
         [DataMember(Name = "IsSuccess")]
         public bool IsSuccess { get; set; }
+        [DataMember(Name = "StatusCode")]
+        public int StatusCode { get; set; }
 
         [DataMember(Name = "ReturnMessage")]
         public string ReturnMessage { get; set; }

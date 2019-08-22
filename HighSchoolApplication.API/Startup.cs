@@ -55,7 +55,10 @@ namespace HighSchoolApplication.API
                 };
             });
             services.AddSession();
-
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
             services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();

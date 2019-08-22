@@ -29,7 +29,7 @@ namespace HighSchoolApplication.API.Client
         ///</summary>
         private async Task<T> GetAsync<T>(Uri requestUrl)
         {
-            addHeaders("");
+            addHeaders();
             var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
@@ -41,7 +41,7 @@ namespace HighSchoolApplication.API.Client
         ///</summary>
         private async Task<Message<T>> PostAsync<T>(Uri requestUrl, T content)
         {
-            addHeaders("");
+            addHeaders();
             var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
@@ -50,7 +50,7 @@ namespace HighSchoolApplication.API.Client
 
         private async Task<Message<T1>> PostAsync<T1,T2>(Uri requestUrl, T2 content)
         {
-            addHeaders("");
+            addHeaders();
             var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T2>(content));
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
@@ -82,9 +82,9 @@ namespace HighSchoolApplication.API.Client
             }
         }
 
-        private void addHeaders(string token)
+        private void addHeaders()
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            //_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             _httpClient.DefaultRequestHeaders.Remove("userIP");
             _httpClient.DefaultRequestHeaders.Add("userIP", "192.168.1.1");
         }
