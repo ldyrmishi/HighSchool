@@ -46,8 +46,11 @@ namespace HighSchoolApplication.API.Controllers
 
             if (user != null)
             {
+                
                 var tokenString = GenerateJSONWebToken(user);
                 response = Ok(new { token = tokenString });
+
+                HttpContext.Session.SetString("token", tokenString);
             }
 
             return response;

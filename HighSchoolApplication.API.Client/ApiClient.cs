@@ -1,4 +1,5 @@
 ﻿using HighSchoolApplication.API.Models;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -81,8 +82,9 @@ namespace HighSchoolApplication.API.Client
             }
         }
 
-        private void addHeaders()
+        private void addHeaders(string token)
         {
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             _httpClient.DefaultRequestHeaders.Remove("userIP");
             _httpClient.DefaultRequestHeaders.Add("userIP", "192.168.1.1");
         }

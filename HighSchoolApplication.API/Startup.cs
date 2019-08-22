@@ -19,11 +19,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Owin;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
-
-[assembly: OwinStartup(typeof(HighSchoolApplication.API.Startup))]
 
 namespace HighSchoolApplication.API
 {
@@ -57,6 +54,7 @@ namespace HighSchoolApplication.API
                     ValidAudience = Configuration["Tokens:Issuer"],
                 };
             });
+            services.AddSession();
 
             services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
@@ -65,23 +63,20 @@ namespace HighSchoolApplication.API
             services.AddTransient<IRolesRepository, RolesRepository>();
             services.AddTransient<IUsersRepository, UsersRepository>();
 
-            //services.AddAuthorization();
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "HighSchool API", Version = "v1" });
-                //c.AddSecurityDefinition("Bearer", new ApiKeyScheme
-                //{
-                //    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                //    Name = "Authorization",
-                //    In = "header",
-                //    Type = "apiKey"
-                //});
-
-                //c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-                //{
-                //    {"Bearer", new string[]{} }
-                //});
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[]{} }
+                });
             });
         }
 
@@ -109,6 +104,7 @@ namespace HighSchoolApplication.API
             loggerFactory.AddSerilog();
             app.UseMvc();
             app.UseAuthentication();
+            app.UseSession();
 
             ConnectionString = Configuration["ConnectionStrings:connectionString"];
         }
