@@ -29,5 +29,25 @@ namespace HighSchoolApplication.Web.Controllers
 
             return View(role);
         }
+
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("RoleDescription")] RolesModel roleModel)
+        {
+            if (ModelState.IsValid)
+            {
+                roleModel.CreatedAt = DateTime.Now;
+                roleModel.ModifiedAt = DateTime.Now;
+                var data = await HighSchoolApiClientFactory.Instance.Login(roleModel);
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View(roleModel);
+        }
     }
 }

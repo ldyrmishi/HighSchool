@@ -73,7 +73,6 @@ namespace HighSchoolApplication.API.Controllers
         [HttpPost]
         public void Post([FromBody] RolesModel roleModel)
         {
-            //_context.Add(rolesMapper.dtoToEntity(roleModel));
             var roleEntity = _mapper.Map<Roles>(roleModel);
 
             _repository.Insert(roleEntity);

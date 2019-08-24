@@ -63,8 +63,11 @@ namespace HighSchoolApplication.API
 
             services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
             services.AddTransient<IRepository<Users>, EFRepository<Users>>();
+            services.AddTransient<IRepository<Finances>, EFRepository<Finances>>();
+
             services.AddTransient<IRolesRepository, RolesRepository>();
             services.AddTransient<IUsersRepository, UsersRepository>();
+            services.AddTransient<IFinancesRepository, FinancesRepository>();
 
             services.AddSwaggerGen(c =>
             {
