@@ -1,4 +1,4 @@
-﻿@model HighSchoolApplication.Infrastructure.Models.Users
+﻿@model HighSchoolApplication.API.Models.UsersModel
 
 @{
     ViewData["Title"] = "Register";
@@ -61,12 +61,10 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label asp-for="RoleId" class="control-label"></label>
-                            <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                            
                         </div>
                         <div class="form-group">
-                            <label asp-for="SchoolId" class="control-label"></label>
-                            <select asp-for="SchoolId" class="form-control" asp-items="ViewBag.SchoolId"></select>
+                           
                         </div>
                     </div>
                 </div>
@@ -144,10 +142,6 @@
                             <label asp-for="IsActive" class="control-label"></label>
                             <input asp-for="IsActive" class="form-control" />
                             <span asp-validation-for="IsActive" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="AddressId" class="control-label"></label>
-                            <select asp-for="AddressId" class="form-control" asp-items="ViewBag.AddressId"></select>
                         </div>
                     </div>
                 </div>

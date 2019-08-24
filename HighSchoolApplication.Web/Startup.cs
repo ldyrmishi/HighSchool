@@ -1,6 +1,4 @@
 ﻿using HighSchoolApplication.API.Models;
-using HighSchoolApplication.Infrastructure;
-using HighSchoolApplication.Infrastructure.Models;
 using HighSchoolApplication.Web.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +34,7 @@ namespace HighSchoolApplication.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            //services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<IISOptions>(options =>
@@ -64,13 +62,14 @@ namespace HighSchoolApplication.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
             loggerFactory.AddSerilog();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Account}/{action=Login}/{id?}");
             });
-            app.UseSession();
+            
 
             ConnectionString = Configuration["ConnectionStrings:connectionString"];
         }

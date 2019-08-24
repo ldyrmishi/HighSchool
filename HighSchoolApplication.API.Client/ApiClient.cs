@@ -1,6 +1,7 @@
 ﻿using HighSchoolApplication.API.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,6 +13,7 @@ namespace HighSchoolApplication.API.Client
     public partial class ApiClient
     {
         private readonly HttpClient _httpClient;
+
         private Uri BaseEndpoint { get; set; }
 
         public ApiClient(Uri baseEndpoint)
@@ -77,7 +79,8 @@ namespace HighSchoolApplication.API.Client
             {
                 return new JsonSerializerSettings
                 {
-                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat
+                    DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
                 };
             }
         }

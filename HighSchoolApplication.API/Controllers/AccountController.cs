@@ -54,13 +54,11 @@ namespace HighSchoolApplication.API.Controllers
                     IsSuccess = true,
                     StatusCode = 200,
                     ReturnMessage = "OK",
-                    //Data =  tokenString 
+                    Data = new LoginModel() { Token = tokenString}
                 };
-                //HttpContext.Session.SetString("Token", tokenString);
             }
 
-            return 
-            //return response;
+            return response;
         }
 
         private string GenerateJSONWebToken(UsersModel userInfo)
@@ -91,20 +89,17 @@ namespace HighSchoolApplication.API.Controllers
 
         private UsersModel AuthenticateUser(LoginModel login)
         {
-            //Users userEntity = _usersRepository.GetActiveUserByUsername(login.Username);
+            Users userEntity = _usersRepository.GetActiveUserByUsername(login.Username);
 
             UsersModel user = new UsersModel();
 
-            //if (userEntity != null)
-            //{
-            //    if (string.Compare(Helper.Hash(login.Password), userEntity.Password) == 0)
-            //    {
-            //        user = _mapper.Map<UsersModel>(userEntity);
-            //    }
-            //}
-
-            user.Username = "ldyrmishi";
-            user.Email = "lediodyrmishi@yahoo.com";
+            if (userEntity != null)
+            {
+                if (string.Compare(Helper.Hash(login.Password), userEntity.Password) == 0)
+                {
+                    user = _mapper.Map<UsersModel>(userEntity);
+                }
+            }
 
             return user;
         }

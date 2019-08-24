@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Web.Factory;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,9 @@ namespace HighSchoolApplication.Web.Controllers
             {
                 var data = await HighSchoolApiClientFactory.Instance.Login(loginModel);
 
-                return RedirectToAction(nameof(Login));
+                HttpContext.Session.SetString("Token", data.Data.Token);
+
+                return RedirectToAction("Index", "Home");
             }
             return View(loginModel);
         }

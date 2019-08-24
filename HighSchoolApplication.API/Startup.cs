@@ -54,7 +54,7 @@ namespace HighSchoolApplication.API
                     ValidAudience = Configuration["Tokens:Issuer"],
                 };
             });
-            services.AddSession();
+            
             services.Configure<IISOptions>(options =>
             {
                 options.ForwardClientCertificate = false;
@@ -107,7 +107,6 @@ namespace HighSchoolApplication.API
             loggerFactory.AddSerilog();
             app.UseMvc();
             app.UseAuthentication();
-            app.UseSession();
 
             ConnectionString = Configuration["ConnectionStrings:connectionString"];
         }

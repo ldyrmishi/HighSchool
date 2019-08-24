@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HighSchoolApplication.Web.Factory;
 using HighSchoolApplication.API.Models;
-using HighSchoolApplication.Infrastructure;
-using HighSchoolApplication.Infrastructure.Models;
 
 namespace HighSchoolApplication.Web.Controllers
 {
