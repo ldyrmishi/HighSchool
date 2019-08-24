@@ -35,7 +35,7 @@ namespace HighSchoolApplication.API.ErrorHandling
             var customException = exception as BaseCustomException;
             var statusCode = (int)HttpStatusCode.InternalServerError;
             var message = "Unexpected error";
-            var description = "Unexpected error";
+            var description = exception.Message;
 
             if(null != customException)
             {

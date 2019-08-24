@@ -39,7 +39,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         // GET: api/Finances/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetFinances")]
         public string Get(int id)
         {
             return "value";

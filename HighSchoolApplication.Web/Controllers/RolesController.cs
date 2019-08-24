@@ -43,7 +43,7 @@ namespace HighSchoolApplication.Web.Controllers
             {
                 roleModel.CreatedAt = DateTime.Now;
                 roleModel.ModifiedAt = DateTime.Now;
-                var data = await HighSchoolApiClientFactory.Instance.Login(roleModel);
+                //var data = await HighSchoolApiClientFactory.Instance.Login(roleModel);
 
                 return RedirectToAction("Index", "Home");
             }

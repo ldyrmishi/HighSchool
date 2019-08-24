@@ -26,7 +26,6 @@ namespace HighSchoolApplication.API
 {
     public class Startup
     {
-        public static string ConnectionString { get; private set; } 
         public Startup(IConfiguration configuration)
         {
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
@@ -38,7 +37,7 @@ namespace HighSchoolApplication.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
             services.AddAutoMapper(typeof(Startup));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(cfg =>
@@ -59,7 +58,7 @@ namespace HighSchoolApplication.API
             {
                 options.ForwardClientCertificate = false;
             });
-            services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            services.AddDbContext<HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
 
             services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
             services.AddTransient<IRepository<Users>, EFRepository<Users>>();
@@ -69,6 +68,8 @@ namespace HighSchoolApplication.API
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<IFinancesRepository, FinancesRepository>();
 
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "HighSchool API", Version = "v1" });
@@ -108,10 +109,8 @@ namespace HighSchoolApplication.API
             app.UseMiddleware<ErrorHandling.CustomExceptionMiddleware>();
             app.UseHttpsRedirection();
             loggerFactory.AddSerilog();
-            app.UseMvc();
             app.UseAuthentication();
-
-            ConnectionString = Configuration["ConnectionStrings:connectionString"];
+            app.UseMvc();
         }
     }
 }
