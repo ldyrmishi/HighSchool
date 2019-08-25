@@ -6,6 +6,8 @@ using AutoMapper;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -30,6 +32,7 @@ namespace HighSchoolApplication.API.Controllers
         }
         // GET: api/Role
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IEnumerable<RolesModel> Get()
         {
             try

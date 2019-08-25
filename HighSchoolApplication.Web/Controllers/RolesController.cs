@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HighSchoolApplication.Web.Factory;
 using HighSchoolApplication.API.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -19,13 +20,13 @@ namespace HighSchoolApplication.Web.Controllers
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-            var data = await HighSchoolApiClientFactory.Instance.GetRoles();
+            var data = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
             return View(data);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var role = await HighSchoolApiClientFactory.Instance.GetRoleById(id);
+            var role = await HighSchoolApiClientFactory.Instance.GetRoleById(id, HttpContext.Session.GetString("Token"));
 
             return View(role);
         }

@@ -11,7 +11,7 @@ namespace HighSchoolApplication.API.Client
         public async Task<Message<LoginModel>> Login(LoginModel model)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Account/Login"));
-            return await PostAsync<LoginModel>(requestUrl, model);
+            return await PostAsync<LoginModel>(requestUrl, model,"");
         }
     }
 }

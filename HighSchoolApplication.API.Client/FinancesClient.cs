@@ -8,16 +8,16 @@ namespace HighSchoolApplication.API.Client
 {
     public partial class ApiClient
     {
-        public async Task<List<FinancesModel>> GetFinances()
+        public async Task<List<FinancesModel>> GetFinances(string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/GetAllUsers"));
-            return await GetAsync<List<FinancesModel>>(requestUrl);
+            return await GetAsync<List<FinancesModel>>(requestUrl,token);
         }
 
-        public async Task<Message<FinancesModel>> SaveFinances(FinancesModel model)
+        public async Task<Message<FinancesModel>> SaveFinances(FinancesModel model, string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));
-            return await PostAsync<FinancesModel>(requestUrl, model);
+            return await PostAsync<FinancesModel>(requestUrl, model,token);
         }
     }
 }

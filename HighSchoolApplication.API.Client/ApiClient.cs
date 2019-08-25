@@ -25,13 +25,13 @@ namespace HighSchoolApplication.API.Client
             BaseEndpoint = baseEndpoint;
             _httpClient = new HttpClient();
         }
-
+       
         ///<summary>
         /// Common method for making GET calls
         ///</summary>
-        private async Task<T> GetAsync<T>(Uri requestUrl)
+        private async Task<T> GetAsync<T>(Uri requestUrl, string token)
         {
-            addHeaders();
+            addHeaders(token);
             var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
@@ -41,18 +41,18 @@ namespace HighSchoolApplication.API.Client
         ///<summary>
         /// Common method for making POST calls  
         ///</summary>
-        private async Task<Message<T>> PostAsync<T>(Uri requestUrl, T content)
+        private async Task<Message<T>> PostAsync<T>(Uri requestUrl, T content, string token)
         {
-            addHeaders();
+            addHeaders(token);
             var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Message<T>>(data);
         }
 
-        private async Task<Message<T1>> PostAsync<T1,T2>(Uri requestUrl, T2 content)
+        private async Task<Message<T1>> PostAsync<T1,T2>(Uri requestUrl, T2 content, string token)
         {
-            addHeaders();
+            addHeaders(token);
             var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T2>(content));
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
@@ -85,9 +85,9 @@ namespace HighSchoolApplication.API.Client
             }
         }
 
-        private void addHeaders()
+        private void addHeaders(string token)
         {
-            //_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             _httpClient.DefaultRequestHeaders.Remove("userIP");
             _httpClient.DefaultRequestHeaders.Add("userIP", "192.168.1.1");
         }

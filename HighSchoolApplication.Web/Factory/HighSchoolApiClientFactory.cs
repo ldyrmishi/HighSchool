@@ -1,5 +1,6 @@
 ﻿using HighSchoolApplication.API.Client;
 using HighSchoolApplication.Web.Utility;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

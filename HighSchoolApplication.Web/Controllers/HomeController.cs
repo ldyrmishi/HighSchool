@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using HighSchoolApplication.Web.Utility;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Web.Factory;
+using Microsoft.AspNetCore.Http;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -52,7 +53,7 @@ namespace HighSchoolApplication.Web.Controllers
 
         public async Task<IActionResult> Values()
         {
-            var data = await HighSchoolApiClientFactory.Instance.GetValues();
+            var data = await HighSchoolApiClientFactory.Instance.GetValues(HttpContext.Session.GetString("Token"));
             var response = await SaveValues();
             return View();
         }
@@ -65,7 +66,7 @@ namespace HighSchoolApplication.Web.Controllers
                 value2 = "Test2"
             };
 
-            var response = await HighSchoolApiClientFactory.Instance.SaveValues(model);
+            var response = await HighSchoolApiClientFactory.Instance.SaveValues(model, HttpContext.Session.GetString("Token"));
             return Json(response);
         }
 

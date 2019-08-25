@@ -27,15 +27,17 @@ namespace HighSchoolApplication.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => true; // consent required
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddDbContext<Infrastructure.Models.HighSchoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("connectionString")));
-            services.AddSession();
+            services.AddSession(opts =>
+            {
+                opts.Cookie.IsEssential = true; // make the session cookie Essential
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<IISOptions>(options =>
             {
