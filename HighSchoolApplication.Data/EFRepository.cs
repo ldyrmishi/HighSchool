@@ -11,6 +11,7 @@ namespace HighSchoolApplication.Data
     {
         private HighSchoolApplication.Infrastructure.Models.HighSchoolContext _context = null;
         private DbSet<T> table = null;
+
         public EFRepository()
         {
             this._context = new Infrastructure.Models.HighSchoolContext();

@@ -8,5 +8,6 @@ namespace HighSchoolApplication.Infrastructure
     public interface IFinancesRepository
     {
         IEnumerable<Finances> GetAllExpenses();
+        IEnumerable<Finances> GetAllIncomings();
     }
 }
