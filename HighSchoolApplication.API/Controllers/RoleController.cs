@@ -32,7 +32,7 @@ namespace HighSchoolApplication.API.Controllers
         }
         // GET: api/Role
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
         public IEnumerable<RolesModel> Get()
         {
             try

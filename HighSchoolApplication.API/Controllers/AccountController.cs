@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.API.Utils;
-using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace HighSchoolApplication.API.Controllers
 {
@@ -81,7 +74,8 @@ namespace HighSchoolApplication.API.Controllers
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
                 new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("Role","Role", userInfo.Role.RoleDescription)
             };
 
             return claims;
@@ -112,6 +106,7 @@ namespace HighSchoolApplication.API.Controllers
             usersModel.Password = Helper.Hash(usersModel.Password);
             usersModel.ConfirmPassword = Helper.Hash(usersModel.ConfirmPassword);
 
+            _mapper.Map<Roles>(usersModel.Role);
             Users usersEntity = _mapper.Map<Users>(usersModel);
 
             _repository.Insert(usersEntity);

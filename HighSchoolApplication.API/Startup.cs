@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
@@ -53,7 +55,8 @@ namespace HighSchoolApplication.API
                     ValidAudience = Configuration["Tokens:Issuer"],
                 };
             });
-            
+            services.AddAuthorization(options => options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Student")));
+
             services.Configure<IISOptions>(options =>
             {
                 options.ForwardClientCertificate = false;
@@ -70,6 +73,7 @@ namespace HighSchoolApplication.API
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "HighSchool API", Version = "v1" });
