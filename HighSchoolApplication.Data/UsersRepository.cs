@@ -21,7 +21,7 @@ namespace HighSchoolApplication.Data
             Users user = new Users();
 
             user = _dbContext.Users.Where(x => x.Username == username && x.IsActive == true).FirstOrDefault();
-            user.Role = GetUserRole(user.Id);
+            user.Role = GetUserRole(Convert.ToInt32(user.RoleId));
 
             return user;
         }

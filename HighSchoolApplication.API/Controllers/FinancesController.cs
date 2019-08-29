@@ -31,6 +31,7 @@ namespace HighSchoolApplication.API.Controllers
 
         // GET: api/Finances
         [HttpGet]
+        [Route("ExpensesList")]
         public IEnumerable<FinancesModel> Get()
         {
             var data = _financesRepository.GetAllExpenses();
@@ -38,29 +39,15 @@ namespace HighSchoolApplication.API.Controllers
             return _mapper.Map<IEnumerable<FinancesModel>>(data);
         }
 
-        // GET: api/Finances/5
-        [HttpGet("{id}", Name = "GetFinances")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("IncomingsList")]
+        public IEnumerable<FinancesModel> IncomingsList()
         {
-            return "value";
+            var incomingsList = _financesRepository.GetAllIncomings();
+
+            return _mapper.Map<IEnumerable<FinancesModel>>(incomingsList);
         }
 
-        // POST: api/Finances
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Finances/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      
     }
 }
