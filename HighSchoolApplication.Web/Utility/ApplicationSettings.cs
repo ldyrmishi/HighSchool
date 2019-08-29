@@ -9,8 +9,13 @@ namespace HighSchoolApplication.Web.Utility
     public class ApplicationSettings
     {
         private static IConfiguration configuration;
-        public static string WebApiUrl { get
-            { return configuration.GetSection("MySettings").GetSection("WebApiBaseUrl").Value;
-            } set { } }
+        public static string WebApiUrl
+        {
+            get
+            {
+                return configuration.GetSection("MySettings").GetSection("WebApiBaseUrl").Value;
+            }
+            set { }
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace HighSchoolApplication.Web.Controllers
             return View(role);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }

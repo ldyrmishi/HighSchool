@@ -15,9 +15,23 @@ namespace HighSchoolApplication.Data
         {
             _dbContext = dbContext;
         }
+
+        /// <summary>
+        /// Returns all expenses of school
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Finances> GetAllExpenses()
         {
-            return _dbContext.Finances.ToList();
+            return _dbContext.Finances.Where(x => x.IsExpense == true).ToList();
+        }
+
+        /// <summary>
+        /// Returns all earnings of school
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Finances> GetAllIncomings()
+        {
+            return _dbContext.Finances.Where(x => x.IsExpense == false).ToList();
         }
     }
 }
