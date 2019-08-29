@@ -17,7 +17,12 @@ namespace HighSchoolApplication.Data
         }
         public Users GetActiveUserByUsername(string username)
         {
-            return _dbContext.Users.Where(x => x.Username == username).FirstOrDefault();
+            Users user = new Users();
+
+            user = _dbContext.Users.Where(x => x.Username == username && x.IsActive == true).FirstOrDefault();
+            user.Role = _dbContext.Roles.Where(x => x.Id == user.RoleId).FirstOrDefault();
+
+            return user;
         }
     }
 }
