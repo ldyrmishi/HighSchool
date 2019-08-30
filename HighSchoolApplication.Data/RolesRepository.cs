@@ -8,9 +8,9 @@ namespace HighSchoolApplication.Data
 {
     public class RolesRepository : IRolesRepository
     {
-        private readonly Infrastructure.Models.HighSchoolContext _dbContext;
+        private readonly HighSchoolContext _dbContext;
 
-        public RolesRepository(Infrastructure.Models.HighSchoolContext dbContext)
+        public RolesRepository(HighSchoolContext dbContext)
         {
             _dbContext = dbContext;
         }

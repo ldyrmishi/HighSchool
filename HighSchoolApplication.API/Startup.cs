@@ -66,6 +66,16 @@ namespace HighSchoolApplication.API
             services.AddTransient<IRepository<Roles>, EFRepository<Roles>>();
             services.AddTransient<IRepository<Users>, EFRepository<Users>>();
             services.AddTransient<IRepository<Finances>, EFRepository<Finances>>();
+            services.AddTransient<IRepository<Subjects>, EFRepository<Subjects>>();
+            services.AddTransient<IRepository<Absents>, EFRepository<Absents>>();
+            services.AddTransient<IRepository<Address>, EFRepository<Address>>();
+            services.AddTransient<IRepository<Class>, EFRepository<Class>>();
+            services.AddTransient<IRepository<Diary>, EFRepository<Diary>>();
+            services.AddTransient<IRepository<DocumentCategory>, EFRepository<DocumentCategory>>();
+            services.AddTransient<IRepository<Documents>, EFRepository<Documents>>();
+            services.AddTransient<IRepository<FinalExams>, EFRepository<FinalExams>>();
+            services.AddTransient<IRepository<Lesson>, EFRepository<Lesson>>();
+            services.AddTransient<IRepository<School>,EFRepository<School>>();
 
             services.AddTransient<IRolesRepository, RolesRepository>();
             services.AddTransient<IUsersRepository, UsersRepository>();
