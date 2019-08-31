@@ -22,7 +22,7 @@ namespace HighSchoolApplication.API.Client
 
         public async Task<Message<RolesModel>> SaveRoles(RolesModel model, string token)
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Role"));
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Role/AddRole"));
             return await PostAsync<RolesModel>(requestUrl, model,token);
         }
     }

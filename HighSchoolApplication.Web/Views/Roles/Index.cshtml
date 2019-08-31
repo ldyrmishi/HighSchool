@@ -17,13 +17,13 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.RoleDescription)
+                            Roli
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.CreatedAt)
+                            Krijuar
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.ModifiedAt)
+                            Modifikuar
                         </th>
                         <th></th>
                     </tr>
@@ -42,9 +42,7 @@
                                 @Html.DisplayFor(modelItem => item.ModifiedAt)
                             </td>
                             <td>
-                                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Details" class="btn btn-success " asp-route-id="@item.Id">Details</a> |
-                                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Delete</a>
+                                <a asp-action="Details" class="btn btn-success " asp-route-id="@item.Id">Details</a> 
                             </td>
                         </tr>
                     }

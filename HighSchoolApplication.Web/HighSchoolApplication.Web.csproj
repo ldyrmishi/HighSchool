@@ -29,4 +29,9 @@
     <ProjectReference Include="..\HighSchoolApplication.API.Models\HighSchoolApplication.API.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Finances\" />
+    <Folder Include="Views\Users\" />
+  </ItemGroup>
+
 </Project>

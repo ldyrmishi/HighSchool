@@ -32,7 +32,7 @@ namespace HighSchoolApplication.API.Controllers
         }
         // GET: api/Role
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IEnumerable<RolesModel> Get()
         {
             try
@@ -74,6 +74,7 @@ namespace HighSchoolApplication.API.Controllers
 
         // POST: api/Role
         [HttpPost]
+        [Route("AddRole")]
         public void Post([FromBody] RolesModel roleModel)
         {
             var roleEntity = _mapper.Map<Roles>(roleModel);

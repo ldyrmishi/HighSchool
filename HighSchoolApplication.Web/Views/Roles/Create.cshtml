@@ -4,28 +4,27 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Roli</label>
+                        <input asp-for="RoleDescription" class="form-control" />
+                        <span asp-validation-for="RoleDescription" class="text-danger"></span>
+                    </div>
 
-<h4>Roles</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RoleDescription" class="control-label"></label>
-                <input asp-for="RoleDescription" class="form-control" />
-                <span asp-validation-for="RoleDescription" class="text-danger"></span>
+                    <div class="form-group">
+                        <input type="submit" value="Shto" class="btn btn-default" />
+                    </div>
+                </form>
             </div>
+        </div>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+        <div>
+            <a asp-action="Index">Kthehu te lista</a>
+        </div>
+    </section>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

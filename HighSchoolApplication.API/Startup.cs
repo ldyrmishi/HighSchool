@@ -55,7 +55,7 @@ namespace HighSchoolApplication.API
                     ValidAudience = Configuration["Tokens:Issuer"],
                 };
             });
-            services.AddAuthorization(options => options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Student")));
+            services.AddAuthorization(options => options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Administrator")));
 
             services.Configure<IISOptions>(options =>
             {
