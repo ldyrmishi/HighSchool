@@ -1,0 +1,26 @@
+﻿@model  HighSchoolApplication.API.Models.FinancesModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<section class="content">
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#Incomings" aria-controls="Incomings" role="tab" data-toggle="tab">Te ardhura</a></li>
+            <li role="presentation"><a href="#Expenses" aria-controls="Expenses" role="tab" data-toggle="tab">Shpenzime</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Incomings">
+                @{await Html.RenderPartialAsync("Incomings",Model);}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Expenses">
+                @{await Html.RenderPartialAsync("Expenses",Model);}
+            </div>
+        </div>
+
+    </div>
+</section>
