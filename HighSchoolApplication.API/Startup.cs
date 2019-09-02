@@ -84,6 +84,7 @@ namespace HighSchoolApplication.API
             services.AddTransient<IDocumentsRepository, DocumentsRepository>();
             services.AddTransient<ISubjectsRepository, SubjectsRepository>();
 
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddSwaggerGen(c =>
