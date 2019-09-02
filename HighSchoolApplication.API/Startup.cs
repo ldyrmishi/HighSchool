@@ -80,7 +80,9 @@ namespace HighSchoolApplication.API
             services.AddTransient<IRolesRepository, RolesRepository>();
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<IFinancesRepository, FinancesRepository>();
-
+            services.AddTransient<IClassesRepository, ClassesRepository>();
+            services.AddTransient<IDocumentsRepository, DocumentsRepository>();
+            services.AddTransient<ISubjectsRepository, SubjectsRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));

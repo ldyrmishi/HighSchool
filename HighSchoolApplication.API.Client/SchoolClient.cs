@@ -10,14 +10,21 @@ namespace HighSchoolApplication.API.Client
     {
         public async Task<List<SchoolModel>> GetSchools(string token)
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/GetAllUsers"));
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "School/SchoolsList"));
             return await GetAsync<List<SchoolModel>>(requestUrl,token);
         }
 
-        public async Task<Message<SchoolModel>> SaveRoles(SchoolModel model, string token)
+        public async Task<Message<SchoolModel>> AddSchool(SchoolModel model, string token)
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));
-            return await PostAsync<SchoolModel>(requestUrl, model,token);
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "School/AddSchool"));
+            return await PostAsync<SchoolModel>(requestUrl, model, token);
         }
+
+        public async Task<Message<SchoolModel>> EditSchool(SchoolModel model, string token)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "School/EditSchool"));
+            return await PostAsync<SchoolModel>(requestUrl, model, token);
+        }
+
     }
 }
