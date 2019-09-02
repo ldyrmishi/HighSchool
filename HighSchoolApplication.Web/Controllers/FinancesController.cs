@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Web.Factory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,21 +12,21 @@ namespace HighSchoolApplication.Web.Controllers
     public class FinancesController : Controller
     {
         // GET: Finances
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             return View();
         }
 
-        public async Task<IActionResult> Incomings()
+        public async Task<PartialViewResult> Incomings()
         {
             var data = await HighSchoolApiClientFactory.Instance.GetIncomings(HttpContext.Session.GetString("Token"));
-            return View(data);
+            return PartialView(data);
         }
 
-        public async Task<IActionResult> Expenses()
+        public async Task<PartialViewResult> Expenses()
         {
             var data = await HighSchoolApiClientFactory.Instance.GetExpenses(HttpContext.Session.GetString("Token"));
-            return View(data);
+            return PartialView(data);
         }
 
 

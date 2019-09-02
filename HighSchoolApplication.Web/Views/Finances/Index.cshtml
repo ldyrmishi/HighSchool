@@ -1,6 +1,4 @@
-﻿@model  HighSchoolApplication.API.Models.FinancesModel
-
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 <section class="content">
@@ -15,10 +13,10 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="Incomings">
-                @{await Html.RenderPartialAsync("Incomings",Model);}
+                @{await Html.RenderPartialAsync("Incomings","Finances");}
             </div>
             <div role="tabpanel" class="tab-pane" id="Expenses">
-                @{await Html.RenderPartialAsync("Expenses",Model);}
+                @{await Html.RenderPartialAsync("Expenses","Finances");}
             </div>
         </div>
 

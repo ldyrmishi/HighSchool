@@ -11,9 +11,10 @@ namespace HighSchoolApplication.Web.Controllers
 {
     public class SchoolController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var data = await HighSchoolApiClientFactory.Instance.GetSchools(HttpContext.Session.GetString("Token"));
+            return View(data);
         }
 
         public IActionResult Create()
