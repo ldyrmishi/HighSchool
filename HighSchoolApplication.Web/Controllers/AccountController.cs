@@ -16,6 +16,7 @@ namespace HighSchoolApplication.Web.Controllers
 
         public IActionResult Login()
         {
+           
             return View();
         }
 
@@ -33,11 +34,29 @@ namespace HighSchoolApplication.Web.Controllers
             }
             return View(loginModel);
         }
-        public IActionResult Register()
+
+        public async Task<IActionResult> Register()
         {
-            
+            var roles = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
+
+            ViewBag.RolesList = roles.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription }
+);
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(UsersModel userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                userModel.CreatedAt = DateTime.Now;
+                userModel.ModifiedAt = DateTime.Now;
+                var data = await HighSchoolApiClientFactory.Instance.SaveUsers(userModel, HttpContext.Session.GetString("Token"));
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View(userModel);
+        }
     }
 }

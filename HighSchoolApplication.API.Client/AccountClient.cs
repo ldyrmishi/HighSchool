@@ -13,5 +13,10 @@ namespace HighSchoolApplication.API.Client
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Account/Login"));
             return await PostAsync<LoginModel>(requestUrl, model,"");
         }
+        public async Task<Message<UsersModel>> SaveUsers(UsersModel model, string token)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Account/Register"));
+            return await PostAsync<UsersModel>(requestUrl, model, token);
+        }
     }
 }
