@@ -1,24 +1,27 @@
-﻿@{
+﻿@model  HighSchoolApplication.Web.ViewModels.FinancesTabViewModel
+@{
     ViewData["Title"] = "Index";
 }
 <section class="content">
     <div>
 
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#Incomings" aria-controls="Incomings" role="tab" data-toggle="tab">Te ardhura</a></li>
-            <li role="presentation"><a href="#Expenses" aria-controls="Expenses" role="tab" data-toggle="tab">Shpenzime</a></li>
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="@(Model.ActiveTab == HighSchoolApplication.Web.ViewModels.Tab.Incomings ? "active" : string.Empty)"><a asp-route-tab-name="Incomings" asp-action="SwitchToTabs">Te ardhura</a></li>
+            <li role="presentation" class="@(Model.ActiveTab == HighSchoolApplication.Web.ViewModels.Tab.Expenses ? "active" : string.Empty)"><a asp-route-tab-name="Expenses" asp-action="SwitchToTabs">Shpenzime</a></li>
         </ul>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="Incomings">
-                @{await Html.RenderPartialAsync("Incomings","Finances");}
-            </div>
-            <div role="tabpanel" class="tab-pane" id="Expenses">
-                @{await Html.RenderPartialAsync("Expenses","Finances");}
-            </div>
-        </div>
+        @switch (Model.ActiveTab)
+        {
+            case HighSchoolApplication.Web.ViewModels.Tab.Incomings:
+                @await Component.InvokeAsync("Incomings");
+                break;
+            case HighSchoolApplication.Web.ViewModels.Tab.Expenses:
+                @await Component.InvokeAsync("Expenses");
+                break;
+            default:
+                break;
+        }
 
     </div>
 </section>
