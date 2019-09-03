@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Web.Factory;
+using HighSchoolApplication.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,97 +13,37 @@ namespace HighSchoolApplication.Web.Controllers
     public class FinancesController : Controller
     {
         // GET: Finances
-        public ActionResult Index()
+        public  IActionResult Index(FinancesTabViewModel vm)
         {
-            return View();
-        }
-
-        public async Task<IActionResult> Incomings()
-        {
-            var data = await HighSchoolApiClientFactory.Instance.GetIncomings(HttpContext.Session.GetString("Token"));
-            return View(data);
-        }
-
-        public async Task<IActionResult> Expenses()
-        {
-            var data = await HighSchoolApiClientFactory.Instance.GetExpenses(HttpContext.Session.GetString("Token"));
-            return View(data);
-        }
-
-
-        // GET: Finances/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Finances/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Finances/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            if(vm == null)
             {
-                // TODO: Add insert logic here
+                vm = new FinancesTabViewModel
+                {
+                    ActiveTab = Tab.Incomings
+                };
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View(vm);
         }
 
-        // GET: Finances/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult SwitchToTabs(string tabname)
         {
-            return View();
-        }
-
-        // POST: Finances/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            var vm = new FinancesTabViewModel();
+            switch (tabname)
             {
-                // TODO: Add update logic here
+                case "Incomings":
+                    vm.ActiveTab = Tab.Incomings;
+                    break;
+                case "Expenses":
+                    vm.ActiveTab = Tab.Expenses;
+                    break;
+                default :
+                    vm.ActiveTab = Tab.Incomings;
+                    break;
 
-                return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction(nameof(FinancesController.Index), vm);
         }
-
-        // GET: Finances/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Finances/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }
