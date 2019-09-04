@@ -103,10 +103,10 @@ namespace HighSchoolApplication.API.Controllers
         [Route("Register")]
         public void Register([FromBody] UsersModel usersModel)
         {
+
             usersModel.Password = Helper.Hash(usersModel.Password);
             usersModel.ConfirmPassword = Helper.Hash(usersModel.ConfirmPassword);
 
-            _mapper.Map<Roles>(usersModel.Role);
             Users usersEntity = _mapper.Map<Users>(usersModel);
 
             _repository.Insert(usersEntity);

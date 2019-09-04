@@ -14,10 +14,6 @@ namespace HighSchoolApplication.API.Client
             return await GetAsync<List<UsersModel>>(requestUrl,token);
         }
 
-        public async Task<Message<UsersModel>> SaveUsers(UsersModel model, string token)
-        {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));
-            return await PostAsync<UsersModel>(requestUrl, model,token);
-        }
+    
     }
 }

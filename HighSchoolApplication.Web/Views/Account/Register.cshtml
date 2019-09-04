@@ -7,13 +7,17 @@
 
 <section class="content">
     <form asp-action="Register">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+            <div>
+                <label id="success"></label>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <div class="box-title">
-                            Të dhëna të përgjithshme
+                            Të dhena personale
                         </div>
                         <div class="box-tools pull-right">
                             <!-- Collapse Button -->
@@ -34,62 +38,37 @@
                             <span asp-validation-for="Lastname" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Gender" class="control-label"></label>
-                            <input asp-for="Gender" class="form-control" />
-                            <span asp-validation-for="Gender" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Birthdate" class="control-label"></label>
-                            <input asp-for="Birthdate" class="form-control" />
-                            <span asp-validation-for="Birthdate" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <div class="box-title">
-                            Dokumenta personale
-                        </div>
-                        <div class="box-tools pull-right">
-                            <!-- Collapse Button -->
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="form-group">
-                            
-                        </div>
-                        <div class="form-group">
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <div class="box-title">
-                            Të dhena personale
-                        </div>
-                        <div class="box-tools pull-right">
-                            <!-- Collapse Button -->
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <div class="form-group">
                             <label asp-for="NrAmze" class="control-label"></label>
                             <input asp-for="NrAmze" class="form-control" />
                             <span asp-validation-for="NrAmze" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="Birthdate" class="control-label"></label>
+                            <input asp-for="Birthdate" type="date" class="form-control" />
+                            <span asp-validation-for="Birthdate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Gender" class="control-label"></label>
+                            @Html.DropDownList("Gender", ViewData["Gender"] as List<SelectListItem>)
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="box-title">
+                            Të dhëna të përgjithshme
+                        </div>
+                        <div class="box-tools pull-right">
+                            <!-- Collapse Button -->
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
                         <div class="form-group">
                             <label asp-for="Username" class="control-label"></label>
                             <input asp-for="Username" class="form-control" />
@@ -107,13 +86,39 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Password" class="control-label"></label>
-                            <input asp-for="Password" class="form-control" />
+                            <input asp-for="Password" type="password" class="form-control" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="ConfirmPassword" class="control-label"></label>
-                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="=row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="box-title">
+                            Dokumenta personale
+                        </div>
+                        <div class="box-tools pull-right">
+                            <!-- Collapse Button -->
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label asp-for="Documents" class="control-label"></label>
+                            <input asp-for="Documents" multiple type="file" class="form-control" />
+                        </div>
+                        <div class="form-group">
+
                         </div>
                     </div>
                 </div>
@@ -133,22 +138,26 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label asp-for="RegistrationDate" class="control-label"></label>
-                            <input asp-for="RegistrationDate" class="form-control" />
-                            <span asp-validation-for="RegistrationDate" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="IsActive" class="control-label"></label>
-                            <input asp-for="IsActive" class="form-control" />
-                            <span asp-validation-for="IsActive" class="text-danger"></span>
+                            <label asp-for="Role" class="control-label"></label>
+                            @Html.DropDownList("RolesList", "Zgjidhni rolin")
+                            <span asp-validation-for="Role" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="=row pull-right">
+            <button class="btn btn-primary" type="submit">Ruaj</button>
+            <a class="btn btn-primary" asp-action="Index">Kthehu mbrapa</a>
+        </div>
     </form>
 
-        <a class="btn btn-primary" asp-action="Index">Kthehu mbrapa</a>
-
 </section>
+@if (Model != null)
+{
+    <script type="text/javascript">
+            $(function () {
+               alert(" Perdoruesi u regjistrua me sukses");
+            });
+    </script>
+}
