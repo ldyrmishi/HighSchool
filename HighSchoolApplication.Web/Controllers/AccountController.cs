@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Web.Factory;
@@ -37,13 +38,22 @@ namespace HighSchoolApplication.Web.Controllers
 
         public async Task<IActionResult> Register()
         {
+            
             var roles = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
 
-            ViewBag.RolesList = roles.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription }
-);
+            ViewBag.RolesList = roles.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription });
+
+            var Gender = new List<SelectListItem>
+            {
+                new SelectListItem{ Text="Femer", Value = "Femer" },
+                new SelectListItem{ Text="Mashkull", Value = "Mashkull" , Selected = true  }
+            };
+
+            ViewData["Gender"] = Gender;
             return View();
         }
 
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(UsersModel userModel)
@@ -52,11 +62,31 @@ namespace HighSchoolApplication.Web.Controllers
             {
                 userModel.CreatedAt = DateTime.Now;
                 userModel.ModifiedAt = DateTime.Now;
-                var data = await HighSchoolApiClientFactory.Instance.SaveUsers(userModel, HttpContext.Session.GetString("Token"));
 
-                return RedirectToAction("Index", "Home");
+                //ruhet roli dhe gjinia nga vlerat e zgjedhura te dropdown-it
+                string GenderSelectedValue = Request.Form["Gender"].ToString();
+                int RoleId = Convert.ToInt32(Request.Form["RolesList"]);
+                userModel.Role = await HighSchoolApiClientFactory.Instance.GetRoleById(RoleId , HttpContext.Session.GetString("Token"));
+                await HighSchoolApiClientFactory.Instance.SaveUsers(userModel, HttpContext.Session.GetString("Token"));
+
+
+                //ketu ben reload-in dhe i mbush perseri me vlera.
+                var roles = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
+
+                ViewBag.RolesList = roles.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription });
+
+                var Gender = new List<SelectListItem>
+            {
+                new SelectListItem{ Text="Femer", Value = "Femer" },
+                new SelectListItem{ Text="Mashkull", Value = "Mashkull" , Selected = true  }
+            };
+
+                ViewData["Gender"] = Gender;
+                //GetData();
+                return View(userModel);
             }
             return View(userModel);
         }
+       
     }
 }
