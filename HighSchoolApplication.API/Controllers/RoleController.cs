@@ -32,8 +32,8 @@ namespace HighSchoolApplication.API.Controllers
         }
         // GET: api/Role
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public IEnumerable<RolesModel> Get()
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public Message<IEnumerable<RolesModel>> Get()
         {
             try
             {
@@ -43,7 +43,13 @@ namespace HighSchoolApplication.API.Controllers
 
                 _logger.LogInformation("List of Roles returned succesfully");
 
-                return rolesModels;
+                return new Message<IEnumerable<RolesModel>>()
+                {
+                    StatusCode = 200,
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    Data = rolesModels
+                };
 
             }
             catch(Exception ex)
