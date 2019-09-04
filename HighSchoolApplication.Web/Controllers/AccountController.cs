@@ -66,7 +66,7 @@ namespace HighSchoolApplication.Web.Controllers
                 //ruhet roli dhe gjinia nga vlerat e zgjedhura te dropdown-it
                 string GenderSelectedValue = Request.Form["Gender"].ToString();
                 int RoleId = Convert.ToInt32(Request.Form["RolesList"]);
-                userModel.Role = await HighSchoolApiClientFactory.Instance.GetRoleById(RoleId , HttpContext.Session.GetString("Token"));
+                //userModel.Role = await HighSchoolApiClientFactory.Instance.GetRoleById(RoleId , HttpContext.Session.GetString("Token"));
                 await HighSchoolApiClientFactory.Instance.SaveUsers(userModel, HttpContext.Session.GetString("Token"));
 
 

@@ -40,6 +40,8 @@ namespace HighSchoolApplication.API.Models
         public string Notes { get; set; }
         [DataMember(Name = "NrAmze")]
         public string NrAmze { get; set; }
+        [DataMember(Name = "RoleId")]
+        public int? RoleId { get; set; }
 
         [DataMember(Name = "Address")]
         public AddressModel Address { get; set; }
