@@ -8,13 +8,13 @@ namespace HighSchoolApplication.API.Client
 {
     public partial class ApiClient
     {
-        public async Task<List<FinancesModel>> GetExpenses(string token)
+        public async Task<Message<List<FinancesModel>>> GetExpenses(string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Finances/ExpensesList"));
             return await GetAsync<List<FinancesModel>>(requestUrl,token);
         }
 
-        public async Task<List<FinancesModel>> GetIncomings(string token)
+        public async Task<Message<List<FinancesModel>>> GetIncomings(string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Finances/IncomingsList"));
             return await GetAsync<List<FinancesModel>>(requestUrl, token);

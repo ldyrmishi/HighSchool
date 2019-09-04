@@ -29,13 +29,22 @@ namespace HighSchoolApplication.API.Client
         ///<summary>
         /// Common method for making GET calls
         ///</summary>
-        private async Task<T> GetAsync<T>(Uri requestUrl, string token)
+        //private async Task<T> GetAsync<T>(Uri requestUrl, string token)
+        //{
+        //    addHeaders(token);
+        //    var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
+        //    response.EnsureSuccessStatusCode();
+        //    var data = await response.Content.ReadAsStringAsync();
+        //    return JsonConvert.DeserializeObject<T>(data);
+        //}
+
+        private async Task<Message<T>> GetAsync<T>(Uri requestUrl, string token)
         {
             addHeaders(token);
             var response = await _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(data);
+            return JsonConvert.DeserializeObject<Message<T>>(data);
         }
 
         ///<summary>

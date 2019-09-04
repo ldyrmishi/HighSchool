@@ -41,7 +41,7 @@ namespace HighSchoolApplication.Web.Controllers
             
             var roles = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
 
-            ViewBag.RolesList = roles.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription });
+            ViewBag.RolesList = roles.Data.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription });
 
             var Gender = new List<SelectListItem>
             {
@@ -73,7 +73,7 @@ namespace HighSchoolApplication.Web.Controllers
                 //ketu ben reload-in dhe i mbush perseri me vlera.
                 var roles = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
 
-                ViewBag.RolesList = roles.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription });
+                ViewBag.RolesList = roles.Data.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription });
 
                 var Gender = new List<SelectListItem>
             {

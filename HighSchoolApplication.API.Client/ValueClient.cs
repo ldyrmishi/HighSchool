@@ -8,7 +8,7 @@ namespace HighSchoolApplication.API.Client
 {
     public partial class ApiClient 
     {
-        public async Task<List<ValueModel>> GetValues(string token)
+        public async Task<Message<List<ValueModel>>> GetValues(string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Values"));
             return await GetAsync<List<ValueModel>>(requestUrl, token);

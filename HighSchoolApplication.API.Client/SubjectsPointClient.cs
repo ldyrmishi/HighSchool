@@ -8,7 +8,7 @@ namespace HighSchoolApplication.API.Client
 {
     public partial class ApiClient
     {
-        public async Task<List<SubjectPointsModel>> GetSubjectPoints(string token)
+        public async Task<Message<List<SubjectPointsModel>>> GetSubjectPoints(string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/GetAllUsers"));
             return await GetAsync<List<SubjectPointsModel>>(requestUrl,token);

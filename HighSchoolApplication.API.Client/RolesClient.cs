@@ -8,13 +8,13 @@ namespace HighSchoolApplication.API.Client
 {
     public partial class ApiClient
     {
-        public async Task<List<RolesModel>> GetRoles(string token)
+        public async Task<Message<List<RolesModel>>> GetRoles(string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Role"));
             return await GetAsync<List<RolesModel>>(requestUrl,token);
         }
 
-        public async Task<RolesModel> GetRoleById(int id, string token)
+        public async Task<Message<RolesModel>> GetRoleById(int id, string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Role/{0}",id));
             return await GetAsync<RolesModel>(requestUrl,token);
