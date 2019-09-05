@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HighSchoolApplication.Infrastructure.Models
 {
     public partial class UsersClass
     {
-        public int StudentId { get; set; }
+        [Required]
+        [Key]
+        [Column("StudentId")]
+        public int Id { get; set; }
         public int? ClassId { get; set; }
         public int? UserId { get; set; }
         public DateTime? CreatedAt { get; set; }

@@ -401,9 +401,9 @@ namespace HighSchoolApplication.Infrastructure.Models
 
             modelBuilder.Entity<UsersClass>(entity =>
             {
-                entity.HasKey(e => e.StudentId);
+                entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.StudentId).HasColumnName("StudentID");
+                entity.Property(e => e.Id).HasColumnName("StudentID");
 
                 entity.Property(e => e.ClassId).HasColumnName("ClassID");
 

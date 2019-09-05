@@ -10,21 +10,35 @@ namespace HighSchoolApplication.API.Models
     {
         [DataMember(Name ="Id")]
         public int Id { get; set; }
-        [DataMember(Name = "LessonId")]
+
+        [DataMember(Name = "IsInClass")]
         public bool? IsInClass { get; set; }
+
+
         [DataMember(Name = "CreatedAt")]
         public DateTime? CreatedAt { get; set; }
+
         [DataMember(Name = "ModifiedAt")]
         public DateTime? ModifiedAt { get; set; }
+
         [DataMember(Name = "AbsentDate")]
         public DateTime? AbsentDate { get; set; }
+
         [DataMember(Name = "IsJustificated")]
         public bool? IsJustificated { get; set; }
+
         [DataMember(Name = "Reason")]
         public string Reason { get; set; }
 
+        [DataMember(Name = "LessonId")]
+        public int? LessonId { get; set; }
+
+        [DataMember(Name = "UserId")]
+        public int? UserId { get; set; }
+
         [DataMember(Name = "Lesson")]
         public LessonModel Lesson { get; set; }
+
         [DataMember(Name = "User")]
         public UsersModel User { get; set; }
     }
