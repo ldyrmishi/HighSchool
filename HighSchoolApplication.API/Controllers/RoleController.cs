@@ -55,50 +55,82 @@ namespace HighSchoolApplication.API.Controllers
             catch(Exception ex)
             {
                 _logger.LogError("Error on retrieving list", ex);
-                throw ex;
+
+                return new Message<IEnumerable<RolesModel>>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = null
+                };
             }
-
-
         }
 
         // GET: api/Role/5
         [HttpGet("{id}", Name = "Get")]
-        public RolesModel Get(int id)
+        public Message<RolesModel> Get(int id)
         {
-            RolesModel rolesModel = new RolesModel()
+            try
             {
-                CreatedAt = DateTime.Now,
-                ModifiedAt = DateTime.Now,
-                RoleDescription = "Description Test",
-                Id = 1,
-                Users = null
+                var role = _repository.GetById(id);
 
-            };
-            //return _rolesMapper.EntityToDTO(_repository.GetById(id));
-            return rolesModel;
+                var roleModel = _mapper.Map<RolesModel>(role);
+
+                return new Message<RolesModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = roleModel
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+
+                return new Message<RolesModel>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = null
+                };
+            } 
         }
 
         // POST: api/Role
         [HttpPost]
         [Route("AddRole")]
-        public void Post([FromBody] RolesModel roleModel)
+        public Message<RolesModel> Post([FromBody] RolesModel roleModel)
         {
-            var roleEntity = _mapper.Map<Roles>(roleModel);
+            try
+            {
+                var roleEntity = _mapper.Map<Roles>(roleModel);
 
-            _repository.Insert(roleEntity);
-            _repository.Save();
-        }
+                _repository.Insert(roleEntity);
+                _repository.Save();
 
-        // PUT: api/Role/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+                return new Message<RolesModel>()
+                {
+                    StatusCode = 200,
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    Data = roleModel
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error", ex);
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                return new Message<RolesModel>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = roleModel
+                };
+            }
+            
         }
     }
 }

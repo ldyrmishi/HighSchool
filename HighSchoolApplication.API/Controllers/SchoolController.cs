@@ -32,7 +32,7 @@ namespace HighSchoolApplication.API.Controllers
         [HttpGet]
         [Route("SchoolsList")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public IEnumerable<SchoolModel> Get()
+        public Message<IEnumerable<SchoolModel>> Get()
         {
             try
             {
@@ -42,20 +42,33 @@ namespace HighSchoolApplication.API.Controllers
 
                 _logger.LogInformation("List of Schools returned succesfully");
 
-                return schoolList;
+                return new Message<IEnumerable<SchoolModel>>()
+                {
+                    IsSuccess = true,
+                    StatusCode = 200,
+                    ReturnMessage = "OK",
+                    Data = schoolList
+                };
 
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error on retrieving list", ex);
-                throw ex;
+
+                return new Message<IEnumerable<SchoolModel>>()
+                {
+                    IsSuccess = false,
+                    StatusCode = 404,
+                    ReturnMessage = "Error",
+                    Data = null
+                };
             }
         }
 
         [HttpPost]
         [Route("AddSchool")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void Post([FromBody] SchoolModel schoolModel)
+        public Message<SchoolModel> Post([FromBody] SchoolModel schoolModel)
         {
             try
             {
@@ -63,18 +76,33 @@ namespace HighSchoolApplication.API.Controllers
 
                 _repository.Insert(schoolEntity);
                 _repository.Save();
+
+                return new Message<SchoolModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = schoolModel
+                };
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error on Inserting School", ex);
-                throw ex;
+
+                return new Message<SchoolModel>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 404,
+                    Data = schoolModel
+                };
             }
         }
 
         [HttpPost]
         [Route("EditSchool")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public void EditSchool([FromBody] SchoolModel schoolModel)
+        public Message<SchoolModel> EditSchool([FromBody] SchoolModel schoolModel)
         {
             try
             {
@@ -82,11 +110,26 @@ namespace HighSchoolApplication.API.Controllers
 
                 _repository.Update(schoolEntity);
                 _repository.Save();
+
+                return new Message<SchoolModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = schoolModel
+                };
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error on Inserting School", ex);
-                throw ex;
+
+                return new Message<SchoolModel>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 404,
+                    Data = schoolModel
+                };
             }
         }
     }

@@ -32,22 +32,68 @@ namespace HighSchoolApplication.API.Controllers
         // GET: api/Finances
         [HttpGet]
         [Route("ExpensesList")]
-        public IEnumerable<FinancesModel> Get()
+        public Message<IEnumerable<FinancesModel>> Get()
         {
-            var data = _financesRepository.GetAllExpenses();
+            try
+            {
+                var expensesList = _financesRepository.GetAllExpenses();
+
+                var expensesModelList = _mapper.Map<IEnumerable<FinancesModel>>(expensesList);
+
+                return new Message<IEnumerable<FinancesModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "Success",
+                    StatusCode = 200,
+                    Data = expensesModelList
+
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error on getting expenses", ex);
+
+                return new Message<IEnumerable<FinancesModel>>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 404,
+                    Data = null
+                };
+            }
             
-            return _mapper.Map<IEnumerable<FinancesModel>>(data);
         }
 
         [HttpGet]
         [Route("IncomingsList")]
-        public IEnumerable<FinancesModel> IncomingsList()
+        public Message<IEnumerable<FinancesModel>> IncomingsList()
         {
-            var incomingsList = _financesRepository.GetAllIncomings();
+            try
+            {
+                var incomingsList = _financesRepository.GetAllIncomings();
+                var icomingsModelList = _mapper.Map<IEnumerable<FinancesModel>>(incomingsList);
 
-            return _mapper.Map<IEnumerable<FinancesModel>>(incomingsList);
+                return new Message<IEnumerable<FinancesModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "Success",
+                    StatusCode = 200,
+                    Data = icomingsModelList
+
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error on getting incomings", ex);
+
+                return new Message<IEnumerable<FinancesModel>>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 404,
+                    Data = null
+                };
+            }
         }
-
-      
     }
 }

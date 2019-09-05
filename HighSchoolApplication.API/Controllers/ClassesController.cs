@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Infrastructure;
@@ -33,7 +31,7 @@ namespace HighSchoolApplication.API.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public IEnumerable<ClassModel> Get()
+        public Message<IEnumerable<ClassModel>> Get()
         {
             try
             {
@@ -43,25 +41,61 @@ namespace HighSchoolApplication.API.Controllers
 
                 _logger.LogInformation("List of classes returned succesfully");
 
-                return classList;
+                return new Message<IEnumerable<ClassModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "Classes returned succesfully",
+                    StatusCode = 200,
+                    Data = classList
+                };
 
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error on retrieving list", ex);
-                throw ex;
+
+                return new Message<IEnumerable<ClassModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "Classes returned succesfully",
+                    StatusCode = 200,
+                    Data = null
+                };
             }
         }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("AddClass")]
-        public void Post([FromBody] ClassModel classModel)
+        public Message<ClassModel> Post([FromBody] ClassModel classModel)
         {
-            var classEntity = _mapper.Map<Class>(classModel);
+            try
+            {
+                var classEntity = _mapper.Map<Class>(classModel);
 
-            _repository.Insert(classEntity);
-            _repository.Save();
+                _repository.Insert(classEntity);
+                _repository.Save();
+
+                return new Message<ClassModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "Data inserted succesfully",
+                    StatusCode = 200,
+                    Data = classModel
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error on saving class", ex);
+
+                return new Message<ClassModel>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 404,
+                    Data = classModel
+                };
+            }
         }
     }
 }
