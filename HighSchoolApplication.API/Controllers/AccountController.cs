@@ -22,9 +22,9 @@ namespace HighSchoolApplication.API.Controllers
         private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
         private readonly IRepository<Users> _repository;
-        private readonly ILogger _logger;
+        private readonly ILogger<Users> _logger;
 
-        public AccountController(IUsersRepository usersRepository, IMapper mapper, IConfiguration config, IRepository<Users> repository, ILogger logger)
+        public AccountController(IUsersRepository usersRepository, IMapper mapper, IConfiguration config, IRepository<Users> repository, ILogger<Users> logger)
         {
             _repository = repository;
             _config = config;
@@ -36,22 +36,22 @@ namespace HighSchoolApplication.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
-        public Object Login([FromBody]LoginModel login)
+        public Message<LoginModel> Login([FromBody]LoginModel login)
         {
-            Message<LoginModel> response = null;
             var user = AuthenticateUser(login);
+
+            var response = new Message<LoginModel>();
 
             if (user != null)
             {
                 var tokenString = GenerateJSONWebToken(user);
+                login.Token = tokenString;
 
-                response = new Message<LoginModel>()
-                {
-                    IsSuccess = true,
-                    StatusCode = 200,
-                    ReturnMessage = "OK",
-                    Data = new LoginModel() { Token = tokenString}
-                };
+                response.IsSuccess = true;
+                response.StatusCode = 200;
+                response.ReturnMessage = "OK";
+                response.Data = login;
+                
             }
 
             return response;
