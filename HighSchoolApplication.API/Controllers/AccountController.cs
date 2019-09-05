@@ -6,6 +6,7 @@ using HighSchoolApplication.Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,13 +22,15 @@ namespace HighSchoolApplication.API.Controllers
         private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
         private readonly IRepository<Users> _repository;
+        private readonly ILogger _logger;
 
-        public AccountController(IUsersRepository usersRepository, IMapper mapper, IConfiguration config, IRepository<Users> repository)
+        public AccountController(IUsersRepository usersRepository, IMapper mapper, IConfiguration config, IRepository<Users> repository, ILogger logger)
         {
             _repository = repository;
             _config = config;
             _usersRepository = usersRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [AllowAnonymous]
@@ -56,7 +59,6 @@ namespace HighSchoolApplication.API.Controllers
 
         private string GenerateJSONWebToken(UsersModel userInfo)
         {
-
             var jwtSecurityToken = new JwtSecurityToken
            (
                issuer: _config["Tokens:Issuer"],
@@ -101,19 +103,37 @@ namespace HighSchoolApplication.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Register")]
-        public void Register([FromBody] UsersModel usersModel)
+        public Message<UsersModel> Register([FromBody] UsersModel usersModel)
         {
+            try
+            {
+                usersModel.Password = Helper.Hash(usersModel.Password);
+                usersModel.ConfirmPassword = Helper.Hash(usersModel.ConfirmPassword);
 
-            usersModel.Password = Helper.Hash(usersModel.Password);
-            usersModel.ConfirmPassword = Helper.Hash(usersModel.ConfirmPassword);
+                Users usersEntity = _mapper.Map<Users>(usersModel);
 
-            Users usersEntity = _mapper.Map<Users>(usersModel);
+                _repository.Insert(usersEntity);
+                _repository.Save();
 
-            _repository.Insert(usersEntity);
-            _repository.Save();
+                return new Message<UsersModel>()
+                {
+                    StatusCode = 200,
+                    IsSuccess = true,
+                    ReturnMessage = "Data inserted succesfully",
+                    Data = usersModel
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Save user error",ex);
+                return new Message<UsersModel>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = usersModel
+                };
+            }
         }
-        
-
-
     }
 }
