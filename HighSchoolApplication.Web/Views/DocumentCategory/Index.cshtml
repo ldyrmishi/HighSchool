@@ -1,0 +1,51 @@
+﻿@model IEnumerable<HighSchoolApplication.API.Models.DocumentCategoryModel>
+
+@{
+    ViewData["Title"] = "Lista e kategorive";
+}
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3>Lista kategorive te dokumentit</h3>
+            <div class="box-tools pull-right">
+                <a asp-action="Create" class="btn btn-primary">Shto kategori</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Kategoria
+                        </th>
+                        <th>
+                            Data e krijimit
+                        </th>
+                        <th>
+                            Data e modifikimit
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ModifiedAt)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
