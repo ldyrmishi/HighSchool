@@ -21,14 +21,14 @@ namespace HighSchoolApplication.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var data = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
-            return View(data);
+            return View(data.Data);
         }
 
         public async Task<IActionResult> Details(int id)
         {
             var role = await HighSchoolApiClientFactory.Instance.GetRoleById(id, HttpContext.Session.GetString("Token"));
 
-            return View(role);
+            return View(role.Data);
         }
 
         public IActionResult Create()
