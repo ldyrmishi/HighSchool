@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -29,11 +30,24 @@ namespace HighSchoolApplication.Web.Controllers
             {
                 var data = await HighSchoolApiClientFactory.Instance.Login(loginModel);
 
+                var handler = new JwtSecurityTokenHandler();
+                var tokenS = handler.ReadToken(data.Data.Token) as JwtSecurityToken;
+                var role = tokenS.Claims.First(claim => claim.Type == "Role").Value;
+                var username = tokenS.Claims.First(claim => claim.Type == "sub").Value;
+
                 HttpContext.Session.SetString("Token", data.Data.Token);
+                HttpContext.Session.SetString("Role", role);
+                HttpContext.Session.SetString("Username", username);
 
                 return RedirectToAction("Index", "Home");
             }
             return View(loginModel);
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Account");
         }
 
         public async Task<IActionResult> Register()
