@@ -1,6 +1,7 @@
 ﻿using HighSchoolApplication.API.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,12 @@ namespace HighSchoolApplication.API.Client
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));
             return await PostAsync<DocumentsModel>(requestUrl, model,token);
+        }
+
+        public async Task<Message<DocumentsModel>> GenerateDocuments(DocumentsModel model, string token)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Documents/GenerateDocument"));
+            return await PostAsync<DocumentsModel>(requestUrl, model, token);
         }
     }
 }

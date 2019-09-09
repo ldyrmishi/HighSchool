@@ -1,48 +1,49 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using DotLiquid;
+using DotLiquid.NamingConventions;
+using HighSchoolApplication.API.Drops;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace HighSchoolApplication.API.Utils
-//{
-//    public class TemplateGenerator
-//    {
-//        public static string GetHTMLString()
-//        {
-//            var employees = DataStorage.GetAllEmployess();
+namespace HighSchoolApplication.API.Utils
+{
+    public class TemplateGenerator
+    {
+        public static string GetStudentCertificationHtml(string DocumentDescription,StudentCertificationDrop model)
+        {
+            if (DocumentDescription.ToLower() == "vertetim")
+            {
+                StudentCertificationDrop data = model;
 
-//            var sb = new StringBuilder();
-//            sb.Append(@"
-//                        <html>
-//                            <head>
-//                            </head>
-//                            <body>
-//                                <div class='header'><h1>This is the generated PDF report!!!</h1></div>
-//                                <table align='center'>
-//                                    <tr>
-//                                        <th>Name</th>
-//                                        <th>LastName</th>
-//                                        <th>Age</th>
-//                                        <th>Gender</th>
-//                                    </tr>");
+                string liquidTemplateFilePath = "./Templates/StudentCertification.html";
+                Template template = GetTemplate(liquidTemplateFilePath);
 
-//            foreach (var emp in employees)
-//            {
-//                sb.AppendFormat(@"<tr>
-//                                    <td>{0}</td>
-//                                    <td>{1}</td>
-//                                    <td>{2}</td>
-//                                    <td>{3}</td>
-//                                  </tr>", emp.Name, emp.LastName, emp.Age, emp.Gender);
-//            }
+                Hash hash = Hash.FromAnonymousObject(new { Model = data });
 
-//            sb.Append(@"
-//                                </table>
-//                            </body>
-//                        </html>");
+                string renderedOutput = template.Render(hash);
 
-//            return sb.ToString();
-//        }
-//    }
-//}
+                return renderedOutput;
+            }
+            else return null;
+        }
+
+        private static Template GetTemplate(string templateFilePath)
+        {
+            Liquid.UseRubyDateFormat = false;
+            // Setting this means that:
+            // - Properties are accessed using CamelCase e.g. Model.PolicyNumber
+            // - Filters are accessed using CamelCase e.g. Date
+            Template.NamingConvention = new CSharpNamingConvention();
+
+            string liquidTemplateContent = File.ReadAllText(templateFilePath);
+
+            Template template = Template.Parse(liquidTemplateContent);
+            template.MakeThreadSafe();
+
+            return template;
+        }
+    }
+}

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HighSchoolApplication.Infrastructure
 {
@@ -11,5 +12,7 @@ namespace HighSchoolApplication.Infrastructure
         IEnumerable<Documents> GetStudentDocuments();
         IEnumerable<Documents> GetSubjectPlanDocuments();
         IEnumerable<Documents> GetPortofolioDocuments();
+
+        Task<List<sp_GetStudentCertificateDetails>> GetStudentCertificateData(int UserId);
     }
 }

@@ -20,7 +20,7 @@ namespace HighSchoolApplication.API.Controllers
         public IMapper _mapper;
         public ILogger<DocumentCategory> _logger;
 
-        DocumentCategoryController(IRepository<DocumentCategory> repository, IMapper mapper, ILogger<DocumentCategory> logger)
+        public DocumentCategoryController(IRepository<DocumentCategory> repository, IMapper mapper, ILogger<DocumentCategory> logger)
         {
             _repository = repository;
             _mapper = mapper;

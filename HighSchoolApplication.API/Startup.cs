@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using AutoMapper;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using HighSchoolApplication.API.Models;
+using HighSchoolApplication.API.Utils;
 using HighSchoolApplication.Data;
 using HighSchoolApplication.Infrastructure;
 using HighSchoolApplication.Infrastructure.Models;
@@ -75,6 +77,7 @@ namespace HighSchoolApplication.API
             services.AddTransient<IRepository<Documents>, EFRepository<Documents>>();
             services.AddTransient<IRepository<FinalExams>, EFRepository<FinalExams>>();
             services.AddTransient<IRepository<Lesson>, EFRepository<Lesson>>();
+            services.AddTransient<IRepository<UsersClass>, EFRepository<UsersClass>>();
             services.AddTransient<IRepository<School>,EFRepository<School>>();
 
             services.AddTransient<IRolesRepository, RolesRepository>();
@@ -86,6 +89,10 @@ namespace HighSchoolApplication.API
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "wkhtmltox\\libwkhtmltox.dll"));
+
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddSwaggerGen(c =>
             {

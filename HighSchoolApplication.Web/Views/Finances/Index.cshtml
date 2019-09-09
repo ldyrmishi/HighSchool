@@ -1,27 +1,26 @@
-﻿@model  HighSchoolApplication.Web.ViewModels.FinancesTabViewModel
+﻿@model HighSchoolApplication.Web.ViewModels.FinancesTabViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Financat";
 }
 <section class="content">
-    <div>
+    <div class="box box-default">
+        <div class="box-body">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="@(Model.ActiveTab == HighSchoolApplication.Web.ViewModels.Tab.Incomings ? "active" : string.Empty)"><a asp-route-tabname="Incomings" asp-action="SwitchToTabs">Te ardhura</a></li>
+                <li role="presentation" class="@(Model.ActiveTab == HighSchoolApplication.Web.ViewModels.Tab.Expenses ? "active" : string.Empty)"><a asp-route-tabname="Expenses" asp-action="SwitchToTabs">Shpenzime</a></li>
+            </ul>
+            @switch (Model.ActiveTab)
+            {
+                case HighSchoolApplication.Web.ViewModels.Tab.Incomings:
+                    @await Component.InvokeAsync("Incomings");
+                    break;
+                case HighSchoolApplication.Web.ViewModels.Tab.Expenses:
+                    @await Component.InvokeAsync("Expenses");
+                    break;
+                default:
+                    break;
+            }
 
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="@(Model.ActiveTab == HighSchoolApplication.Web.ViewModels.Tab.Incomings ? "active" : string.Empty)"><a asp-route-tab-name="Incomings" asp-action="SwitchToTabs">Te ardhura</a></li>
-            <li role="presentation" class="@(Model.ActiveTab == HighSchoolApplication.Web.ViewModels.Tab.Expenses ? "active" : string.Empty)"><a asp-route-tab-name="Expenses" asp-action="SwitchToTabs">Shpenzime</a></li>
-        </ul>
-
-        @switch (Model.ActiveTab)
-        {
-            case HighSchoolApplication.Web.ViewModels.Tab.Incomings:
-                @await Component.InvokeAsync("Incomings");
-                break;
-            case HighSchoolApplication.Web.ViewModels.Tab.Expenses:
-                @await Component.InvokeAsync("Expenses");
-                break;
-            default:
-                break;
-        }
-
+        </div>
     </div>
 </section>

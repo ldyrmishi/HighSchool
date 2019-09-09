@@ -15,7 +15,7 @@ namespace HighSchoolApplication.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var data = await HighSchoolApiClientFactory.Instance.GetDocumentCategories(HttpContext.Session.GetString("Token"));
-            return View(data);
+            return View(data.Data);
         }
 
         // GET: DocumentCategory/Create

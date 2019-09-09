@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -33,11 +36,12 @@ namespace HighSchoolApplication.Infrastructure.Models
         public virtual DbSet<UsersStatus> UsersStatus { get; set; }
         public virtual DbSet<UsersSubjectPoints> UsersSubjectPoints { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:highschool-db.database.windows.net,1433;Initial Catalog=HighSchool;Persist Security Info=False;User ID={sa_B};Password={ledio.123};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:highschool-db.database.windows.net,1433;Initial Catalog=HighSchool;Persist Security Info=False;User ID={sa};Password={ledio.123};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -459,6 +463,34 @@ namespace HighSchoolApplication.Infrastructure.Models
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__UsersSubj__UserI__6754599E");
             });
+
+            modelBuilder.Query<sp_GetStudentCertificateDetails>();
         }
+
+        #region StoredProcedures
+        public async Task<List<sp_GetStudentCertificateDetails>> GetStudentCertificateDetails(int UserId)
+        {
+            // Initialization.  
+            List<sp_GetStudentCertificateDetails> lst = new List<sp_GetStudentCertificateDetails>();
+
+            try
+            {
+                // Settings.  
+                SqlParameter userIdParam = new SqlParameter("@UserId", UserId.ToString() ?? (object)DBNull.Value);
+
+                // Processing.  
+                string sqlQuery = "EXEC [dbo].[sp_GetStudentCertificateDetails] " + "@UserId";
+
+                lst = await this.Query<sp_GetStudentCertificateDetails>().FromSql(sqlQuery, userIdParam).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return lst;
+        }
+
+        #endregion
     }
 }

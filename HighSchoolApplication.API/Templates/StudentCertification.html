@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Vertetim studenti</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <style>
+        .logo-row {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row logo-row">
+            <div class="col-xs-offset-7 col-xs-5">
+                <img src="../wwwroot/Images/Emblema e Shqiperise.png" class="img-responsive" alt="logo">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Vertetim studenti</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <p><strong>Nr Reference:</strong> {{Model.ReferenceNumber}}</p>
+            </div>
+            <div class="col-xs-4">
+               <p> <strong>Data e leshimit:</strong> {{Model.CreationDate | Date: "d"}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <p>
+                    Vertetojme se studenti {{ Model.StudentName }} me numer amze {{ Model.NoAmze }} eshte student i shkolles {{ Model.SchoolName }}
+                    ne vitin e {{ Model.StudentYear }}.
+                </p>
+                <p>
+                    Ky vertetim eshte i vlefshem per 1 vit.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Drejtori</h3>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-xs-4">
+                <hr />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -13,7 +13,7 @@ namespace HighSchoolApplication.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var data = await HighSchoolApiClientFactory.Instance.GetIncomings(HttpContext.Session.GetString("Token"));
-            return View(data);
+            return View(data.Data);
         }
     }
 }
