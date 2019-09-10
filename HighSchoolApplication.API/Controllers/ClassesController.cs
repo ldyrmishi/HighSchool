@@ -31,6 +31,7 @@ namespace HighSchoolApplication.API.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("ClassesList")]
         public Message<IEnumerable<ClassModel>> Get()
         {
             try

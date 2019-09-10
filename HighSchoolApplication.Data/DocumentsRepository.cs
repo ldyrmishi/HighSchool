@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Dynamic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,22 +22,22 @@ namespace HighSchoolApplication.Data
 
         public IEnumerable<Documents> GetPortofolioDocuments()
         {
-            throw new NotImplementedException();
+            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 1);
         }
 
         public IEnumerable<Documents> GetPrivateDocuments()
         {
-            throw new NotImplementedException();
+            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 2);
         }
 
         public IEnumerable<Documents> GetStudentDocuments()
         {
-            throw new NotImplementedException();
+           return _dbContext.Documents.Where(x => x.DocumentCategoryId == 3);
         }
 
         public IEnumerable<Documents> GetSubjectPlanDocuments()
         {
-            throw new NotImplementedException();
+            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 4);
         }
 
         public async Task<List<sp_GetStudentCertificateDetails>> GetStudentCertificateData(int UserId)

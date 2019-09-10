@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HighSchoolApplication.API.Models;
@@ -39,6 +40,8 @@ namespace HighSchoolApplication.Web.Controllers
         {
             try
             {
+                byte[] output = null;
+
                 if (ModelState.IsValid)
                 {
                     documentsModel.CreatedAt = DateTime.Now;
@@ -48,15 +51,46 @@ namespace HighSchoolApplication.Web.Controllers
                     documentsModel.UserId = userId;
                     documentsModel.DocumentCategoryId = documentCategoryId;
 
-                    await HighSchoolApiClientFactory.Instance.GenerateDocuments(documentsModel, HttpContext.Session.GetString("Token"));
-
+                    var response = await HighSchoolApiClientFactory.Instance.GenerateDocuments(documentsModel, HttpContext.Session.GetString("Token"));
+                    output = response.Data.FileBytes;
                 }
-                return RedirectToAction("Index", "Home");
+
+                return File(output, "application/pdf");
+                //return RedirectToAction("Index", "Home");
             }
             catch
             {
                 return View(documentsModel);
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDocument(IFormFile file, DocumentsModel documentsModel)
+        {
+            var filepath = Path.GetTempFileName();
+            byte[] fileBytes = null;
+
+            if(file.Length > 0)
+            {
+                using (var stream = new FileStream(filepath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                    stream.Read(fileBytes, 0, (int)stream.Length);
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                documentsModel.DocumentDescription = file.FileName;
+                documentsModel.CreatedAt = DateTime.Now;
+                documentsModel.ModifiedAt = DateTime.Now;
+
+                await HighSchoolApiClientFactory.Instance.SaveDocuments(documentsModel, HttpContext.Session.GetString("Token"));
+
+                return RedirectToAction("Index", "Documents");
+            }
+            return View(documentsModel);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace HighSchoolApplication.Web.Controllers
 
         public IActionResult Login()
         {
-           
             return View();
         }
 
@@ -34,10 +33,12 @@ namespace HighSchoolApplication.Web.Controllers
                 var tokenS = handler.ReadToken(data.Data.Token) as JwtSecurityToken;
                 var role = tokenS.Claims.First(claim => claim.Type == "Role").Value;
                 var username = tokenS.Claims.First(claim => claim.Type == "sub").Value;
+                var idUser = tokenS.Claims.First(claim => claim.Type == "IdUser").Value;
 
                 HttpContext.Session.SetString("Token", data.Data.Token);
                 HttpContext.Session.SetString("Role", role);
                 HttpContext.Session.SetString("Username", username);
+                HttpContext.Session.SetString("IdUser", idUser);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -82,8 +83,8 @@ namespace HighSchoolApplication.Web.Controllers
                 int RoleId = Convert.ToInt32(Request.Form["RolesList"]);
                 userModel.RoleId = RoleId;
                 userModel.IsActive = true;
-                await HighSchoolApiClientFactory.Instance.SaveUsers(userModel, HttpContext.Session.GetString("Token"));
 
+                await HighSchoolApiClientFactory.Instance.SaveUsers(userModel, HttpContext.Session.GetString("Token"));
 
                 //ketu ben reload-in dhe i mbush perseri me vlera.
                 var roles = await HighSchoolApiClientFactory.Instance.GetRoles(HttpContext.Session.GetString("Token"));
@@ -91,10 +92,10 @@ namespace HighSchoolApplication.Web.Controllers
                 ViewBag.RolesList = roles.Data.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.RoleDescription });
 
                 var Gender = new List<SelectListItem>
-            {
-                new SelectListItem{ Text="Femer", Value = "Femer" },
-                new SelectListItem{ Text="Mashkull", Value = "Mashkull" , Selected = true  }
-            };
+                {
+                    new SelectListItem{ Text="Femer", Value = "Femer" },
+                    new SelectListItem{ Text="Mashkull", Value = "Mashkull" , Selected = true  }
+                };
 
                 ViewData["Gender"] = Gender;
                 //GetData();

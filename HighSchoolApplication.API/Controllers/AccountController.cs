@@ -77,7 +77,8 @@ namespace HighSchoolApplication.API.Controllers
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
                 new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("Role", userInfo.Role.RoleDescription)
+                new Claim("Role", userInfo.Role.RoleDescription),
+                new Claim("IdUser", Convert.ToString(userInfo.Id))
             };
 
             return claims;

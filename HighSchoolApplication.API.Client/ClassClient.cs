@@ -10,13 +10,13 @@ namespace HighSchoolApplication.API.Client
     {
         public async Task<Message<List<ClassModel>>> GetClasses(string token)
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/GetAllUsers"));
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Classes/ClassesList"));
             return await GetAsync<List<ClassModel>>(requestUrl,token);
         }
 
         public async Task<Message<ClassModel>> SaveClass(ClassModel model, string token)
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Classes/AddClass"));
             return await PostAsync<ClassModel>(requestUrl, model,token);
         }
     }

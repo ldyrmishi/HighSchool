@@ -32,6 +32,9 @@ namespace HighSchoolApplication.API.Models
         [DataMember(Name = "DocumentCategoryId")]
         public int? DocumentCategoryId { get; set; }
 
+        [DataMember(Name ="FileBytes")]
+        public byte[] FileBytes { get; set; }
+
 
         [DataMember(Name = "DocumentCategory")]
         public DocumentCategoryModel DocumentCategory { get; set; }

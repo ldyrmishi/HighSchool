@@ -15,7 +15,7 @@ namespace HighSchoolApplication.API.Client
             return await GetAsync<List<DocumentsModel>>(requestUrl,token);
         }
 
-        public async Task<Message<DocumentsModel>> Savedocuments(DocumentsModel model, string token)
+        public async Task<Message<DocumentsModel>> SaveDocuments(DocumentsModel model, string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));
             return await PostAsync<DocumentsModel>(requestUrl, model,token);

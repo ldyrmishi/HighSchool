@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using HighSchoolApplication.API.Drops;
@@ -23,26 +24,17 @@ namespace HighSchoolApplication.API.Controllers
 
         private IConverter _converter;
         public IRepository<Documents> _repository;
-        public IRepository<Users> _genericUsersRepository;
-        public IRepository<School> _genericSchoolRepository;
-        public IRepository<UsersClass> _genericUsersClassRepository;
-        public IRepository<Class> _genericClassRepository;
         public IDocumentsRepository _documentsRepository;
         public ILogger<Documents> _logger;
+        public IMapper _mapper;
         
-        public DocumentsController(IConverter converter, IRepository<Documents> repository,IRepository<Users> genericUsersRepository,
-            IRepository<School> genericSchoolRepository, IRepository<UsersClass> genericUsersClassRepository, IRepository<Class> genericClassRepository, ILogger<Documents> logger,
-            IDocumentsRepository documentsRepository
-            )
+        public DocumentsController(IConverter converter, IRepository<Documents> repository, ILogger<Documents> logger,IDocumentsRepository documentsRepository, IMapper mapper)
         {
             _converter = converter;
             _repository = repository;
-            _genericUsersRepository = genericUsersRepository;
-            _genericSchoolRepository = genericSchoolRepository;
-            _genericUsersClassRepository = genericUsersClassRepository;
-            _genericClassRepository = genericClassRepository;
             _logger = logger;
             _documentsRepository = documentsRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -87,6 +79,11 @@ namespace HighSchoolApplication.API.Controllers
 
                 var output = _converter.Convert(pdf);
 
+                documentsModel.FileBytes = output;
+                documentsModel.DocumentUrl = globalSettings.Out;
+
+                SaveDocument(documentsModel);
+
                 return new Message<DocumentsModel>()
                 {
                     IsSuccess = true,
@@ -110,5 +107,20 @@ namespace HighSchoolApplication.API.Controllers
             
         }
 
+        public void SaveDocument(DocumentsModel documentsModel)
+        {
+            try
+            {
+                var documentEntity = _mapper.Map<Documents>(documentsModel);
+
+                _repository.Insert(documentEntity);
+                _repository.Save();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+            }
+        }
     }
 }
