@@ -37,8 +37,136 @@ namespace HighSchoolApplication.API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        [Route("UserPrivateDocuments")]
+        public Message<IEnumerable<DocumentsModel>> GetUserPrivateDocuments(int UserId)
+        {
+            try
+            {
+                var documents = _documentsRepository.GetPrivateDocuments(UserId);
+
+                var documentsModel = _mapper.Map <IEnumerable<DocumentsModel>> (documents);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = documentsModel
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = null
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("StudentDocuments")]
+        public Message<IEnumerable<DocumentsModel>> GetStudentDocuments(int UserId)
+        {
+            try
+            {
+                var documents = _documentsRepository.GetStudentDocuments(UserId);
+
+                var documentsModel = _mapper.Map<IEnumerable<DocumentsModel>>(documents);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = documentsModel
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = null
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("TeacherSubjectPlanDocuments")]
+        public Message<IEnumerable<DocumentsModel>> GetTeacherSubjectPlans(int UserId)
+        {
+            try
+            {
+                var documents = _documentsRepository.GetSubjectPlanDocuments(UserId);
+
+                var documentsModel = _mapper.Map<IEnumerable<DocumentsModel>>(documents);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = documentsModel
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = null
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("TeacherPortofolio")]
+        public Message<IEnumerable<DocumentsModel>> GetTeacherPortofolio(int UserId)
+        {
+            try
+            {
+                var documents = _documentsRepository.GetPortofolioDocuments(UserId);
+
+                var documentsModel = _mapper.Map<IEnumerable<DocumentsModel>>(documents);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = documentsModel
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+
+                return new Message<IEnumerable<DocumentsModel>>()
+                {
+                    StatusCode = 404,
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    Data = null
+                };
+            }
+        }
+
         [HttpPost]
-        [Route("GenerateDocument")]
+        [Route("GenerateStudentCertificate")]
         public async Task<Message<DocumentsModel>> GenerateDocuments(DocumentsModel documentsModel)
         {
             try

@@ -92,5 +92,31 @@ namespace HighSchoolApplication.Web.Controllers
             }
             return View(documentsModel);
         }
+
+        public async Task<IActionResult> StudentsDocuments()
+        {
+            var response = await HighSchoolApiClientFactory.Instance.GetStudentDocuments(Convert.ToInt32(HttpContext.Session.GetString("IdUser")),HttpContext.Session.GetString("Token"));
+            return View(response.Data);
+        }
+
+        public async Task<IActionResult> TeacherPortofolioDocuments()
+        {
+            var response = await HighSchoolApiClientFactory.Instance.GetTeacherPortofolio(Convert.ToInt32(HttpContext.Session.GetString("IdUser")), HttpContext.Session.GetString("Token"));
+            return View(response.Data);
+        }
+
+        public async Task<IActionResult> TeacherSubjectPlans()
+        {
+            var response = await HighSchoolApiClientFactory.Instance.GetTeacherSubjectPlans(Convert.ToInt32(HttpContext.Session.GetString("IdUser")), HttpContext.Session.GetString("Token"));
+            return View(response.Data);
+        }
+
+        public async Task<IActionResult> UserPrivateDocuments()
+        {
+            var response = await HighSchoolApiClientFactory.Instance.GetUserPrivateDocuments(Convert.ToInt32(HttpContext.Session.GetString("IdUser")), HttpContext.Session.GetString("Token"));
+            return View(response.Data);
+        }
+
+
     }
 }
