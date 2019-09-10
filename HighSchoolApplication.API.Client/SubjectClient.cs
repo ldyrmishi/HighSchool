@@ -8,16 +8,17 @@ namespace HighSchoolApplication.API.Client
 {
     public partial class ApiClient
     {
-        public async Task<Message<List<SubjectModel>>> GetSubjects(string token)
+        public async Task<Message<IEnumerable<SubjectModel>>> GetSubjects(string token)
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/GetAllUsers"));
-            return await GetAsync<List<SubjectModel>>(requestUrl,token);
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Subjects/GetAllSubjects"));
+            return await GetAsync<IEnumerable<SubjectModel>>(requestUrl,token);
         }
 
-        public async Task<Message<SubjectModel>> SaveSubjects(SubjectModel model, string token)
+        public async Task<Message<IEnumerable<SubjectModel>>> GetSubjectsByTerm(string term, string token)
         {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));
-            return await PostAsync<SubjectModel>(requestUrl, model,token);
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Subjects/GetSubjectsByTerm/{0}", term));
+            return await GetAsync<IEnumerable<SubjectModel>>(requestUrl, token);
         }
+
     }
 }

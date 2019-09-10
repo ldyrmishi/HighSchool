@@ -38,6 +38,39 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
+        [Route("GetDocumentById")]
+        public Message<DocumentsModel> GetDocumentById(int documentId)
+        {
+            try
+            {
+                var documentEntity = _repository.GetById(documentId);
+                var documentModel = _mapper.Map<DocumentsModel>(documentEntity);
+
+                documentModel.FileBytes = Helper.ReadFileContent(documentEntity.DocumentUrl);
+
+                return new Message<DocumentsModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = documentModel
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error", ex);
+            
+                return new Message<DocumentsModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = null
+                };
+            }
+        }
+
+        [HttpGet]
         [Route("UserPrivateDocuments")]
         public Message<IEnumerable<DocumentsModel>> GetUserPrivateDocuments(int UserId)
         {
@@ -233,6 +266,42 @@ namespace HighSchoolApplication.API.Controllers
                 };
             }
             
+        }
+
+        [HttpPost]
+        [Route("AddDocument")]
+        public Message<DocumentsModel> AddDocument(DocumentsModel documentsModel)
+        {
+            try
+            {
+                string documentPath = $@"C:\inetpub\wwwroot\HighSchool-API\media\{documentsModel.DocumentCategory.Description}\{documentsModel.DocumentDescription}.pdf";
+
+                Helper.AddDocumentToDocumentSet(documentPath, documentsModel.FileBytes);
+
+                SaveDocument(documentsModel);
+
+                return new Message<DocumentsModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = documentsModel
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error", ex);
+
+                return new Message<DocumentsModel>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 503,
+                    Data = documentsModel
+                };
+            }
+            
+
         }
 
         public void SaveDocument(DocumentsModel documentsModel)

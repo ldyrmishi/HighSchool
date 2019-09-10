@@ -14,6 +14,12 @@ namespace HighSchoolApplication.API.Client
             return await GetAsync<IEnumerable<UsersModel>>(requestUrl,token);
         }
 
-    
+        public async Task<Message<IEnumerable<UsersModel>>> GetUsersList(string token)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Users/UsersList"));
+            return await GetAsync<IEnumerable<UsersModel>>(requestUrl, token);
+        }
+
+
     }
 }

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<HighSchoolApplication.API.Models.SubjectModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3>Lista e lendeve</h3>
+        </div>
+        <div class="box-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Lenda
+                        </th>
+                        <th>
+                            Pershkrimi
+                        </th>
+                        <th>
+                            Semestri
+                        </th>
+                        <th>
+                            Piket maksimale
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubjectTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubjectDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Term)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaxPoints)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+

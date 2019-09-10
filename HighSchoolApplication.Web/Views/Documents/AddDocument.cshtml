@@ -1,34 +1,43 @@
 ﻿@model HighSchoolApplication.API.Models.DocumentsModel
 
-<h4>DocumentsModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddDocument">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SubjectId" class="control-label">Lenda</label>
-                <input asp-for="SubjectId" class="form-control" />
-                <span asp-validation-for="SubjectId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DocumentCategoryId" class="control-label"></label>
-                <input asp-for="DocumentCategoryId" class="form-control" />
-                <span asp-validation-for="DocumentCategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Shto" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="AddDocument">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="User" class="control-label">Studenti</label>
+                            @Html.DropDownList("UsersList", "Zgjidhni perdoruesin")
+                            <span asp-validation-for="User" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Subject" class="control-label">Studenti</label>
+                            @Html.DropDownList("SubjectsList", "Zgjidhni subjektin")
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DocumentCategory" class="control-label">Kategoria e dokumentit</label>
+                            @Html.DropDownList("DocumentCategories", "Zgjidhni kategorine")
+                            <span asp-validation-for="DocumentCategory" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DocumentUrl" class="control-label">Kliko butonin</label>
+                            <input asp-for="DocumentUrl" multiple type="file" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Shto" class="btn btn-default" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 

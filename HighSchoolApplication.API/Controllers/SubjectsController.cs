@@ -14,76 +14,76 @@ namespace HighSchoolApplication.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class SubjectsController : ControllerBase
     {
-        public IRepository<Users> _repository;
-        public IUsersRepository _usersRepository;
+        public IRepository<Subjects> _repository;
+        public ISubjectsRepository _subjectsRepository;
         public IMapper _mapper;
-        public ILogger<Users> _logger;
+        public ILogger<Subjects> _logger;
 
-        public UsersController(IRepository<Users> repository, IUsersRepository usersRepository, IMapper mapper, ILogger<Users> logger)
+        public SubjectsController(IRepository<Subjects> repository, ISubjectsRepository subjectsRepository, IMapper mapper, ILogger<Subjects> logger)
         {
             _repository = repository;
-            _usersRepository = usersRepository;
+            _subjectsRepository = subjectsRepository;
             _mapper = mapper;
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("StudentsList")]
-        public Message<IEnumerable<UsersModel>> GetStudents()
+        [Route("GetAllSubjects")]
+        public Message<IEnumerable<SubjectModel>> GetAllSubjects()
         {
             try
             {
-                var data = _usersRepository.GetActiveStudents();
-                var studentsList = _mapper.Map<IEnumerable<UsersModel>>(data);
+                var data = _repository.GetAll();
+                var subjectsList = _mapper.Map<IEnumerable<SubjectModel>>(data);
 
-                return new Message<IEnumerable<UsersModel>>()
+                return new Message<IEnumerable<SubjectModel>>()
                 {
                     IsSuccess = true,
                     ReturnMessage = "OK",
                     StatusCode = 200,
-                    Data = studentsList
+                    Data = subjectsList
                 };
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error on Getting students", ex);
-                return new Message<IEnumerable<UsersModel>>()
+                _logger.LogError("Error on Getting users", ex);
+                return new Message<IEnumerable<SubjectModel>>()
                 {
                     IsSuccess = false,
                     ReturnMessage = "Error",
-                    StatusCode = 500,
+                    StatusCode = 503,
                     Data = null
                 };
             }
         }
 
         [HttpGet]
-        [Route("UsersList")]
-        public Message<IEnumerable<UsersModel>> GetAllUsers()
+        [Route("GetSubjectsByTerm")]
+        public Message<IEnumerable<SubjectModel>> GetSubjectsByTerm(string term)
         {
             try
             {
-                var data = _repository.GetAll();
-                var usersList = _mapper.Map<IEnumerable<UsersModel>>(data);
+                var data = _subjectsRepository.GetSubjectsByTerm(term);
+                var subjectsList = _mapper.Map<IEnumerable<SubjectModel>>(data);
 
-                return new Message<IEnumerable<UsersModel>>()
+                return new Message<IEnumerable<SubjectModel>>()
                 {
                     IsSuccess = true,
                     ReturnMessage = "OK",
                     StatusCode = 200,
-                    Data = usersList
+                    Data = subjectsList
                 };
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error on Getting users", ex);
-                return new Message<IEnumerable<UsersModel>>()
+                return new Message<IEnumerable<SubjectModel>>()
                 {
                     IsSuccess = false,
                     ReturnMessage = "Error",
-                    StatusCode = 500,
+                    StatusCode = 503,
                     Data = null
                 };
             }

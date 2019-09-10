@@ -64,6 +64,23 @@ namespace HighSchoolApplication.Web.Controllers
             }
         }
 
+        public async Task<IActionResult> AddDocument()
+        {
+            var users = await HighSchoolApiClientFactory.Instance.GetUsersList(HttpContext.Session.GetString("Token"));
+
+            ViewBag.UsersList = users.Data.AsEnumerable().Select(x => new SelectListItem { Value = x.Id.ToString(), Text = (x.Firstname + " " + x.Lastname) });
+
+            var subjectsList = await HighSchoolApiClientFactory.Instance.GetSubjects(HttpContext.Session.GetString("Token"));
+
+            ViewBag.SubjectsList = subjectsList.Data.AsEnumerable().Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.SubjectTitle });
+
+            var documentCategories = await HighSchoolApiClientFactory.Instance.GetDocumentCategories(HttpContext.Session.GetString("Token"));
+
+            ViewBag.DocumentCategories = documentCategories.Data.AsEnumerable().Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Description });
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddDocument(IFormFile file, DocumentsModel documentsModel)
@@ -85,8 +102,11 @@ namespace HighSchoolApplication.Web.Controllers
                 documentsModel.DocumentDescription = file.FileName;
                 documentsModel.CreatedAt = DateTime.Now;
                 documentsModel.ModifiedAt = DateTime.Now;
+                documentsModel.UserId = Convert.ToInt32(Request.Form["UsersList"]);
+                documentsModel.SubjectId = Convert.ToInt32(Request.Form["SubjectsList"]);
+                documentsModel.DocumentCategoryId = Convert.ToInt32(Request.Form["DocumentCategories"]);
 
-                await HighSchoolApiClientFactory.Instance.SaveDocuments(documentsModel, HttpContext.Session.GetString("Token"));
+                await HighSchoolApiClientFactory.Instance.AddDocument(documentsModel, HttpContext.Session.GetString("Token"));
 
                 return RedirectToAction("Index", "Documents");
             }
@@ -116,7 +136,5 @@ namespace HighSchoolApplication.Web.Controllers
             var response = await HighSchoolApiClientFactory.Instance.GetUserPrivateDocuments(Convert.ToInt32(HttpContext.Session.GetString("IdUser")), HttpContext.Session.GetString("Token"));
             return View(response.Data);
         }
-
-
     }
 }
