@@ -1,8 +1,42 @@
-﻿
+﻿@model IEnumerable<HighSchoolApplication.API.Models.DocumentsModel>
 @{
     ViewData["Title"] = "TeacherPortofolioDocuments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>TeacherPortofolioDocuments</h2>
+<section>
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3>Portofoli i mesuesit</h3>
+        </div>
+        <div class="box-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FileBytes)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileBytes)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
