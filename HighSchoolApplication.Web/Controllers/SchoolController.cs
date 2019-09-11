@@ -32,7 +32,7 @@ namespace HighSchoolApplication.Web.Controllers
                 schoolModel.ModifiedAt = DateTime.Now;
                 var data = await HighSchoolApiClientFactory.Instance.AddSchool(schoolModel, HttpContext.Session.GetString("Token"));
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
             return View(schoolModel);
         }

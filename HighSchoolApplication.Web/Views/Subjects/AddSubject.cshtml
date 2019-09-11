@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Term" class="control-label">Semestri</label>
-                            <input asp-for="Term" class="form-control" />
+                            @Html.DropDownList("Term", ViewData["Term"] as List<SelectListItem>)
                             <span asp-validation-for="Term" class="text-danger"></span>
                         </div>
                         <div class="form-group">

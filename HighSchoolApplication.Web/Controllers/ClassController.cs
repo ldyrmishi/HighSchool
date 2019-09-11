@@ -6,6 +6,7 @@ using HighSchoolApplication.API.Models;
 using HighSchoolApplication.Web.Factory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HighSchoolApplication.Web.Controllers
 {
@@ -17,22 +18,29 @@ namespace HighSchoolApplication.Web.Controllers
             return View(response.Data);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var school = await HighSchoolApiClientFactory.Instance.GetSchools(HttpContext.Session.GetString("Token"));
+
+            ViewBag.SchoolList = school.Data.AsEnumerable().Select(b => new SelectListItem { Value = b.Id.ToString(), Text = b.Name + b.Address });
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RoleDescription")] ClassModel classModel)
+        public async Task<IActionResult> Create([Bind("ClassNo", "ClassYear")] ClassModel classModel)
         {
             if (ModelState.IsValid)
             {
                 classModel.CreatedAt = DateTime.Now;
                 classModel.ModifiedAt = DateTime.Now;
+                int schoolId = Convert.ToInt32(Request.Form["SchoolList"]);
+                classModel.SchoolId = schoolId;
+
                 var data = await HighSchoolApiClientFactory.Instance.SaveClass(classModel, HttpContext.Session.GetString("Token"));
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
             return View(classModel);
         }

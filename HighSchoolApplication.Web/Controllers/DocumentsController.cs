@@ -133,7 +133,7 @@ namespace HighSchoolApplication.Web.Controllers
             return View(response.Data);
         }
 
-        public async Task<IActionResult> TeacherSubjectPlans()
+        public async Task<IActionResult> TeacherSubjectsPlans()
         {
             var response = await HighSchoolApiClientFactory.Instance.GetTeacherSubjectPlans(Convert.ToInt32(HttpContext.Session.GetString("IdUser")), HttpContext.Session.GetString("Token"));
             return View(response.Data);

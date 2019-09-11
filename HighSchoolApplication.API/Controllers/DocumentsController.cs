@@ -38,7 +38,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetDocumentById")]
+        [Route("GetDocumentById/{documentId}")]
         public Message<DocumentsModel> GetDocumentById(int documentId)
         {
             try
@@ -71,7 +71,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("UserPrivateDocuments")]
+        [Route("UserPrivateDocuments/{UserId}")]
         public Message<IEnumerable<DocumentsModel>> GetUserPrivateDocuments(int UserId)
         {
             try
@@ -103,7 +103,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("StudentDocuments")]
+        [Route("StudentDocuments/{UserId}")]
         public Message<IEnumerable<DocumentsModel>> GetStudentDocuments(int UserId)
         {
             try
@@ -135,7 +135,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("TeacherSubjectPlanDocuments")]
+        [Route("TeacherSubjectPlanDocuments/{UserId}")]
         public Message<IEnumerable<DocumentsModel>> GetTeacherSubjectPlans(int UserId)
         {
             try
@@ -167,7 +167,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("TeacherPortofolio")]
+        [Route("TeacherPortofolio/{UserId}")]
         public Message<IEnumerable<DocumentsModel>> GetTeacherPortofolio(int UserId)
         {
             try
@@ -243,7 +243,7 @@ namespace HighSchoolApplication.API.Controllers
                 documentsModel.FileBytes = output;
                 documentsModel.DocumentUrl = globalSettings.Out;
 
-                SaveDocument(documentsModel);
+                Helper.SaveDocument(documentsModel, _repository, _mapper, _logger);
 
                 return new Message<DocumentsModel>()
                 {
@@ -278,7 +278,7 @@ namespace HighSchoolApplication.API.Controllers
 
                 Helper.AddDocumentToDocumentSet(documentPath, documentsModel.FileBytes);
 
-                SaveDocument(documentsModel);
+                Helper.SaveDocument(documentsModel, _repository, _mapper,_logger);
 
                 return new Message<DocumentsModel>()
                 {
@@ -304,20 +304,6 @@ namespace HighSchoolApplication.API.Controllers
 
         }
 
-        public void SaveDocument(DocumentsModel documentsModel)
-        {
-            try
-            {
-                var documentEntity = _mapper.Map<Documents>(documentsModel);
-
-                _repository.Insert(documentEntity);
-                _repository.Save();
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error", ex);
-            }
-        }
+       
     }
 }
