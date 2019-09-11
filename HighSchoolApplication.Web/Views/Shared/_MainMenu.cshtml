@@ -71,7 +71,19 @@
                 <li><a href="@Url.Action("Create","Class")">Shto klase te re</a></li>
             </ul>
         </li>
-        <li><a href="@Url.Action("Index","Subjects")"><i class="fa fa-book"></i> <span>Lendet Mesimore</span></a></li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-building"></i> <span>Klasat</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Index","Subjects")"><i class="fa fa-book"></i> <span>Lendet Mesimore</span></a></li>
+                <li><a href="@Url.Action("AddSubject","Subjects")"><i class="fa fa-book"></i> <span>Shto Lende</span></a></li>
+            </ul>
+        </li>
+        
     }
 
 </ul>

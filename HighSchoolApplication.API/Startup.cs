@@ -86,6 +86,7 @@ namespace HighSchoolApplication.API
             services.AddTransient<IClassesRepository, ClassesRepository>();
             services.AddTransient<IDocumentsRepository, DocumentsRepository>();
             services.AddTransient<ISubjectsRepository, SubjectsRepository>();
+            services.AddTransient<IDiaryRepository, DiaryRepository>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

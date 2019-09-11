@@ -15,7 +15,6 @@ namespace HighSchoolApplication.API.Client
             return await GetAsync<DocumentsModel>(requestUrl, token);
         }
 
-
         public async Task<Message<DocumentsModel>> AddDocument(DocumentsModel model, string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/SaveUser"));

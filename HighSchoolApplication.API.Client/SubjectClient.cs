@@ -20,5 +20,10 @@ namespace HighSchoolApplication.API.Client
             return await GetAsync<IEnumerable<SubjectModel>>(requestUrl, token);
         }
 
+        public async Task<Message<SubjectModel>> AddSubject(SubjectModel model, string token)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Subjects/NewSubject"));
+            return await PostAsync<SubjectModel>(requestUrl, model, token);
+        }
     }
 }

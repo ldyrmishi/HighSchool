@@ -19,6 +19,14 @@ namespace HighSchoolApplication.Web.Controllers
             return View();
         }
 
+        public async Task<IActionResult> GetDocumentById(int id)
+        {
+            var response = await HighSchoolApiClientFactory.Instance.GetDocumentById(id, HttpContext.Session.GetString("Token"));
+            byte[] output = response.Data.FileBytes;
+
+            return File(output, "application/pdf");
+        }
+
         // GET: Documents/Create
         public async Task<IActionResult> GenerateStudentCertificate()
         {

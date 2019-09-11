@@ -12,31 +12,25 @@
         </div>
         <div class="box-body">
             <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Id)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FileBytes)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
+                        if(item.Id % 3 == 0)
+                        {
+                            <tr></tr>
+                            <tr></tr>
+                            <br/>
+                        }
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FileBytes)
+                            <td align="center">
+                                <a href="@Url.Action("GetDocumentById", "Documents", new { id = item.Id })"></a>
+                                    <img src="~/dist/img/file-image.png" width="150" height="150" /><br/>
+                                @Html.DisplayFor(modelItem => item.DocumentDescription)
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-        </div>
+            </div>
     </div>
 </section>

@@ -88,5 +88,37 @@ namespace HighSchoolApplication.API.Controllers
                 };
             }
         }
+
+        [HttpPost]
+        [Route("NewSubject")]
+        public Message<SubjectModel> AddSubject(SubjectModel subjectModel)
+        {
+            try
+            {
+                var subjectEntity = _mapper.Map<Subjects>(subjectModel);
+
+                _repository.Insert(subjectEntity);
+                _repository.Save();
+
+                return new Message<SubjectModel>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = subjectModel
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error on saving subject", ex);
+                return new Message<SubjectModel>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 503,
+                    Data = subjectModel
+                };
+            }
+        }
     }
 }
