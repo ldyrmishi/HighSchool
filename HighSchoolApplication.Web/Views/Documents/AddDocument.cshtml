@@ -10,7 +10,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-md-4">
-                    <form asp-action="AddDocument">
+                    <form asp-action="AddDocument" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="User" class="control-label">Studenti</label>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="DocumentUrl" class="control-label">Kliko butonin</label>
-                            <input asp-for="DocumentUrl" multiple type="file" class="form-control" />
+                            <input asp-for="DocumentUrl" multiple type="file" name="file" class="form-control" />
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Shto" class="btn btn-default" />
