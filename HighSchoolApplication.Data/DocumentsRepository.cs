@@ -22,22 +22,22 @@ namespace HighSchoolApplication.Data
 
         public IEnumerable<Documents> GetPortofolioDocuments(int UserId)
         {
-            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 1 && x.UserId == UserId);
+            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 4 && x.UserId == UserId);
         }
 
         public IEnumerable<Documents> GetPrivateDocuments(int UserId)
         {
-            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 2 && x.UserId == UserId);
+            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 1 && x.UserId == UserId);
         }
 
         public IEnumerable<Documents> GetStudentDocuments(int UserId)
         {
-           return _dbContext.Documents.Where(x => x.DocumentCategoryId == 3 && x.UserId == UserId);
+           return _dbContext.Documents.Where(x => x.DocumentCategoryId == 2 && x.UserId == UserId);
         }
 
         public IEnumerable<Documents> GetSubjectPlanDocuments(int UserId)
         {
-            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 4 && x.UserId == UserId);
+            return _dbContext.Documents.Where(x => x.DocumentCategoryId == 3 && x.UserId == UserId);
         }
 
         public async Task<List<sp_GetStudentCertificateDetails>> GetStudentCertificateData(int UserId)
