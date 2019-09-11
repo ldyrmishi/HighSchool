@@ -15,22 +15,24 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        if(item.Id % 3 == 0)
+                        if (item.Id % 2 == 0)
                         {
                             <tr></tr>
                             <tr></tr>
-                            <br/>
+                            <br />
                         }
-                        <tr>
-                            <td align="center">
-                                <a href="@Url.Action("GetDocumentById", "Documents", new { id = item.Id })"></a>
-                                    <img src="~/dist/img/file-image.png" width="150" height="150" /><br/>
-                                @Html.DisplayFor(modelItem => item.DocumentDescription)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+
+                        <td align="center">
+                            <a href="@Url.Action("GetDocumentById", "Documents", new { id = item.Id })">
+                                <img src="~/dist/img/file-image.png" width="150" height="150" />
+                            </a><br />
+                            @Html.DisplayFor(modelItem => item.DocumentDescription)
+                        </td>
+                        <td></td>
+
+                }
+                    </tbody>
+                </table>
             </div>
     </div>
 </section>

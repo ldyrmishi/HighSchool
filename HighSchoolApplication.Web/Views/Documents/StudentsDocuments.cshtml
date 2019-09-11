@@ -12,32 +12,28 @@
     </div>
     <div class="box-body">
         <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FileBytes)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FileBytes)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                    if (item.Id % 2 == 0)
+                    {
+                        <tr></tr>
+                        <tr></tr>
+                        <br />
+                    }
+
+                <td align="center">
+                    <a href="@Url.Action("GetDocumentById", "Documents", new { id = item.Id })">
+                        <img src="~/dist/img/file-image.png" width="150" height="150" />
+                    </a><br />
+                    @Html.DisplayFor(modelItem => item.DocumentDescription)
+                </td>
+                <td></td>
+
+            }
+                </tbody>
+            </table>
+        </div>
         </div>
 </section>
 
