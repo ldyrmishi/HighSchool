@@ -221,7 +221,7 @@ namespace HighSchoolApplication.API.Controllers
                     PaperSize = PaperKind.A4,
                     Margins = new MarginSettings { Top = 10 },
                     DocumentTitle = "Vertetim Studenti",
-                    Out = $@"C:\inetpub\wwwroot\HighSchool-API\media\vertetim\VertetimUser{model.StudentName}.pdf"
+                    //Out = $@"C:\inetpub\wwwroot\HighSchool-API\media\vertetim\VertetimUser{model.StudentName}.pdf"
                 };
 
                 var objectSettings = new ObjectSettings
@@ -240,8 +240,11 @@ namespace HighSchoolApplication.API.Controllers
 
                 var output = _converter.Convert(pdf);
 
+                string documentPath = $@"C:\inetpub\wwwroot\HighSchool-API\media\vertetim\VertetimUser{model.StudentName}.pdf";
+
+                Helper.AddDocumentToDocumentSet(documentPath, output);
+
                 documentsModel.FileBytes = output;
-                documentsModel.DocumentUrl = globalSettings.Out;
 
                 Helper.SaveDocument(documentsModel, _repository, _mapper, _logger);
 
