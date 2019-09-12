@@ -1,0 +1,3 @@
+﻿1--- Get SpecificClass Students
+2--- Foreach item in Students list for this class create new Object<DigitalRegisterViewModel>
+3--- AddThis
