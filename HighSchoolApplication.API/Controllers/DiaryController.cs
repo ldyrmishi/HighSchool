@@ -30,7 +30,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetDiaryBySubjectId")]
+        [Route("GetDiaryBySubjectId/{SubjectId}")]
         public Message<IEnumerable<DiaryModel>> GetDiaryBySubjectId(int SubjectId)
         {
             try
@@ -61,7 +61,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetDiaryByUserId")]
+        [Route("GetDiaryByUserId/{UserId}")]
         public Message<IEnumerable<DiaryModel>> GetDiaryByUserId(int UserId)
         {
             try
@@ -92,7 +92,7 @@ namespace HighSchoolApplication.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetSpecificDiary")]
+        [Route("GetSpecificDiary/{date}/{SubjectId}/{UserId}")]
         public  Message<IEnumerable<DiaryModel>> GetSpecificDiary(DateTime date, int SubjectId, int UserId)
         {
             try

@@ -89,5 +89,20 @@ namespace HighSchoolApplication.Data
         {
             return _dbContext.Users.Where(x => x.IsActive == false).ToList();
         }
+
+        public IEnumerable<Users> GetClassStudents(int classId)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public IEnumerable<Users> GetClassStudents(int classId)
+        //{
+        //    var usersClass = _dbContext.UsersClass.Where(x => x.ClassId == classId).GroupBy(x => x.ClassId, x => x.UserId);
+        //    //foreach (var item in usersClass)
+        //    //{
+        //    //    item.
+        //    //}
+
+        //}
     }
 }

@@ -8,12 +8,6 @@ namespace HighSchoolApplication.API.Client
 {
     public partial class ApiClient
     {
-        public async Task<Message<List<DiaryModel>>> GetDiary(string token)
-        {
-            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "User/GetAllUsers"));
-            return await GetAsync<List<DiaryModel>>(requestUrl,token);
-        }
-
         public async Task<Message<IEnumerable<DiaryModel>>> GetDiaryBySubjectId(int SubjectId, string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Diary/GetDiaryBySubjectId/{0}", SubjectId));

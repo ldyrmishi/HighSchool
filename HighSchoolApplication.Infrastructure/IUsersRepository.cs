@@ -15,5 +15,6 @@ namespace HighSchoolApplication.Infrastructure
         IList<Users> GetActiveSecretary();
         IList<Users> GetInActiveUsers();
         Roles GetUserRole(int roleId);
+        IEnumerable<Users> GetClassStudents(int classId);
     }
 }

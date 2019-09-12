@@ -14,8 +14,7 @@ namespace HighSchoolApplication.Web.Factory
     {
         private static Uri apiUri;
         //private static IConfiguration configuration;
-        private static Lazy<ApiClient> restClient = new Lazy<ApiClient>(() => new ApiClient(apiUri),
-                                                                               LazyThreadSafetyMode.ExecutionAndPublication);
+        private static Lazy<ApiClient> restClient = new Lazy<ApiClient>(() => new ApiClient(apiUri), LazyThreadSafetyMode.ExecutionAndPublication);
         static HighSchoolApiClientFactory()
         {
             apiUri = new Uri("http://localhost:5454/api/");

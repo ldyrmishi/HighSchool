@@ -12,5 +12,10 @@ namespace HighSchoolApplication.Web.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> SubjectDiaries()
+        {
+            return View();
+        }
     }
 }
