@@ -1,0 +1,65 @@
+﻿@model IEnumerable<HighSchoolApplication.API.Models.ClassModel>
+
+@{
+    ViewData["Title"] = "Lista e klasave";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3>Lista e klasave</h3>
+            <div class="box-tools pull-right">
+                <a asp-action="Create" class="btn btn-primary">Shto klase te re</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Emri
+                        </th>
+                        <th>
+                            Viti
+                        </th>
+                        <th>
+                            Krijuar
+                        </th>
+                        <th>
+                            Modifikuar
+                        </th>
+                        <th>
+                            Shkolla
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassYear)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ModifiedAt)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SchoolId)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Rregjistri i klases", "DigitalRegister", "Users", new {  id = item.Id }) |
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </section>

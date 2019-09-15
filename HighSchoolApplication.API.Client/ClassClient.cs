@@ -14,6 +14,12 @@ namespace HighSchoolApplication.API.Client
             return await GetAsync<List<ClassModel>>(requestUrl,token);
         }
 
+        public async Task<Message<IEnumerable<ClassModel>>> GetLoggedUserClasses(int IdUser,string token)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Classes/UsersListOfClasses/{0}", IdUser));
+            return await GetAsync<IEnumerable<ClassModel>>(requestUrl, token);
+        }
+
         public async Task<Message<ClassModel>> SaveClass(ClassModel model, string token)
         {
             var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Classes/AddClass"));

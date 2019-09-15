@@ -18,6 +18,12 @@ namespace HighSchoolApplication.Web.Controllers
             return View(response.Data);
         }
 
+        public async Task<IActionResult> MyClasses()
+        {
+            var response = await HighSchoolApiClientFactory.Instance.GetLoggedUserClasses(Convert.ToInt32(HttpContext.Session.GetString("IdUser")), HttpContext.Session.GetString("Token"));
+            return View(response.Data);
+        }
+
         public async Task<IActionResult> Create()
         {
             var school = await HighSchoolApiClientFactory.Instance.GetSchools(HttpContext.Session.GetString("Token"));

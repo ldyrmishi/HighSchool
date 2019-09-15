@@ -14,9 +14,9 @@ namespace HighSchoolApplication.Web.Controllers
     public class UsersController : Controller
     {
         // GET: Users
-        public async Task<IActionResult> DigitalRegister(int ClassId)
+        public async Task<IActionResult> DigitalRegister(int id)
         {
-            var response = await HighSchoolApiClientFactory.Instance.GetUsersByClass(ClassId, HttpContext.Session.GetString("Token"));
+            var response = await HighSchoolApiClientFactory.Instance.GetUsersByClass(id, HttpContext.Session.GetString("Token"));
 
             var digitalRegister = new DigitalRegisterModel()
             {
@@ -36,15 +36,15 @@ namespace HighSchoolApplication.Web.Controllers
             digitalRegister.calendar.FifthDayOfWeek = daysOfWeek.ElementAt(4);
 
             var registerValueDict = new Dictionary<string, string>();
-           
 
-            foreach(var item in response.Data)
+
+            foreach (var item in response.Data)
             {
-                registerValueDict.Add(item.IdUser.ToString() + digitalRegister.calendar.FirstDayOfWeek + item.ClassId.ToString(), "One");
-                registerValueDict.Add(item.IdUser.ToString() + digitalRegister.calendar.SecondDayOfWeek + item.ClassId.ToString(), "One");
-                registerValueDict.Add(item.IdUser.ToString() + digitalRegister.calendar.ThirdDayOfWeek + item.ClassId.ToString(), "One");
-                registerValueDict.Add(item.IdUser.ToString() + digitalRegister.calendar.FourthDayOfWeek + item.ClassId.ToString(), "One");
-                registerValueDict.Add(item.IdUser.ToString() + digitalRegister.calendar.FifthDayOfWeek + item.ClassId.ToString(), "One");
+                registerValueDict.Add(item.IdUser.ToString()+ "-" + digitalRegister.calendar.FirstDayOfWeek + "-" + item.ClassId.ToString(), "One");
+                registerValueDict.Add(item.IdUser.ToString()+ "-"  + digitalRegister.calendar.SecondDayOfWeek + "-" + item.ClassId.ToString(), "One");
+                registerValueDict.Add(item.IdUser.ToString()+ "-"  + digitalRegister.calendar.ThirdDayOfWeek + "-" + item.ClassId.ToString(), "One");
+                registerValueDict.Add(item.IdUser.ToString()+ "-"  + digitalRegister.calendar.FourthDayOfWeek + "-" + item.ClassId.ToString(), "One");
+                registerValueDict.Add(item.IdUser.ToString() + "-" + digitalRegister.calendar.FifthDayOfWeek + "-" + item.ClassId.ToString(), "One");
             }
 
             return View(digitalRegister);

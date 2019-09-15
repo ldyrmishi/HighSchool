@@ -33,4 +33,10 @@
     <Folder Include="Views\Diary\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Class\MyClasses.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>
