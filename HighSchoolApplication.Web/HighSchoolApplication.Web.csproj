@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Diary\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
 
 </Project>

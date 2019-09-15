@@ -1,0 +1,66 @@
+﻿@model HighSchoolApplication.Web.Models.DigitalRegisterModel
+
+@{
+    ViewData["Title"] = "DigitalRegister";
+}
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3>Rregjistri i klases</h3>
+        </div>
+        <div class="box-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Emer Mbiemer
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.calendar.FirstDayOfWeek)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.calendar.SecondDayOfWeek)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.calendar.ThirdDayOfWeek)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.calendar.FourthDayOfWeek)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.calendar.FifthDayOfWeek)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.users)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.RegisterValue, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.RegisterValue, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.RegisterValue, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.RegisterValue, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.RegisterValue, new { @class = "form-control" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+

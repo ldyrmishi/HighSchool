@@ -465,6 +465,8 @@ namespace HighSchoolApplication.Infrastructure.Models
             });
 
             modelBuilder.Query<sp_GetStudentCertificateDetails>();
+
+            modelBuilder.Query<sp_GetUserByClass>();
         }
 
         #region StoredProcedures
@@ -482,6 +484,29 @@ namespace HighSchoolApplication.Infrastructure.Models
                 string sqlQuery = "EXEC [dbo].[sp_GetStudentCertificateDetails] " + "@UserId";
 
                 lst = await this.Query<sp_GetStudentCertificateDetails>().FromSql(sqlQuery, userIdParam).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return lst;
+        }
+
+        public async Task<List<sp_GetUserByClass>> GetUsersByClass(int ClassId)
+        {
+            // Initialization.  
+            List<sp_GetUserByClass> lst = new List<sp_GetUserByClass>();
+
+            try
+            {
+                // Settings.  
+                SqlParameter parameter = new SqlParameter("@ClassId", ClassId.ToString() ?? (object)DBNull.Value);
+
+                // Processing.  
+                string sqlQuery = "EXEC [dbo].[sp_GetUsersByClass] " + "@ClassId";
+
+                lst = await this.Query<sp_GetUserByClass>().FromSql(sqlQuery, parameter).ToListAsync();
             }
             catch (Exception ex)
             {

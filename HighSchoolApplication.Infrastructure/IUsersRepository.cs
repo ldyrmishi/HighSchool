@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HighSchoolApplication.Infrastructure
 {
@@ -15,6 +16,6 @@ namespace HighSchoolApplication.Infrastructure
         IList<Users> GetActiveSecretary();
         IList<Users> GetInActiveUsers();
         Roles GetUserRole(int roleId);
-        IEnumerable<Users> GetClassStudents(int classId);
+        Task<List<sp_GetUserByClass>> GetUsersByClass(int ClassId);
     }
 }

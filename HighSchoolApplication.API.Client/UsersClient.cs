@@ -20,6 +20,12 @@ namespace HighSchoolApplication.API.Client
             return await GetAsync<IEnumerable<UsersModel>>(requestUrl, token);
         }
 
+        public async Task<Message<IEnumerable<sp_GetUsersByClassModel>>> GetUsersByClass(int ClassId, string token)
+        {
+            var requestUrl = CreateRequestUri(string.Format(System.Globalization.CultureInfo.InvariantCulture, "Users/UsersByClass/{0}", ClassId));
+            return await GetAsync<IEnumerable<sp_GetUsersByClassModel>>(requestUrl, token);
+        }
+
 
     }
 }

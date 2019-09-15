@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HighSchoolApplication.Data
 {
@@ -95,14 +96,9 @@ namespace HighSchoolApplication.Data
             throw new NotImplementedException();
         }
 
-        //public IEnumerable<Users> GetClassStudents(int classId)
-        //{
-        //    var usersClass = _dbContext.UsersClass.Where(x => x.ClassId == classId).GroupBy(x => x.ClassId, x => x.UserId);
-        //    //foreach (var item in usersClass)
-        //    //{
-        //    //    item.
-        //    //}
-
-        //}
+        public async Task<List<sp_GetUserByClass>> GetUsersByClass(int ClassId)
+        {
+            return await _dbContext.GetUsersByClass(ClassId);
+        }
     }
 }

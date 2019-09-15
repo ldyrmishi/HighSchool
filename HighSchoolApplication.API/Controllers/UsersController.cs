@@ -88,5 +88,36 @@ namespace HighSchoolApplication.API.Controllers
                 };
             }
         }
+
+        [HttpGet]
+        [Route("UsersByClass/{ClassId}")]
+        public async Task<Message<IEnumerable<sp_GetUsersByClassModel>>> GetUsersByClass(int ClassId)
+        {
+            try
+            {
+                var classUsers = await _usersRepository.GetUsersByClass(ClassId);
+                var classUsersList = _mapper.Map<IEnumerable<sp_GetUsersByClassModel>>(classUsers);
+
+                return new Message<IEnumerable<sp_GetUsersByClassModel>>()
+                {
+                    IsSuccess = true,
+                    ReturnMessage = "OK",
+                    StatusCode = 200,
+                    Data = classUsersList
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error on geting users", ex);
+
+                return new Message<IEnumerable<sp_GetUsersByClassModel>>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 503,
+                    Data = null
+                };
+            }
+        }
     }
 }

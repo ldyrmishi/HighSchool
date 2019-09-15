@@ -26,6 +26,7 @@ namespace HighSchoolApplication.API.Profiles
             CreateMap<UsersClass, UsersClassModel>().ReverseMap();
             CreateMap<UsersStatus, UsersStatusModel>().ReverseMap();
             CreateMap<UsersSubjectPoints, UsersSubjectPointsModel>().ReverseMap();
+            CreateMap<sp_GetUserByClass, sp_GetUsersByClassModel>().ReverseMap();
         }
     }
 }
