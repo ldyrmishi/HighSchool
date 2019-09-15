@@ -57,9 +57,44 @@ namespace HighSchoolApplication.API.Controllers
 
                 return new Message<IEnumerable<ClassModel>>()
                 {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 503,
+                    Data = null
+                };
+            }
+        }
+
+        [HttpGet]
+        [Route("UsersListOfClasses/{IdUser}")]
+        public Message<IEnumerable<ClassModel>> GetUserListOfClasses(int IdUser)
+        {
+            try
+            {
+                var classesList = _classesRepository.GetUserClasses(IdUser);
+
+                var classList = _mapper.Map<IEnumerable<ClassModel>>(classesList);
+
+                _logger.LogInformation("List of classes returned succesfully");
+
+                return new Message<IEnumerable<ClassModel>>()
+                {
                     IsSuccess = true,
                     ReturnMessage = "Classes returned succesfully",
                     StatusCode = 200,
+                    Data = classList
+                };
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error on retrieving list", ex);
+
+                return new Message<IEnumerable<ClassModel>>()
+                {
+                    IsSuccess = false,
+                    ReturnMessage = "Error",
+                    StatusCode = 503,
                     Data = null
                 };
             }

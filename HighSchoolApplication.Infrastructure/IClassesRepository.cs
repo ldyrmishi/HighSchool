@@ -10,5 +10,8 @@ namespace HighSchoolApplication.Infrastructure
         IList<Class> GetSchoolClasses(int schoolId);
         IList<Class> GetClassesByClassYear(int ClassYear);
         Class GetClassByClassNo(string ClassNo);
+
+        IEnumerable<Class> GetUserClasses(int UserId);
+
     }
 }

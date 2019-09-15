@@ -44,5 +44,19 @@ namespace HighSchoolApplication.Data
         {
             return _dbContext.Class.Where(x => x.SchoolId == schoolId).ToList();
         }
+
+        public IEnumerable<Class> GetUserClasses(int UserId)
+        {
+            IEnumerable<UsersClass> usersClasses = _dbContext.UsersClass.Where(x => x.UserId == UserId);
+
+            IList<Class> listClasses = new List<Class>();
+            
+            foreach(var item in usersClasses)
+            {
+                listClasses.Add(_dbContext.Class.Find(item.ClassId));
+            }
+
+            return listClasses;
+        }
     }
 }

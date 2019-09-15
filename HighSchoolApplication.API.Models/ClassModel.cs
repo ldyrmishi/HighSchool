@@ -38,7 +38,7 @@ namespace HighSchoolApplication.API.Models
         [DataMember(Name = "Lesson")]
         public ICollection<LessonModel> Lesson { get; set; }
 
-        [DataMember(Name = "UsersClass")]
-        public ICollection<UsersClassModel> UsersClass { get; set; }
+        //[DataMember(Name = "UsersClass")]
+        //public ICollection<UsersClassModel> UsersClass { get; set; }
     }
 }
