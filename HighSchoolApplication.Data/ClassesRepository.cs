@@ -56,7 +56,7 @@ namespace HighSchoolApplication.Data
                 listClasses.Add(_dbContext.Class.Find(item.ClassId));
             }
 
-            return listClasses;
+            return listClasses;//test
         }
     }
 }
