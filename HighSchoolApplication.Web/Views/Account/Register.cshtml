@@ -28,27 +28,27 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label asp-for="Firstname" class="control-label"></label>
+                            <label asp-for="Firstname" class="control-label">Emri</label>
                             <input asp-for="Firstname" class="form-control" />
                             <span asp-validation-for="Firstname" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Lastname" class="control-label"></label>
+                            <label asp-for="Lastname" class="control-label">Mbiemri</label>
                             <input asp-for="Lastname" class="form-control" />
                             <span asp-validation-for="Lastname" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="NrAmze" class="control-label"></label>
+                            <label asp-for="NrAmze" class="control-label">Numer Amze</label>
                             <input asp-for="NrAmze" class="form-control" />
                             <span asp-validation-for="NrAmze" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Birthdate" class="control-label"></label>
+                            <label asp-for="Birthdate" class="control-label">Datelindja</label>
                             <input asp-for="Birthdate" type="date" class="form-control" />
                             <span asp-validation-for="Birthdate" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Gender" class="control-label"></label>
+                            <label asp-for="Gender" class="control-label">Gjinia</label>
                             @Html.DropDownList("Gender", ViewData["Gender"] as List<SelectListItem>)
                             <span asp-validation-for="Gender" class="text-danger"></span>
                         </div>
@@ -70,27 +70,27 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label asp-for="Username" class="control-label"></label>
+                            <label asp-for="Username" class="control-label">Emri i perdoruesit</label>
                             <input asp-for="Username" class="form-control" />
                             <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Email" class="control-label"></label>
+                            <label asp-for="Email" class="control-label">Email</label>
                             <input asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="PhoneNumber" class="control-label"></label>
+                            <label asp-for="PhoneNumber" class="control-label">Numer telefoni</label>
                             <input asp-for="PhoneNumber" class="form-control" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Password" class="control-label"></label>
+                            <label asp-for="Password" class="control-label">Fjalekalimi</label>
                             <input asp-for="Password" type="password" class="form-control" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <label asp-for="ConfirmPassword" class="control-label">Konfirmo fjalekalimin</label>
                             <input asp-for="ConfirmPassword" type="password" class="form-control" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </div>
@@ -114,7 +114,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label asp-for="Documents" class="control-label"></label>
+                            <label asp-for="Documents" class="control-label">Dokumenta</label>
                             <input asp-for="Documents" multiple type="file" class="form-control" />
                         </div>
                         <div class="form-group">
@@ -138,7 +138,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
-                            <label asp-for="Role" class="control-label"></label>
+                            <label asp-for="Role" class="control-label">Roli</label>
                             @Html.DropDownList("RolesList", "Zgjidhni rolin")
                             <span asp-validation-for="Role" class="text-danger"></span>
                         </div>

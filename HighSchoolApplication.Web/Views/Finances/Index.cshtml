@@ -4,6 +4,11 @@
 }
 <section class="content">
     <div class="box box-default">
+        <div class="box-header">
+            <div class="box-tools pull-right">
+                <a asp-action="Create" class="btn btn-primary">Shto te ardhur/shpenzim</a>
+            </div>
+        </div>
         <div class="box-body">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="@(Model.ActiveTab == HighSchoolApplication.Web.ViewModels.Tab.Incomings ? "active" : string.Empty)"><a asp-route-tabname="Incomings" asp-action="SwitchToTabs">Te ardhura</a></li>

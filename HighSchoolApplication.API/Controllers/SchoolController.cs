@@ -101,7 +101,7 @@ namespace HighSchoolApplication.API.Controllers
 
         [HttpPost]
         [Route("EditSchool")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Policy ="Admin")]
         public Message<SchoolModel> EditSchool([FromBody] SchoolModel schoolModel)
         {
             try

@@ -32,15 +32,18 @@ namespace HighSchoolApplication.Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
                 DashboardViewModel dashboard = new DashboardViewModel();
+                var data =  await HighSchoolApiClientFactory.Instance.GetClasses(HttpContext.Session.GetString("Token"));
+                var users = await HighSchoolApiClientFactory.Instance.GetClasses(HttpContext.Session.GetString("Token"));
 
-                dashboard.students_count = 476;
-                dashboard.teachers_count = 34;
-                dashboard.classes_count = 26;
+
+                dashboard.students_count = users.Data.Count;
+                dashboard.teachers_count = 12;
+                dashboard.classes_count = data.Data.Count;
 
                 return View(dashboard);
             }
