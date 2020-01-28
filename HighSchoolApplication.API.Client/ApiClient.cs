@@ -1,5 +1,4 @@
 ﻿using HighSchoolApplication.API.Models;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
