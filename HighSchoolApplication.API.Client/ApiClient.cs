@@ -52,7 +52,7 @@ namespace HighSchoolApplication.API.Client
         private async Task<Message<T>> PostAsync<T>(Uri requestUrl, T content, string token)
         {
             addHeaders(token);
-            var response = await _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content));
+            var response =  _httpClient.PostAsync(requestUrl.ToString(), CreateHttpContent<T>(content)).Result;
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Message<T>>(data);

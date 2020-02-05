@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+
+namespace HighSchoolApplication.MobileApp.Configuration
+{
+    public class SettingsManager
+    {
+        public string PersonalFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+        // Write Information to a Local File
+        public void WriteLocalFile(string FileName, string Data)
+        {
+            string filePath = Path.Combine(PersonalFolderPath, FileName);
+            File.WriteAllText(filePath, Data);
+        }
+
+        // Load Information from a Local File
+        public string LoadLocalFile(string FileName)
+        {
+            string filePath = Path.Combine(PersonalFolderPath, FileName);
+            if (File.Exists(filePath)) return File.ReadAllText(filePath);
+            return null;
+        }
+
+        // File Exists Check
+        public bool DoesFileExist(string FileName)
+        {
+            if (File.Exists(FileName)) return true;
+            else return false;
+        }
+
+    }
+}

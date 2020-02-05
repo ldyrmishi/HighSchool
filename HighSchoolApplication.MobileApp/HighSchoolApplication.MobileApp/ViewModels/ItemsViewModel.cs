@@ -7,6 +7,9 @@ using Xamarin.Forms;
 
 using HighSchoolApplication.MobileApp.Models;
 using HighSchoolApplication.MobileApp.Views;
+using HighSchoolApplication.MobileApp.Factory;
+using HighSchoolApplication.MobileApp.Configuration;
+using HighSchoolApplication.API.Models;
 
 namespace HighSchoolApplication.MobileApp.ViewModels
 {
@@ -15,11 +18,14 @@ namespace HighSchoolApplication.MobileApp.ViewModels
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
+        public SettingsManager Settings { get; set; }
+
         public ItemsViewModel()
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            Settings = new SettingsManager();
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
             {
@@ -39,6 +45,16 @@ namespace HighSchoolApplication.MobileApp.ViewModels
             try
             {
                 Items.Clear();
+                LoginModel login = new LoginModel()
+                {
+                    Username = "ldyrmishi",
+                    Password = "ledio.123",
+                    Token = string.Empty
+
+                };
+
+                var data =  HighSchoolApiClientFactory.Instance.Login(login).Result;
+
                 var items = await DataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
